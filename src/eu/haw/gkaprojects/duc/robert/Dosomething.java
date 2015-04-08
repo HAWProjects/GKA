@@ -14,7 +14,7 @@ public class Dosomething {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Name der einzulesenden Textfile?");
+		System.out.println("Name of file which sould be read?");
 		Scanner scanner = new Scanner(System.in);
 		String dateiname = scanner.nextLine();
 		String pfad = "../GKAProjects_01/res/files/bspGraphen/"+ dateiname +".graph";

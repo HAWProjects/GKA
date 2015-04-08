@@ -72,7 +72,10 @@ public class GraphReader {
 		String[] edgesArray = strData.split(System.lineSeparator());
 		return createGraph(edgesArray, graphType);
 	}
-
+	
+	/*
+	 * 
+	 */
 	private Graph<Vertex, CustomEdge> createGraph(String[] edgesArray,
 			int graphType) {
 		//Trim edges
@@ -120,7 +123,10 @@ public class GraphReader {
 		System.out.println("createGraph done: ");
 		return graph;
 	}
-
+	
+	/*
+	 * 
+	 */
 	private Graph<Vertex, CustomEdge> createDirectedWeightedGraphWithAttribute(
 			String[] edgesArray) {
 		Graph<Vertex, CustomEdge> graph = new DirectedWeightedPseudograph<>(
@@ -144,7 +150,10 @@ public class GraphReader {
 		System.out.println(edgesArray.length);
 		return graph;
 	}
-
+	
+	/*
+	 * 
+	 */
 	private Graph<Vertex, CustomEdge> createGraphWithAttribute(
 			String[] edgesArray) {
 		Graph<Vertex, CustomEdge> graph = new Pseudograph<>(CustomEdge.class);
