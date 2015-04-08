@@ -1,0 +1,8 @@
+digraph {
+    a -> b[weight="0.2"];
+    a -> c[weight="0.4"];
+    c -> b[weight="0.6"];
+    c -> e[weight="0.6"];
+    e -> e[weight="0.1"];
+    e -> b[weight="0.7"];
+  }
