@@ -71,15 +71,12 @@ public class GraphVisualizer {
 		}
 		
 		//File Directory
-		String targetDirectory = "/Users/DucNguyenMinh/git/GKA/result/";
+		String targetDirectory = "../GKAProjects_01/result/";
 		
 		//Export Dot File
 		new File(targetDirectory).mkdirs();
 		try {
-//			System.out.println("name Exportfile!");
-//			Scanner scan = new Scanner(System.in);
-//			String filename = scan.nextLine();
-//			scan.close();
+
 			exporter1.export(
 					new FileWriter(targetDirectory + "result.gv"), graph);
 		} catch (IOException e) {

@@ -10,16 +10,9 @@ import org.jgrapht.alg.DijkstraShortestPath;
 public class Dosomething {
 	
 
-	private static final String PATH = "/Users/DucNguyenMinh/git/GKA/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
 
 	public static void main(String[] args) {
-		
-		System.out.println("Name of file which sould be read?");
-//		Scanner scanner = new Scanner(System.in);
-//		String dateiname = scanner.nextLine();
-//		String pfad = "../GKAProjects_01/res/files/bspGraphen/"+ dateiname +".graph";
-		
-
 		
 		GraphReader reader = new GraphReader(PATH);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
@@ -32,7 +25,7 @@ public class Dosomething {
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Uelzen"), new VertexImpl("Detmold")));
 		
-		new GraphWerkzeug("/Users/DucNguyenMinh/git/GKA/res/files/bspGraphen/");
+		new GraphWerkzeug("../GKAProjects_01/res/files/bspGraphen/");
 		
 //		GraphVisualizer.exportGraphToDotFile(graph);
 //		
