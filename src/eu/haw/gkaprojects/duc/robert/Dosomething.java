@@ -27,7 +27,7 @@ public class Dosomething {
 //		System.out.println(BreadthFirstSearch.createADJMap(graph));
 
 //		Testklassen
-//		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("h"), new VertexImpl("g")));
+		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("h"), new VertexImpl("g")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Uelzen"), new VertexImpl("Detmold")));
 		
