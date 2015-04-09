@@ -71,17 +71,17 @@ public class GraphVisualizer {
 		}
 		
 		//File Directory
-		String targetDirectory = "../GKAProjects_01/result/";
+		String targetDirectory = "/Users/DucNguyenMinh/git/GKA/result/";
 		
 		//Export Dot File
 		new File(targetDirectory).mkdirs();
 		try {
-			System.out.println("name Exportfile!");
-			Scanner scan = new Scanner(System.in);
-			String filename = scan.nextLine();
-			scan.close();
+//			System.out.println("name Exportfile!");
+//			Scanner scan = new Scanner(System.in);
+//			String filename = scan.nextLine();
+//			scan.close();
 			exporter1.export(
-					new FileWriter(targetDirectory + filename +".gv"), graph);
+					new FileWriter(targetDirectory + "result.gv"), graph);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

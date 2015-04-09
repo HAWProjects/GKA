@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -58,9 +59,9 @@ public class GraphWerkzeugUI {
 		
 		JPanel chooseSourceAndTargetPanel = new JPanel(new GridLayout(1,2));
 		
-		_chooseSourceCombobox = new JComboBox<String>(vertexNames);
+		_chooseSourceCombobox = new JComboBox<String>(new DefaultComboBoxModel<String>(vertexNames));
 		_chooseSourceCombobox.setBorder(new TitledBorder("From"));
-		_chooseTargetCombobox = new JComboBox<String>(vertexNames);
+		_chooseTargetCombobox = new JComboBox<String>(new DefaultComboBoxModel<String>(vertexNames));
 		_chooseTargetCombobox.setBorder(new TitledBorder("To"));
 		
 		chooseSourceAndTargetPanel.add(_chooseSourceCombobox);
@@ -92,7 +93,8 @@ public class GraphWerkzeugUI {
 	}
 	
 	public void drawWindow() {
-		_frame.setSize(new Dimension(300, 250));;
+		_frame.setSize(new Dimension(277, 220));;
+		_frame.setResizable(false);
 		_frame.setVisible(true);
 	}
 	
@@ -115,4 +117,16 @@ public class GraphWerkzeugUI {
 	public JButton getFindButton() {
 		return _findShortestPathButton;
 	}
+
+
+	public void resetSoureBox(String[] vertexNames) {
+		_chooseSourceCombobox.setModel(new DefaultComboBoxModel<String>(vertexNames));
+	}
+
+
+	public void resetTargetBox(String[] vertexNames) {
+		_chooseTargetCombobox.setModel(new DefaultComboBoxModel<String>(vertexNames));
+	}
+
+
 }
