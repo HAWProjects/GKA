@@ -1,4 +1,4 @@
-package eu.haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 

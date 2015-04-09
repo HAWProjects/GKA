@@ -2,17 +2,16 @@ package eu.haw.gkaprojects.duc.robert.test;
 
 
 import static org.junit.Assert.*;
+import haw.gkaprojects.duc.robert.CustomEdge;
+import haw.gkaprojects.duc.robert.GraphReader;
+import haw.gkaprojects.duc.robert.Vertex;
+import haw.gkaprojects.duc.robert.VertexImpl;
 
 import java.io.FileNotFoundException;
 
 import org.jgrapht.Graph;
 import org.junit.Before;
 import org.junit.Test;
-
-import eu.haw.gkaprojects.duc.robert.CustomEdge;
-import eu.haw.gkaprojects.duc.robert.GraphReader;
-import eu.haw.gkaprojects.duc.robert.Vertex;
-import eu.haw.gkaprojects.duc.robert.VertexImpl;
 
 public class ReaderTest {
 

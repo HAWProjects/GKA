@@ -1,4 +1,4 @@
-package eu.haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

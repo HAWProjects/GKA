@@ -1,4 +1,4 @@
-package eu.haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert;
 /* DirectedGraphDemo.java --- demonstration of operations on directed graphs
  * Copyright (C) 2008  Minh Van Nguyen &lt;nguyenminh2@gmail.com&gt;
  *

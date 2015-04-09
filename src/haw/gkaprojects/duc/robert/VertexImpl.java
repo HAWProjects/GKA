@@ -1,4 +1,4 @@
-package eu.haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert;
 
 public class VertexImpl implements Vertex{
 	

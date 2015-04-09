@@ -1,20 +1,18 @@
 package eu.haw.gkaprojects.duc.robert.test;
 
 import static org.junit.Assert.*;
+import haw.gkaprojects.duc.robert.BreadthFirstSearch;
+import haw.gkaprojects.duc.robert.CustomEdge;
+import haw.gkaprojects.duc.robert.GraphReader;
+import haw.gkaprojects.duc.robert.Vertex;
+import haw.gkaprojects.duc.robert.VertexImpl;
 
 import java.util.List;
 
 import org.jgrapht.Graph;
-
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
-
-import eu.haw.gkaprojects.duc.robert.BreadthFirstSearch;
-import eu.haw.gkaprojects.duc.robert.CustomEdge;
-import eu.haw.gkaprojects.duc.robert.GraphReader;
-import eu.haw.gkaprojects.duc.robert.Vertex;
-import eu.haw.gkaprojects.duc.robert.VertexImpl;
 
 
 public class ShortstPathTest {
