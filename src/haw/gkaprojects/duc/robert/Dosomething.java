@@ -10,7 +10,7 @@ import org.jgrapht.alg.DijkstraShortestPath;
 public class Dosomething {
 	
 
-	private static final String PATH = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH = "../GKA/res/files/bspGraphen/bsp3.graph";
 
 	public static void main(String[] args) {
 		
@@ -25,7 +25,7 @@ public class Dosomething {
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Uelzen"), new VertexImpl("Detmold")));
 		
-		new GraphWerkzeug("../GKAProjects_01/res/files/bspGraphen/");
+		new GraphWerkzeug("../GKA/res/files/bspGraphen/");
 		
 //		GraphVisualizer.exportGraphToDotFile(graph);
 //		

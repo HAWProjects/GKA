@@ -45,6 +45,8 @@ public class BreadthFirstSearch {
 		setColorForVertex(shortestPathVertexList,graph);
 		setColorForShortestPath(shortestPathEdgeList);
 		
+		
+		_steps = shortestPathEdgeList.size();
 		return shortestPathEdgeList;
 	}
 	
@@ -88,6 +90,7 @@ public class BreadthFirstSearch {
 			pathlist.add(edge);
 		}
 		
+		_steps = pathlist.size();
 		return pathlist;
 	}
 
@@ -214,5 +217,10 @@ public class BreadthFirstSearch {
 		}
 		
 		return adjMapofVertices;
+	}
+	
+	public static int getCountStepsShortestWay()
+	{
+		return _steps;
 	}
 }
