@@ -11,16 +11,21 @@ import java.io.FileNotFoundException;
 
 import org.jgrapht.Graph;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.rules.ExpectedException;
 
 public class ReaderTest {
 
 	
-	private static final String PATH_01 = "../GKAProjects_01/res/files/bspGraphen/bsp1.graph";
-	private static final String PATH_03 = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
-	private static final String PATH_02 = "..\\GKAProjects_01\\res\\files\\bspGraphen\\bsp9999.graph";
+	private static final String PATH_01 = "../GKA/res/files/bspGraphen/bsp1.graph";
+	private static final String PATH_03 = "../GKA/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH_02 = "..\\GKA\\res\\files\\bspGraphen\\bsp9999.graph";
+	private static final String PATH_05 = "..\\GKA\\res\\files\\bspGraphen\\bsp5.graph";
 	private Graph<Vertex, CustomEdge> _graph_01;
 	private Graph<Vertex, CustomEdge> _graph_03;
+	private Graph<Vertex, CustomEdge> _graph_05;
 
 	@Before
 	public void setUp() {
@@ -29,6 +34,9 @@ public class ReaderTest {
 		
 		GraphReader reader2 = new GraphReader(PATH_03);
 		_graph_03 = reader2.getGraph();
+		
+		GraphReader reader5 = new GraphReader(PATH_05);
+		_graph_05 = reader5.getGraph();
 
 	}
 	
@@ -36,7 +44,7 @@ public class ReaderTest {
 	@Test 
 	public void testAllVertexexists()
 	{
-		assertTrue(_graph_01.containsVertex(new VertexImpl("a")));
+//		assertTrue(_graph_01.containsVertex(new VertexImpl("a")));
 		assertTrue(_graph_01.containsVertex(new VertexImpl("b")));
 		assertTrue(_graph_01.containsVertex(new VertexImpl("c")));
 		assertTrue(_graph_01.containsVertex(new VertexImpl("d")));
@@ -69,7 +77,33 @@ public class ReaderTest {
 		assertTrue(_graph_03.containsVertex(new VertexImpl("Celle")));
 		assertTrue(_graph_03.containsVertex(new VertexImpl("Kiel")));
 		assertTrue(_graph_03.containsVertex(new VertexImpl("Hamburg")));
-		assertTrue(_graph_03.containsVertex(new VertexImpl("Walsrode")));		
+		assertTrue(_graph_03.containsVertex(new VertexImpl("Walsrode")));
+		
+		
+		assertFalse(_graph_03.containsVertex(new VertexImpl("Kassel")));		
+	}
+	
+	@Test 
+	public void testAllVertexexists5()
+	{
+		assertTrue(_graph_05.containsVertex(new VertexImpl("a")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("b")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("c")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("d")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("e")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("f")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("g")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("h")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("i")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("j")));
+		assertTrue(_graph_05.containsVertex(new VertexImpl("k")));
+		
+		assertFalse(_graph_05.containsVertex(new VertexImpl("l")));
+		assertFalse(_graph_05.containsVertex(new VertexImpl("m")));
+		assertFalse(_graph_05.containsVertex(new VertexImpl("n")));
+		assertFalse(_graph_05.containsVertex(new VertexImpl("o")));
+		assertFalse(_graph_05.containsVertex(new VertexImpl("Hamburg")));
+		assertFalse(_graph_05.containsVertex(new VertexImpl("Walsrode")));		
 	}
 	
 	@Test
@@ -88,11 +122,13 @@ public class ReaderTest {
 		assertEquals(graph_02.edgeSet(), _graph_01.edgeSet());	
 	}
 	
-//	@Test(expected = FileNotFoundException.class)
-//	public void testFileReaderFail()
-//	{
-//		GraphReader reader = new GraphReader(PATH_02);
-//		reader.getGraph();
-//	}
+	
+	
+	@Test(expected = FileNotFoundException.class)
+	public void testFileReaderFail()throws Exception{
+		GraphReader reader = new GraphReader(PATH_02);
+
+		
+	}
 	
 }

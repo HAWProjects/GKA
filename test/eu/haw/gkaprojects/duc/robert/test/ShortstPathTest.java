@@ -10,6 +10,8 @@ import haw.gkaprojects.duc.robert.VertexImpl;
 import java.util.List;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.DijkstraShortestPath;
+import org.jgrapht.alg.KShortestPaths;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
@@ -168,12 +170,19 @@ public class ShortstPathTest {
 	@Test
 	public void testSteps3()
 	{
-		GraphReader reader = new GraphReader(PATH3);
-		Graph<Vertex, CustomEdge> graph = reader.getGraph();
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		BreadthFirstSearch.searchForTheShortestPath(_graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
 		assertEquals(4, BreadthFirstSearch.getCountStepsShortestWay());
 	}
 	
+	
+	@Test // Dijkstra 
+	public void testShortestWayDijkstra()
+	{	
 
+		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(_graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(_graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		
+		assertEquals(listA, testgraph.getPathEdgeList());
+	}
 
 }

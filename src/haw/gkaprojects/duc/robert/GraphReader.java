@@ -31,6 +31,7 @@ public class GraphReader {
 	 */
 	public GraphReader(String Path) {
 		_graph = readgraph(Path);
+		
 	}
 
 	private Graph<Vertex,CustomEdge> readgraph(String path) {
