@@ -66,6 +66,7 @@ public class GraphReader {
 		} catch (FileNotFoundException e) {
 			System.err.println("ERROR: Cannot find text data!!!" + path);
 			e.printStackTrace();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -71,7 +71,7 @@ public class GraphVisualizer {
 		}
 		
 		//File Directory
-		String targetDirectory = "../GKA/result/";
+		String targetDirectory = "../GKAProjects_01/result/";
 		
 		//Export Dot File
 		new File(targetDirectory).mkdirs();
