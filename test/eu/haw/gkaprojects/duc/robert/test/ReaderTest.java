@@ -21,11 +21,13 @@ public class ReaderTest {
 	
 	private static final String PATH_01 = "../GKAProjects_01/res/files/bspGraphen/bsp1.graph";
 	private static final String PATH_03 = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH_04 = "../GKAProjects_01/res/files/bspGraphen/bsp4.graph";
 	private static final String PATH_02 = "../GKAProjects_01/res/files/bspGraphen/bsp9999.graph";
 	private static final String PATH_05 = "../GKAProjects_01/res/files/bspGraphen/bsp5.graph";
 	private static final String PATH_06 = "../GKAProjects_01/res/files/bspGraphen/bsp6.graph";
 	private Graph<Vertex, CustomEdge> _graph_01;
 	private Graph<Vertex, CustomEdge> _graph_03;
+	private Graph<Vertex, CustomEdge> _graph_04;
 	private Graph<Vertex, CustomEdge> _graph_05;
 	private Graph<Vertex, CustomEdge> _graph_06;
 
@@ -37,9 +39,11 @@ public class ReaderTest {
 		GraphReader reader2 = new GraphReader(PATH_03);
 		_graph_03 = reader2.getGraph();
 		
+		GraphReader reader4 = new GraphReader(PATH_04);
+		_graph_04 = reader4.getGraph();
+		
 		GraphReader reader5 = new GraphReader(PATH_05);
 		_graph_05 = reader5.getGraph();
-		
 		
 		GraphReader reader6 = new GraphReader(PATH_06);
 		_graph_06 = reader6.getGraph();
@@ -211,6 +215,28 @@ public class ReaderTest {
 		assertEquals(116,_graph_03.getEdgeWeight(_graph_03.getEdge(v3, v4)),0);
 		assertEquals(60,_graph_03.getEdgeWeight(_graph_03.getEdge(v5, v6)),0);
 		assertEquals(145,_graph_03.getEdgeWeight(_graph_03.getEdge(v7, v8)),0);
+		
+	}
+	
+	@Test
+	public void testedgeweighted4(){
+		VertexImpl v1 = new VertexImpl("a");
+		VertexImpl v2 = new VertexImpl("b");
+		
+		VertexImpl v3 = new VertexImpl("e");
+		VertexImpl v4 = new VertexImpl("c");
+		
+		VertexImpl v5 = new VertexImpl("j");
+		VertexImpl v6 = new VertexImpl("k");
+		
+		VertexImpl v7 = new VertexImpl("k");
+		VertexImpl v8 = new VertexImpl("c");
+		
+		
+		assertEquals(2,_graph_04.getEdgeWeight(_graph_04.getEdge(v1, v2)),0);
+		assertEquals(7,_graph_04.getEdgeWeight(_graph_04.getEdge(v3, v4)),0);
+		assertEquals(5,_graph_04.getEdgeWeight(_graph_04.getEdge(v5, v6)),0);
+		assertEquals(3,_graph_04.getEdgeWeight(_graph_04.getEdge(v7, v8)),0);
 		
 	}
 	
