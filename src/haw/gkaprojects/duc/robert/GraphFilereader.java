@@ -43,12 +43,14 @@ public class GraphFilereader {
 				sb.append(line);
 				sb.append(System.lineSeparator());
 			}
-
+			
+			// read all lines
 			line = br.readLine();
 			while (line != null) {
 				sb.append(line);
 				sb.append(System.lineSeparator());
 				line = br.readLine();
+				
 				// sb.append(line);
 			}
 			strData = sb.toString();

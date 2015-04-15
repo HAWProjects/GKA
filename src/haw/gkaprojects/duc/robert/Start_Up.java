@@ -41,6 +41,5 @@ public class Start_Up {
 //		String[] vertexNames = {};
 //		new GraphWerkzeugUI(graphNames, vertexNames);
 //		System.out.println(DijkstraShortestPath.findPathBetween(graph,new VertexImpl("Paderborn"), new VertexImpl("Hannover")));
-		
 	}
 }
