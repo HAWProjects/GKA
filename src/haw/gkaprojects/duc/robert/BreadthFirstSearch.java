@@ -13,31 +13,37 @@ import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.AbstractBaseGraph;
 
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+
 
 public class BreadthFirstSearch {
 	
-	private static int _steps = 0;
+//	private static int _steps = 0;
 	
-	public static List<CustomEdge> searchForTheShortestPath(
+	public static List<Vertex> searchForTheShortestPath(
 			Graph<Vertex, CustomEdge> graph, Vertex start,
 			Vertex target) {
-
+		
+		//
 		start = findVertexInGraph(graph,start);
 		target = findVertexInGraph(graph,target);
 		
 		List<Vertex> shortestPathVertexList = new ArrayList<>();
 		List<CustomEdge> shortestPathEdgeList = new ArrayList<>();
 		
+		//
 		if(start.equals(target)){
 			for (Vertex vertex : graph.vertexSet()) {
 				if(vertex.equals(start)){
 					shortestPathVertexList.add(vertex);
 					setColorForVertex(shortestPathVertexList, graph);
-					return shortestPathEdgeList;
+					return shortestPathVertexList;
 				}
 			} 
 		}
 		
+		//
 		Map<Vertex, List<Vertex>> adjMapOfVertices = createADJMap(graph);
 		shortestPathVertexList = findShortestPathVertexList(adjMapOfVertices, start, target);
 		shortestPathEdgeList = findShortestPathEdgeList(graph, shortestPathVertexList);
@@ -45,9 +51,7 @@ public class BreadthFirstSearch {
 		setColorForVertex(shortestPathVertexList,graph);
 		setColorForShortestPath(shortestPathEdgeList);
 		
-		
-		_steps = shortestPathEdgeList.size();
-		return shortestPathEdgeList;
+		return shortestPathVertexList;
 	}
 	
 	/*
@@ -76,7 +80,7 @@ public class BreadthFirstSearch {
 		}
 	}
 
-	private static List<CustomEdge> findShortestPathEdgeList(
+	public static List<CustomEdge> findShortestPathEdgeList(
 			Graph<Vertex, CustomEdge> graph,
 			List<Vertex> shortestPathVertexList) {
 		
@@ -90,17 +94,9 @@ public class BreadthFirstSearch {
 			pathlist.add(edge);
 		}
 		
-		_steps = pathlist.size();
 		return pathlist;
 	}
 
-	private static void resetVertex(Set<Vertex> vertexSet) {
-		for (Vertex vertex : vertexSet) {
-			vertex.setLevel(Integer.MAX_VALUE);
-			vertex.setSearchStatus(Vertex.UNEXPLORED);
-			vertex.setPredecessor(null);
-		}
-	}
 
 	private static List<Vertex> findShortestPathVertexList(
 			Map<Vertex, List<Vertex>> adjMapOfVertices, Vertex start, Vertex target) {
@@ -217,10 +213,5 @@ public class BreadthFirstSearch {
 		}
 		
 		return adjMapofVertices;
-	}
-	
-	public static int getCountStepsShortestWay()
-	{
-		return _steps;
 	}
 }

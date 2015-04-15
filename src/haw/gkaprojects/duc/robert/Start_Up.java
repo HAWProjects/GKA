@@ -1,20 +1,28 @@
 package haw.gkaprojects.duc.robert;
 
-import java.nio.file.Path;
-import java.util.Scanner;
-
 import org.jgrapht.Graph;
-import org.jgrapht.alg.DijkstraShortestPath;
+//import org.jgrapht.alg.DijkstraShortestPath;
 //import org.jgrapht.graph.AbstractBaseGraph;
 
-public class Dosomething {
+
+
+
+
+
+import haw.gkaprojects.duc.robert.GUITool.GraphAdmin;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.GraphMaker;
+
+public class Start_Up {
 	
 
 	private static final String PATH = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
 
 	public static void main(String[] args) {
 		
-		GraphReader reader = new GraphReader(PATH);
+		GraphMaker reader = new GraphMaker(PATH);
+		@SuppressWarnings("unused")
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 //		System.out.println(graph.edgesOf(new VertexImpl("a")));
 //		System.out.println(((AbstractBaseGraph<Vertex, DefaultWeightedEdge>) graph).outgoingEdgesOf(new VertexImpl("a")));
@@ -25,7 +33,7 @@ public class Dosomething {
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Uelzen"), new VertexImpl("Detmold")));
 		
-		new GraphWerkzeug("../GKAProjects_01/res/files/bspGraphen/");
+		new GraphAdmin("../GKAProjects_01/res/files/bspGraphen/");
 		
 //		GraphVisualizer.exportGraphToDotFile(graph);
 //		
