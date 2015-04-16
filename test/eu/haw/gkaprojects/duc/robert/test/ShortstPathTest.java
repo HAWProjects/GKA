@@ -1,20 +1,20 @@
 package eu.haw.gkaprojects.duc.robert.test;
 
 import static org.junit.Assert.*;
-import haw.gkaprojects.duc.robert.BreadthFirstSearch;
-import haw.gkaprojects.duc.robert.CustomEdge;
-import haw.gkaprojects.duc.robert.GraphReader;
-import haw.gkaprojects.duc.robert.Vertex;
-import haw.gkaprojects.duc.robert.VertexImpl;
 
 import java.util.List;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.DijkstraShortestPath;
-import org.jgrapht.alg.KShortestPaths;
 import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
+
+import haw.gkaprojects.duc.robert.GraphMaker;
+import haw.gkaprojects.duc.robert.BreadthFirstSearch;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
 
 public class ShortstPathTest {
@@ -35,7 +35,7 @@ public class ShortstPathTest {
 	@Before
 	public void setUp()
 	{
-		GraphReader reader = new GraphReader(PATH3);
+		GraphMaker reader = new GraphMaker(PATH3);
 		_graph3 = reader.getGraph();
 		
 		_testGraph1 = new Pseudograph<>(CustomEdge.class);
@@ -82,37 +82,37 @@ public class ShortstPathTest {
 	@Test
 	public void testFindShortestPath()
 	{
-		 List<CustomEdge> list = BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Uelzen"), new VertexImpl("Detmold"));
-		 List<CustomEdge> listb = BreadthFirstSearch.searchForTheShortestPath(_testGraph1, new VertexImpl("Uelzen"), new VertexImpl("Detmold"));
+		 List<Vertex> list = BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Uelzen"), new VertexImpl("Detmold"));
+		 List<Vertex> listb = BreadthFirstSearch.searchForTheShortestPath(_testGraph1, new VertexImpl("Uelzen"), new VertexImpl("Detmold"));
 		 assertArrayEquals(listb.toArray() ,list.toArray());
 	}
 	
 	@Test
 	public void testFindShortestPath1()
 	{
-		GraphReader reader = new GraphReader(PATH1);
+		GraphMaker reader = new GraphMaker(PATH1);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(_testGraph2, new VertexImpl("h"), new VertexImpl("g"));
-		List<CustomEdge> listB = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("h"), new VertexImpl("g"));
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(_testGraph2, new VertexImpl("h"), new VertexImpl("g"));
+		List<Vertex> listB = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("h"), new VertexImpl("g"));
 		assertArrayEquals(listA.toArray() ,listB.toArray());
 	}
 	
 	@Test
 	public void testFindShortestPath2()
 	{
-		GraphReader reader = new GraphReader(PATH2);
+		GraphMaker reader = new GraphMaker(PATH2);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("c"));
-		List<CustomEdge> listB = BreadthFirstSearch.searchForTheShortestPath(_testGraph4, new VertexImpl("a"), new VertexImpl("c"));
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("c"));
+		List<Vertex> listB = BreadthFirstSearch.searchForTheShortestPath(_testGraph4, new VertexImpl("a"), new VertexImpl("c"));
 		assertArrayEquals(listA.toArray() ,listB.toArray());
 	}
 	
 	@Test
 	public void testFindShortestPath3()
 	{
-		GraphReader reader = new GraphReader(PATH3);
+		GraphMaker reader = new GraphMaker(PATH3);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		
 		Graph<Vertex, CustomEdge> testGraph = new Pseudograph<>(CustomEdge.class);
@@ -132,55 +132,66 @@ public class ShortstPathTest {
 		testGraph.addEdge(c, d);
 		
 		
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
-		List<CustomEdge> listB = BreadthFirstSearch.searchForTheShortestPath(testGraph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		List<Vertex> listB = BreadthFirstSearch.searchForTheShortestPath(testGraph, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
 		assertArrayEquals(listA.toArray() ,listB.toArray());
 	}
 	
 	@Test
 	public void testFindShortestPath6()
 	{
-		GraphReader reader = new GraphReader(PATH6);
+		GraphMaker reader = new GraphMaker(PATH6);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(_testGraph3, new VertexImpl("12"), new VertexImpl("12"));
-		List<CustomEdge> listB = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12"));
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(_testGraph3, new VertexImpl("12"), new VertexImpl("12"));
+		List<Vertex> listB = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12"));
 		assertArrayEquals(listA.toArray(), listB.toArray());
 	}
 	
 	@Test
 	public void testSteps1(){
-		GraphReader reader = new GraphReader(PATH1);
+		GraphMaker reader = new GraphMaker(PATH1);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("e"));
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("e"));
 		
-		assertEquals(3, listA.size());
-		assertEquals(3, BreadthFirstSearch.getCountStepsShortestWay());
+		assertEquals(3, listA.size()-1);
 	}
 	
 	@Test
 	public void testSteps2()
 	{
-		GraphReader reader = new GraphReader(PATH2);
+		GraphMaker reader = new GraphMaker(PATH2);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("d"));
-		assertEquals(1, listA.size());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("d"));
+		assertEquals(1, listA.size()-1);
 	}
 	
 	@Test
 	public void testSteps3()
 	{
-		BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
-		assertEquals(4, BreadthFirstSearch.getCountStepsShortestWay());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
+		assertEquals(4,listA.size() - 1);
 	}
 	
 	@Test
 	public void testSteps5()
 	{
-		GraphReader reader = new GraphReader(PATH5);
+		GraphMaker reader = new GraphMaker(PATH5);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
-		BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("f"));
-		assertEquals(5, BreadthFirstSearch.getCountStepsShortestWay());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("f"));
+		assertEquals(5, listA.size() - 1);
+	}
+	
+	@Test
+	public void testSteps6()
+	{
+		GraphMaker reader = new GraphMaker(PATH6);
+		Graph<Vertex, CustomEdge> graph = reader.getGraph();
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("1"), new VertexImpl("5"));
+		assertEquals(2, listA.size() - 1);
+		
+		List<Vertex> listB = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("1"), new VertexImpl("12"));
+		assertEquals(0, listB.size());
 	}
 	
 	
@@ -188,52 +199,53 @@ public class ShortstPathTest {
 	public void testShortestWayDijkstra3()
 	{	
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(_graph3, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(_graph3, new VertexImpl("Bremerhaven"), new VertexImpl("Detmold"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(_graph3, listA), testgraph.getPathEdgeList());
 	}
 	
 	
 	@Test // 
 	public void testShortestWayDijkstra5(){
-		GraphReader reader = new GraphReader(PATH5);
+		GraphMaker reader = new GraphMaker(PATH5);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("b"), new VertexImpl("g"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("g"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("g"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
 	
 	@Test // 
 	public void testShortestWayDijkstra6(){
-		GraphReader reader = new GraphReader(PATH6);
+		GraphMaker reader = new GraphMaker(PATH6);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("1"), new VertexImpl("8"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("1"), new VertexImpl("8"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("1"), new VertexImpl("8"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
 	
 	@Test // 
 	public void testShortestWayDijkstra1(){
-		GraphReader reader = new GraphReader(PATH1);
+		GraphMaker reader = new GraphMaker(PATH1);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("a"), new VertexImpl("i"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("i"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("i"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
 	@Test // 
 	public void testShortestWayDijkstra4(){
-		GraphReader reader = new GraphReader(PATH4);
+		GraphMaker reader = new GraphMaker(PATH4);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("a"), new VertexImpl("i"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("i"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("a"), new VertexImpl("i"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
 	
 	@Test // 
 	public void testShortestWayDijkstra2(){
-		GraphReader reader = new GraphReader(PATH2);
+		GraphMaker reader = new GraphMaker(PATH2);
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
 		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("b"), new VertexImpl("i"));
-		List<CustomEdge> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("i"));		
-		assertEquals(listA, testgraph.getPathEdgeList());
+		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("i"));		
+		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
+	
 }

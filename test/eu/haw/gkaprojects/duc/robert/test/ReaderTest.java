@@ -2,30 +2,30 @@ package eu.haw.gkaprojects.duc.robert.test;
 
 
 import static org.junit.Assert.*;
-import haw.gkaprojects.duc.robert.CustomEdge;
-import haw.gkaprojects.duc.robert.GraphReader;
-import haw.gkaprojects.duc.robert.Vertex;
-import haw.gkaprojects.duc.robert.VertexImpl;
-
-import java.io.FileNotFoundException;
 
 import org.jgrapht.Graph;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;
-import org.junit.rules.ExpectedException;
+
+import haw.gkaprojects.duc.robert.GraphMaker;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
 public class ReaderTest {
 
 	
 	private static final String PATH_01 = "../GKAProjects_01/res/files/bspGraphen/bsp1.graph";
+	private static final String PATH_02 = "../GKAProjects_01/res/files/bspGraphen/bsp2.graph";
 	private static final String PATH_03 = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
 	private static final String PATH_04 = "../GKAProjects_01/res/files/bspGraphen/bsp4.graph";
-	private static final String PATH_02 = "../GKAProjects_01/res/files/bspGraphen/bsp9999.graph";
 	private static final String PATH_05 = "../GKAProjects_01/res/files/bspGraphen/bsp5.graph";
 	private static final String PATH_06 = "../GKAProjects_01/res/files/bspGraphen/bsp6.graph";
+	private static final String PATH_99 = "../GKAProjects_01/res/files/bspGraphen/bsp9999.graph";
+	
 	private Graph<Vertex, CustomEdge> _graph_01;
+	private Graph<Vertex, CustomEdge> _graph_02;
 	private Graph<Vertex, CustomEdge> _graph_03;
 	private Graph<Vertex, CustomEdge> _graph_04;
 	private Graph<Vertex, CustomEdge> _graph_05;
@@ -33,26 +33,29 @@ public class ReaderTest {
 
 	@Before
 	public void setUp() {
-		GraphReader reader = new GraphReader(PATH_01);
+		GraphMaker reader = new GraphMaker(PATH_01);
 		_graph_01 = reader.getGraph();
 		
-		GraphReader reader2 = new GraphReader(PATH_03);
-		_graph_03 = reader2.getGraph();
+		GraphMaker reader2 = new GraphMaker(PATH_02);
+		_graph_02 = reader2.getGraph();
 		
-		GraphReader reader4 = new GraphReader(PATH_04);
+		GraphMaker reader3 = new GraphMaker(PATH_03);
+		_graph_03 = reader3.getGraph();
+		
+		GraphMaker reader4 = new GraphMaker(PATH_04);
 		_graph_04 = reader4.getGraph();
 		
-		GraphReader reader5 = new GraphReader(PATH_05);
+		GraphMaker reader5 = new GraphMaker(PATH_05);
 		_graph_05 = reader5.getGraph();
 		
-		GraphReader reader6 = new GraphReader(PATH_06);
+		GraphMaker reader6 = new GraphMaker(PATH_06);
 		_graph_06 = reader6.getGraph();
 
 	}
 	
 	
 	@Test 
-	public void testAllVertexexists()
+	public void testAllVertexExists1()
 	{
 		assertTrue(_graph_01.containsVertex(new VertexImpl("a")));
 		assertTrue(_graph_01.containsVertex(new VertexImpl("b")));
@@ -71,7 +74,26 @@ public class ReaderTest {
 	}
 	
 	@Test 
-	public void testAllVertexexists2()
+	public void testAllVertexExists2()
+	{
+		assertTrue(_graph_02.containsVertex(new VertexImpl("a")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("b")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("c")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("d")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("e")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("f")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("g")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("h")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("i")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("j")));
+		assertTrue(_graph_02.containsVertex(new VertexImpl("k")));
+		
+		assertEquals(11, (_graph_02.vertexSet().size()));
+		
+	}
+	
+	@Test 
+	public void testAllVertexExists3()
 	{
 		assertTrue(_graph_03.containsVertex(new VertexImpl("Oldenburg")));
 		assertTrue(_graph_03.containsVertex(new VertexImpl("Cuxhaven")));
@@ -102,7 +124,26 @@ public class ReaderTest {
 	}
 	
 	@Test 
-	public void testAllVertexexists5()
+	public void testAllVertexExists4()
+	{
+		assertTrue(_graph_04.containsVertex(new VertexImpl("a")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("b")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("c")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("d")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("e")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("f")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("g")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("h")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("i")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("j")));
+		assertTrue(_graph_04.containsVertex(new VertexImpl("k")));
+		
+		assertEquals(11, (_graph_04.vertexSet().size()));
+		
+	}
+	
+	@Test 
+	public void testAllVertexExists5()
 	{
 		assertTrue(_graph_05.containsVertex(new VertexImpl("a")));
 		assertTrue(_graph_05.containsVertex(new VertexImpl("b")));
@@ -126,7 +167,7 @@ public class ReaderTest {
 	}
 	
 	@Test 
-	public void testAllVertexexists6()
+	public void testAllVertexExists6()
 	{
 		assertTrue(_graph_06.containsVertex(new VertexImpl("1")));
 		assertTrue(_graph_06.containsVertex(new VertexImpl("2")));
@@ -152,15 +193,15 @@ public class ReaderTest {
 	@Test
 	public void testFileReaderVertex()
 	{
-		GraphReader reader = new GraphReader(PATH_01);
-		Graph<Vertex, CustomEdge> graph_02 = reader.getGraph();
-		assertEquals(graph_02.vertexSet(), _graph_01.vertexSet());	
+		GraphMaker reader = new GraphMaker(PATH_01);
+		Graph<Vertex, CustomEdge> graph_01 = reader.getGraph();
+		assertEquals(graph_01.vertexSet(), _graph_01.vertexSet());	
 	}
 	
 	@Test
 	public void testFileReaderVertex6()
 	{
-		GraphReader reader = new GraphReader(PATH_06);
+		GraphMaker reader = new GraphMaker(PATH_06);
 		Graph<Vertex, CustomEdge> graph_02 = reader.getGraph();
 		assertEquals(graph_02.vertexSet(), _graph_06.vertexSet());	
 	}
@@ -168,14 +209,14 @@ public class ReaderTest {
 	@Test
 	public void testFileReaderEdge()
 	{
-		GraphReader reader = new GraphReader(PATH_01);
+		GraphMaker reader = new GraphMaker(PATH_01);
 		Graph<Vertex, CustomEdge> graph_02 = reader.getGraph();
 		assertEquals(graph_02.edgeSet(), _graph_01.edgeSet());	
 	}
 	
 	
 	@Test
-	public void testedgeweighted5(){
+	public void testEdgeWeighted5(){
 		VertexImpl v1 = new VertexImpl("e");
 		VertexImpl v2 = new VertexImpl("c");
 		
@@ -197,7 +238,7 @@ public class ReaderTest {
 	}
 	
 	@Test
-	public void testedgeweighted3(){
+	public void testEdgeWeighted3(){
 		VertexImpl v1 = new VertexImpl("Lueneburg");
 		VertexImpl v2 = new VertexImpl("Luebeck");
 		
@@ -219,7 +260,7 @@ public class ReaderTest {
 	}
 	
 	@Test
-	public void testedgeweighted4(){
+	public void testEdgeWeighted4(){
 		VertexImpl v1 = new VertexImpl("a");
 		VertexImpl v2 = new VertexImpl("b");
 		
@@ -242,7 +283,7 @@ public class ReaderTest {
 	
 //	@Test(expected = FileNotFoundException.class)
 //	public void testFileReaderFail()throws Exception{
-//		GraphReader reader = new GraphReader(PATH_02);
+//		GraphMaker reader = new GraphMaker(PATH_02);
 //	}
 	
 }

@@ -1,6 +1,7 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.GUITool;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,12 +14,16 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-public class GraphWerkzeugUI {
+public class GraphAdminUI {
 	
 	private static final String TITLE = "Breadth-First-Search";
+	private static final String BENUTZUNG = "Choose one of these graph in graph box! \n"
+			+ "Then choose the Source and Target \n"
+			+ "And I will find shortest Path for you ;) ";
 	
 	//main Frame of the UI
 	JFrame _frame;
@@ -27,8 +32,9 @@ public class GraphWerkzeugUI {
 	JComboBox<String> _chooseSourceCombobox;
 	JComboBox<String> _chooseTargetCombobox;
 	JButton _findShortestPathButton;
+	JTextArea _shortestPathtextArea;
 	
-	public GraphWerkzeugUI(String[] graphsNames, String[] VertexNames) {
+	public GraphAdminUI(String[] graphsNames, String[] VertexNames) {
 		_frame = new JFrame(TITLE);
 		_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		_frame.getContentPane().setLayout(new BorderLayout());
@@ -47,11 +53,18 @@ public class GraphWerkzeugUI {
 	
 	private JComponent createFindShortestPahtComponent() {
 		
-		JPanel findShortestPathPanel = new JPanel(new FlowLayout());
+		JPanel findShortestPathPanel = new JPanel(new BorderLayout());
+		JPanel buttonpanel = new JPanel(new FlowLayout());
 		
 		_findShortestPathButton = new JButton("Find Path");
+		buttonpanel.add(_findShortestPathButton);
+		_shortestPathtextArea = new JTextArea(BENUTZUNG);
+		_shortestPathtextArea.setEditable(false);
+		_shortestPathtextArea.setBackground(Color.WHITE);
 		
-		findShortestPathPanel.add(_findShortestPathButton);
+		
+		findShortestPathPanel.add(buttonpanel, BorderLayout.NORTH);
+		findShortestPathPanel.add(_shortestPathtextArea, BorderLayout.CENTER);
 		return findShortestPathPanel;
 	}
 
@@ -93,8 +106,8 @@ public class GraphWerkzeugUI {
 	}
 	
 	public void drawWindow() {
-		_frame.setSize(new Dimension(277, 220));;
-		_frame.setResizable(false);
+		_frame.setSize(new Dimension(370, 300));;
+//		_frame.setResizable(false);
 		_frame.setVisible(true);
 	}
 	
@@ -118,6 +131,9 @@ public class GraphWerkzeugUI {
 		return _findShortestPathButton;
 	}
 
+	public JTextArea getTextArea() {
+		return _shortestPathtextArea;
+	}
 
 	public void resetSoureBox(String[] vertexNames) {
 		_chooseSourceCombobox.setModel(new DefaultComboBoxModel<String>(vertexNames));
@@ -127,6 +143,5 @@ public class GraphWerkzeugUI {
 	public void resetTargetBox(String[] vertexNames) {
 		_chooseTargetCombobox.setModel(new DefaultComboBoxModel<String>(vertexNames));
 	}
-
 
 }

@@ -1,4 +1,4 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.GUITool;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,21 +11,28 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 
-public class GraphWerkzeug {
+import haw.gkaprojects.duc.robert.GraphMaker;
+import haw.gkaprojects.duc.robert.BreadthFirstSearch;
+import haw.gkaprojects.duc.robert.GraphVisualiser;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
-	private GraphWerkzeugUI _ui;
+public class GraphAdmin {
+
+	private GraphAdminUI _ui;
 
 	private Graph<Vertex, CustomEdge> _graph;
 
 	private String _pathToFolder;
 
-	public GraphWerkzeug(String pathToFolder) {
+	public GraphAdmin(String pathToFolder) {
 
 		_pathToFolder = pathToFolder;
 
 		String[] fileNames = readFilesInFolder(pathToFolder);
 		// String[] vertexNames = new String[0];
-		_ui = new GraphWerkzeugUI(fileNames, new String[0]);
+		_ui = new GraphAdminUI(fileNames, new String[0]);
 
 		registiereUIAktionen();
 	}
@@ -45,10 +52,41 @@ public class GraphWerkzeug {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				GraphVisualizer.resetGraph(_graph);
+				// GraphVisualizer.resetGraph(_graph);
 				performFindshortestPath();
 			}
 		});
+	}
+
+	private void refreshTextArea(List<Vertex> shortestPath) {
+		int countOfEdges = shortestPath.size() - 1;
+		// System.out.println(shortestPath.size());
+		String pathInString = "";
+		if (shortestPath.size() > 1) {
+			pathInString = "For the way from \""
+					+ shortestPath.get(0).getLabel() + "\" " + "to \""
+					+ shortestPath.get(countOfEdges) + "\" \n"
+					+ "you have to go through at least " + countOfEdges + " Edge(s): \n\n";
+			pathInString += shortestPath.get(0).getLabel();
+			for (Vertex vertex : shortestPath) {
+				if (vertex != shortestPath.get(0)) {
+					pathInString += " -> " + vertex.getLabel();
+				}
+			}
+
+			pathInString += "\n\n You're welcome! ;) ";
+		} else if (shortestPath.size() == 1) {
+			pathInString = "You are right there where you want to get to! \n"
+					+ "There no need to go anywhere!";
+		} else {
+			pathInString = "Sorry I cannot help you this time :(\n"
+					+ "There's no way to get from " 
+					+ _ui.getSourceBox().getSelectedItem()
+					+ " to "
+					+ _ui.getTargetBox().getSelectedItem();
+		}
+		
+		_ui.getTextArea().setText(pathInString);
 	}
 
 	private void reloadVertexName() {
@@ -64,8 +102,7 @@ public class GraphWerkzeug {
 				namelist.add(vertex.getLabel());
 			}
 
-			vertexNames = namelist
-					.toArray(new String[namelist.size()]);
+			vertexNames = namelist.toArray(new String[namelist.size()]);
 
 			Arrays.sort(vertexNames, new Comparator<String>() {
 
@@ -88,11 +125,15 @@ public class GraphWerkzeug {
 		if (!graphName.equals("Please choose a graph...")) {
 
 			String pathToGraph = _pathToFolder + graphName;
-			_graph = (new GraphReader(pathToGraph)).getGraph();
+			_graph = (new GraphMaker(pathToGraph)).getGraph();
 
-			BreadthFirstSearch.searchForTheShortestPath(_graph, new VertexImpl(
-					sourceName), new VertexImpl(tarName));
-			GraphVisualizer.exportGraphToDotFile(_graph);
+			List<Vertex> shortestPath = BreadthFirstSearch
+					.searchForTheShortestPath(_graph,
+							new VertexImpl(sourceName), new VertexImpl(tarName));
+			GraphVisualiser.exportGraphToDotFile(_graph);
+			refreshTextArea(shortestPath);
+		} else {
+			_ui.getTextArea().setText("Please choose a graph so I can tell you the shortest path!");
 		}
 	}
 
@@ -100,8 +141,8 @@ public class GraphWerkzeug {
 		if (!graphName.equals("Please choose a graph...")) {
 
 			String pathToGraph = _pathToFolder + graphName;
-			_graph = (new GraphReader(pathToGraph)).getGraph();
-			GraphVisualizer.exportGraphToDotFile(_graph);
+			_graph = (new GraphMaker(pathToGraph)).getGraph();
+			GraphVisualiser.exportGraphToDotFile(_graph);
 		}
 	}
 

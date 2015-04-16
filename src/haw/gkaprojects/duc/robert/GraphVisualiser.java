@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
@@ -15,7 +14,10 @@ import org.jgrapht.ext.IntegerNameProvider;
 import org.jgrapht.ext.StringEdgeNameProvider;
 import org.jgrapht.ext.StringNameProvider;
 
-public class GraphVisualizer {
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+
+public class GraphVisualiser {
 	public static void exportGraphToDotFile(
 			Graph<Vertex, CustomEdge> graph) {
 		//Check whether the graph is Weighted
@@ -30,7 +32,6 @@ public class GraphVisualizer {
 				map.put("label", Double.toString(graph.getEdgeWeight(e)));
 				map.put("weight", Double.toString(graph.getEdgeWeight(e)));
 				map.put("color", e.getColor());
-				
 				return map;
 			}
 		};
@@ -65,11 +66,12 @@ public class GraphVisualizer {
 				new IntegerNameProvider<>(), new StringNameProvider<>(),
 				null, VertexAttributeProvider, EdgeWeightProvider);
 		}else {
+			
 			exporter1 = new DOTExporter<>(
 					new IntegerNameProvider<>(), new StringNameProvider<>(),
 					new StringEdgeNameProvider<>(), VertexAttributeProvider, EdgeAttributeWithoutWeightProvider);
 		}
-		
+//		exporter1 = new DOTExporter<Vertex, CustomEdge>();
 		//File Directory
 		String targetDirectory = "../GKAProjects_01/result/";
 		
