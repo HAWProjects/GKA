@@ -1,6 +1,5 @@
 package haw.gkaprojects.duc.robert.graph;
 
-
 public class VertexImpl implements Vertex{
 	
 	private int _searchStatus;
@@ -9,19 +8,24 @@ public class VertexImpl implements Vertex{
 	private int _attribute;
 	private Vertex _predecessor;
 	private String _color;
+	private boolean _attributed;
 	
 	public VertexImpl(String label) {
-		this(label,0);
+		this(label,0,false);
 	}
 	
 	public VertexImpl(String label, int attribute){
+		this(label,attribute,true);
+	}
+	
+	private VertexImpl(String label, int attribute, boolean attributed){
 		_label = label;
 		_attribute = attribute;
 		_color = "";
 		_searchLevel = Integer.MAX_VALUE;
 		_searchStatus = Vertex.UNEXPLORED;
 		_predecessor = null;
-		
+		_attributed = attributed;
 	}
 	
 	@Override
@@ -32,6 +36,12 @@ public class VertexImpl implements Vertex{
 	@Override
 	public int getAttribut() {
 		return _attribute;
+	}
+	
+	@Override
+	public void setAttribut(int attribut){
+		_attribute = attribut;
+		_attributed = true;
 	}
 
 	@Override
@@ -93,5 +103,10 @@ public class VertexImpl implements Vertex{
 	@Override
 	public void setColor(String color) {
 		_color = color;
+	}
+	
+	@Override
+	public boolean isAttributed(){
+		return _attributed;
 	}
 }

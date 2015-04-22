@@ -66,4 +66,7 @@ public interface Vertex {
 	 * @param color
 	 */
 	public void setColor(String color);
+	
+	public void setAttribut(int attribut);
+	public boolean isAttributed();
 }

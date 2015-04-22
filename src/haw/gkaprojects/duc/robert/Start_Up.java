@@ -1,5 +1,8 @@
 package haw.gkaprojects.duc.robert;
 
+import java.io.IOException;
+
+import org.jgraph.JGraph;
 import org.jgrapht.Graph;
 //import org.jgrapht.alg.DijkstraShortestPath;
 //import org.jgrapht.graph.AbstractBaseGraph;
@@ -9,6 +12,10 @@ import org.jgrapht.Graph;
 
 
 
+
+
+import org.jgrapht.ext.JGraphModelAdapter;
+
 import haw.gkaprojects.duc.robert.GUITool.GraphAdmin;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -17,13 +24,37 @@ import haw.gkaprojects.duc.robert.GraphMaker;
 public class Start_Up {
 	
 
-	private static final String PATH = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH = "../GKA/res/files/bspGraphen/bsp1.graph";
 
 	public static void main(String[] args) {
 		
+		FileReader reader = new FileReader();
+		try
+		{
+			reader.read(PATH);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ShowGraph show =new ShowGraph();
+		CreateGraph create = new CreateGraph(reader.getRowList());
+		Graph<Vertex, CustomEdge> graph = create.getGraph();
+		JGraph jgraph = new JGraph(new JGraphModelAdapter<>(graph));
+		
+		show.setGraph(jgraph);
+		
+		/*
 		GraphMaker reader = new GraphMaker(PATH);
 		@SuppressWarnings("unused")
 		Graph<Vertex, CustomEdge> graph = reader.getGraph();
+		
+		new GraphAdmin("../GKA/res/files/bspGraphen/");
+		*/
+		
+		
+		
 //		System.out.println(graph.edgesOf(new VertexImpl("a")));
 //		System.out.println(((AbstractBaseGraph<Vertex, DefaultWeightedEdge>) graph).outgoingEdgesOf(new VertexImpl("a")));
 //		System.out.println(BreadthFirstSearch.createADJMap(graph));
@@ -33,7 +64,7 @@ public class Start_Up {
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("12"), new VertexImpl("12")));
 //		System.out.println(BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("Uelzen"), new VertexImpl("Detmold")));
 		
-		new GraphAdmin("../GKAProjects_01/res/files/bspGraphen/");
+	
 		
 //		GraphVisualizer.exportGraphToDotFile(graph);
 //		

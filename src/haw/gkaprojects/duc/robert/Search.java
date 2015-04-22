@@ -1,5 +1,9 @@
 package haw.gkaprojects.duc.robert;
 
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
