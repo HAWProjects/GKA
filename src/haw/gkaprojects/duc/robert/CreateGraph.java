@@ -33,23 +33,24 @@ public class CreateGraph
 		_undirected = false;
 
 		_graph = new Pseudograph<>(CustomEdge.class);
+		if (rowList.size() > 0)
+		{
+			List<String> headerlist = rowList.get(0);
+			checkGraphType(headerlist);
+			rowList.remove(0);
 
-		List<String> headerlist = rowList.get(0);
-		checkGraphType(headerlist);
-		rowList.remove(0);
+			List<List<String>> graphList = rowList;
 
-		List<List<String>> graphList = rowList;
+			System.out.println(rowList);
 
-		System.out.println(rowList);
-
-		createGraph(graphList);
-
+			createGraph(graphList);
+		}
 	}
 
-		/**
-		 * 
-		 * @param graphList
-		 */
+	/**
+	 * creates a graph based on the Graph-Type
+	 * @param graphList
+	 */
 	private void createGraph(List<List<String>> graphList)
 	{
 		if (_directed && _weighted && _attributed)
@@ -64,6 +65,7 @@ public class CreateGraph
 		else if (_directed && _weighted && !_attributed)
 		{
 			_graph = new DirectedWeightedPseudograph<>(CustomEdge.class);
+			addVerticAndEdges(graphList);
 		}
 		else if (_directed)
 		{
@@ -73,33 +75,92 @@ public class CreateGraph
 		else if (_undirected && _weighted && _attributed)
 		{
 			_graph = new WeightedPseudograph<>(CustomEdge.class);
+			addVerticAndEdgesAttributed(graphList);
 		}
-		else if (_undirected && _weighted)
+		else if (_undirected && _weighted && !_attributed)
 		{
 			_graph = new WeightedPseudograph<>(CustomEdge.class);
+			addVerticAndEdges(graphList);
+			
+		}
+		else if (_undirected && !_weighted && _attributed)
+		{
+			_graph = new Pseudograph<>(CustomEdge.class);
 		}
 		else if (_undirected)
 		{
 			_graph = new Pseudograph<>(CustomEdge.class);
+			addVerticAndEdges(graphList);
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param graphList
+	 */
 	private void addVerticAndEdges(List<List<String>> graphList)
 	{
-
-
 		for (List<String> l : graphList)
-		{			
-			Vertex v1 = new VertexImpl(l.get(0));
-			Vertex v2 = new VertexImpl(l.get(1));
-			_graph.addVertex(v1);
-			_graph.addVertex(v2);
-			_graph.addEdge(v1, v2);
+		{
+			Vertex v1;
+			Vertex v2;
+			if (l.size() > 1)
+			{
+				v1 = new VertexImpl(l.get(0));
+				v2 = new VertexImpl(l.get(1));
+				_graph.addVertex(v1);
+				_graph.addVertex(v2);
+				_graph.addEdge(v1, v2);
+			}
+			else
+			{
+				v1 = new VertexImpl(l.get(0));
+				_graph.addVertex(v1);
+			}
+			
+			if (_weighted)
+			{
+				// TODO setweight
+			}
 		}
 		System.out.println(_graph.edgeSet());
-
 	}
+
+	/**
+	 * 
+	 * @param graphList
+	 */
+	private void addVerticAndEdgesAttributed(
+			List<List<String>> graphList)
+	{
+
+		for (List<String> l : graphList)
+		{
+			Vertex v1;
+			Vertex v2;
+			if (l.size() > 1)
+			{
+				v1 = new VertexImpl(l.get(0));
+				v2 = new VertexImpl(l.get(2));
+				_graph.addVertex(v1);
+				_graph.addVertex(v2);
+				_graph.addEdge(v1, v2);
+			}
+			else
+			{
+				v1 = new VertexImpl(l.get(0));
+				_graph.addVertex(v1);
+			}
+			
+			if (_weighted)
+			{
+				// TODO setweight
+			}
+		}
+		System.out.println(_graph.edgeSet());
+	}
+	
 
 	/**
 	 * defines graph-type based on the given headerlist
@@ -131,9 +192,10 @@ public class CreateGraph
 		System.out.println(_attributed + " " + _weighted + " " + _directed);
 
 	}
-	
+
 	/**
 	 * returns the createt graph
+	 * 
 	 * @return Graph<Vertex, CustomEdge> Graph
 	 */
 	public Graph<Vertex, CustomEdge> getGraph()

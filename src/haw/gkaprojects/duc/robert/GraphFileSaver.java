@@ -28,7 +28,6 @@ public class GraphFileSaver {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	private static String createGraphContent(Graph<Vertex, CustomEdge> graph) {

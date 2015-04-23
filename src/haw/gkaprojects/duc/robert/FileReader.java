@@ -23,9 +23,9 @@ public class FileReader
 	}
 
 
-	public void read(String path) throws IOException
+	public void read(File file) throws IOException
 	{
-		File file = new File(path);
+		//File file = new File(path);
 		try(Scanner scanner = new Scanner(file))
 		{
 			while (scanner.hasNextLine())
@@ -63,7 +63,7 @@ public class FileReader
 	}
 
 	public List<List<String>> getRowList()
-	{
+	{	
 		return _listRows;
 	}
 

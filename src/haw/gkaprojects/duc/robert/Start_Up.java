@@ -24,26 +24,17 @@ import haw.gkaprojects.duc.robert.GraphMaker;
 public class Start_Up {
 	
 
-	private static final String PATH = "../GKA/res/files/bspGraphen/bsp1.graph";
+
 
 	public static void main(String[] args) {
 		
-		FileReader reader = new FileReader();
-		try
-		{
-			reader.read(PATH);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		ShowGraph show =new ShowGraph();
-		CreateGraph create = new CreateGraph(reader.getRowList());
-		Graph<Vertex, CustomEdge> graph = create.getGraph();
-		JGraph jgraph = new JGraph(new JGraphModelAdapter<>(graph));
+//		CreateGraph create = new CreateGraph(reader.getRowList());
+//		Graph<Vertex, CustomEdge> graph = create.getGraph();
+//		JGraph jgraph = new JGraph(new JGraphModelAdapter<>(graph));
 		
-		show.setGraph(jgraph);
+//		show.setGraph(jgraph);
 		
 		/*
 		GraphMaker reader = new GraphMaker(PATH);
