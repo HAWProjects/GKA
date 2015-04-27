@@ -55,4 +55,9 @@ public class CustomEdge extends DefaultWeightedEdge {
 	public String getlabel(){
 		return "("+this.getSource() + ":" + this.getTarget()+")";
 	}
+	
+	@Override
+	public String toString(){
+		return Double.toString(getWeight());
+	}
 }

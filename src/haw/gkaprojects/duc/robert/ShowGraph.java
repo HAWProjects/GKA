@@ -147,7 +147,10 @@ public class ShowGraph
 		_frame.setVisible(true);
 
 	}
-
+	
+	/*
+	 * 
+	 */
 	private String[] vertexSetToString()
 	{
 		String[] a = new String[_jGraphT.vertexSet().size()];
