@@ -118,7 +118,7 @@ public class ShowGraph
 			public void actionPerformed(ActionEvent e)
 			{
 				GraphFileSaver
-						.saveGraphToFile("G:\\Git\\GKA\\result", _jGraphT);
+						.saveGraphToFile("../GKA/result", _jGraphT);
 			}
 
 		});
