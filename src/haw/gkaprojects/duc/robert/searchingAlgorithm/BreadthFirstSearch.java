@@ -1,4 +1,4 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.searchingAlgorithm;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

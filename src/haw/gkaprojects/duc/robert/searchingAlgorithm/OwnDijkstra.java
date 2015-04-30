@@ -1,10 +1,11 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.searchingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import haw.gkaprojects.duc.robert.ErrorPopUp;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
@@ -45,8 +46,8 @@ public class OwnDijkstra
 		}
 		else
 		{
-			System.out
-					.println("Kann keinen Pfad finden weil: Kantengewicht negativ || Vertex nicht vorhanden || Kein Weg vorhanden");
+//			System.out.println("Kann keinen Pfad finden weil: Kantengewicht negativ || Vertex nicht vorhanden || Kein Weg vorhanden");
+			 new ErrorPopUp("Kann keinen Pfad finden weil: Kantengewicht negativ || Vertex nicht vorhanden || Kein Weg vorhanden");
 			throw new IllegalArgumentException(
 					"Kann keinen Pfad finden weil: Kantengewicht negativ || Vertex nicht vorhanden || Kein Weg vorhanden");
 		}

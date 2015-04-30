@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.GraphMaker;
-import haw.gkaprojects.duc.robert.BreadthFirstSearch;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
 
 
 public class ShortstPathTest {
