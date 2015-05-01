@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-import haw.gkaprojects.duc.robert.ErrorPopUp;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
 
 import org.jgrapht.Graph;
 

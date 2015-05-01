@@ -1,4 +1,4 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.guiPopUps;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -9,7 +9,7 @@ public class ErrorPopUp
 	JDialog _dialog;
 	
 	public ErrorPopUp(){
-		this("");
+		this("Error!");
 	}
 	
 	public ErrorPopUp(String message){

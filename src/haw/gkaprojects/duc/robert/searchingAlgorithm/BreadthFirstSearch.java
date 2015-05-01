@@ -17,84 +17,57 @@ import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
 /**
- * This Class provides search mechanism to find the shortest path in given graph
- * @author Robert Scheffel, Minh Duc Nguyen
+ * This class privides  search mechanism to find the shortest path
+ * 
+ * @author Robert Scheffel & DucNguyenMinh
  *
  */
 public class BreadthFirstSearch {
 	
 //	private static int _steps = 0;
+	
 	/**
-	 * search for shortest path 
-	 * @param graph : given graph 
-	 * @param start : start Vertex / Source Vertex
-	 * @param target : target Vertex
-	 * @return path in the form of a list of Vertex
+	 * Search for the shortest path
+	 * 
+	 * @param graph graph to find the shortest path
+	 * @param start Source vertex
+	 * @param target target vertex
+	 * @return path in the from of a vertex-list
 	 */
 	public static List<Vertex> searchForTheShortestPath(
 			Graph<Vertex, CustomEdge> graph, Vertex start,
 			Vertex target) {
 		
-		// find the actual source and target vertex in the graph
-		start = findVertexInGraph(graph,start);
-		target = findVertexInGraph(graph,target);
+		//find the actual source and target vertices in the given graph
+		checkIfVertexInGraph(graph,start);
+		checkIfVertexInGraph(graph,target);
 		
 		List<Vertex> shortestPathVertexList = new ArrayList<>();
-		List<CustomEdge> shortestPathEdgeList = new ArrayList<>();
 		
-		// 
+		//
 		if(start.equals(target)){
 			for (Vertex vertex : graph.vertexSet()) {
 				if(vertex.equals(start)){
 					shortestPathVertexList.add(vertex);
-					setColorForVertex(shortestPathVertexList, graph);
 					return shortestPathVertexList;
 				}
 			} 
 		}
 		
-		//crate an adjazent-list for searching algorithm
+		//create Adjacency-lists for searching algorithm 
 		Map<Vertex, List<Vertex>> adjMapOfVertices = createADJMap(graph);
 		shortestPathVertexList = findShortestPathVertexList(adjMapOfVertices, start, target);
-		shortestPathEdgeList = findShortestPathEdgeList(graph, shortestPathVertexList);
-		
-		setColorForVertex(shortestPathVertexList,graph);
-		setColorForShortestPath(shortestPathEdgeList);
 		
 		return shortestPathVertexList;
 	}
 	
-	/*
-	 * colourise all Vertex of the shortest path red
-	 */
-	private static void setColorForVertex(List<Vertex> shortestPathVertexList, Graph<Vertex, CustomEdge> graph) {
-		
-		Set<Vertex> setOfVertices = graph.vertexSet();
-		for (Vertex vertexInTheList : shortestPathVertexList) {
-			for (Vertex vertexOfGraph : setOfVertices) {
-				if(vertexInTheList.equals(vertexOfGraph)){
-					vertexOfGraph.setColor("red");
-					break;
-				}
-			}
-		}
-	}
 	
-	/*
-	 * colourise the shortest path red
-	 */
-	private static void setColorForShortestPath(
-			List<CustomEdge> shortestPathEdgeList) {
-		for (CustomEdge edge : shortestPathEdgeList) {
-			edge.setColor("red");
-		}
-	}
-
 	/**
-	 * convert path in form of a list of edges into a list of vertices 
-	 * @param graph
-	 * @param shortestPathVertexList shortest-path list in form of a list of edges
-	 * @return Vertices-list (shortest path)
+	 * Convert path in the form of list of Edges into list of Vertices
+	 * 
+	 * @param graph 
+	 * @param shortestPathVertexList path in form of Edges-list
+	 * @return path in form of Vertices-list
 	 */
 	public static List<CustomEdge> findShortestPathEdgeList(
 			Graph<Vertex, CustomEdge> graph,
@@ -105,7 +78,6 @@ public class BreadthFirstSearch {
 		for(int i=0; i< shortestPathVertexList.size() -1; i++){
 			Vertex v1 = shortestPathVertexList.get(i);
 			Vertex v2 = shortestPathVertexList.get(i+1);
-//			graph.getEdge(v1, v2).setColor("red");
 			CustomEdge edge = graph.getEdge(v1, v2);
 			pathlist.add(edge);
 		}
@@ -113,15 +85,14 @@ public class BreadthFirstSearch {
 		return pathlist;
 	}
 
-	
-/**
- * perform bread-first-search-algorithm to find the shortest way
- * @param adjMapOfVertices adjacency-list of the graph
- * @param start : source-vertex
- * @param target : target-vertex
- * @return shortest path in form of a vertex-list
- */
-	
+	/**
+	 * perform "breadth-first-search" - algorithm to find shortest path 
+	 * 	 
+	 * @param adjMapOfVertices Adjacency-lists of the graph
+	 * @param start	Source vertex
+	 * @param target Target vertex
+	 * @return shortest path in form of vertices-list
+	 */
 	private static List<Vertex> findShortestPathVertexList(
 			Map<Vertex, List<Vertex>> adjMapOfVertices, Vertex start, Vertex target) {
 		
@@ -175,23 +146,36 @@ public class BreadthFirstSearch {
 		return shortestPath; 
 	}
 
-	private static Vertex findVertexInGraph(
+	/**
+	 * Find the actual vertex in the graph with the same name as th given one
+	 * 
+	 * @param graph the  graph	
+	 * @param v	the given vertex to be found
+	 * @return
+	 */
+	private static void checkIfVertexInGraph(
 			Graph<Vertex, CustomEdge> graph, Vertex v ) {
 		
+		boolean vertexFound = false;
 		for (Vertex vertex : graph.vertexSet()) {
 			if (v.equals(vertex)) {
-				return vertex;
+				v = vertex;
+				vertexFound = true;
+				break;
 			}
 		}
 		
-		return v;
+		if (!vertexFound) {
+			throw new IllegalArgumentException("Graph must contain given Vertex");
+		}
 	}
-
+	
 	/**
-	 * fill vertex into the pathlist of the shortest way
-	 * @param shortestPath vertex list
-	 * @param start : source vertex
-	 * @param target : target vertex
+	 * fill the path with vertices between Source and Target
+	 *  
+	 * @param shortestPath vertices-list to be filled in
+	 * @param start	Source Vertex	
+	 * @param target Target vertex
 	 */
 	private static void buildPathVertexList(List<Vertex> shortestPath, Vertex start, Vertex target) {
 		
@@ -203,9 +187,11 @@ public class BreadthFirstSearch {
 	}
 
 	/**
-	 * creates the adjacency-list for the given graph
-	 * @param graph 
-	 * @return adjacency-list in form of a map
+	 * 
+	 * create the adjacency list for the given graph
+	 * 
+	 * @param graph graph to be convert into adjacency list
+	 * @return adjacency list in form of a map
 	 */
 	private static Map<Vertex, List<Vertex>> createADJMap(
 			Graph<Vertex, CustomEdge> graph) {

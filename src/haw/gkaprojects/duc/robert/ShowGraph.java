@@ -3,8 +3,12 @@ package haw.gkaprojects.duc.robert;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
+import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
+import haw.gkaprojects.duc.robert.guiPopUps.ResultPopUp;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.OwnDijkstra;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -20,8 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -99,8 +107,15 @@ public class ShowGraph
 			public void actionPerformed(ActionEvent e)
 			{
 				Vertex[] vArr = getSelectedVertex();
-				OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
-				resultPopUp(od.getShortestPathVertexList());
+
+				ShortestPathOfDijkstras sPoD = new ShortestPathOfDijkstras(
+						_jGraphT, vArr[0], vArr[1]);
+				resultPopUp(sPoD.getShortestPath());
+
+				/*
+				 * OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
+				 * resultPopUp(od.getShortestPathVertexList());
+				 */
 			}
 		});
 		JButton buttonFind3 = new JButton("Search");
@@ -111,7 +126,9 @@ public class ShowGraph
 			public void actionPerformed(ActionEvent e)
 			{
 				Vertex[] vArr = getSelectedVertex();
-				// searchAStern();
+				AStarShortestPath aStar = new AStarShortestPath(_jGraphT,
+						vArr[0], vArr[1]);
+				resultPopUp(aStar.getShortestPath());
 			}
 		});
 
@@ -145,7 +162,7 @@ public class ShowGraph
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				GraphFileSaver.saveGraphToFile("../GKA/result", _jGraphT);
+				GraphFileSaver.saveGraphToFile("../GKA/result/", _jGraphT);
 			}
 
 		});
@@ -258,27 +275,29 @@ public class ShowGraph
 					}
 					catch (IOException e)
 					{
-						_frame.getContentPane().add(
-								new JLabel("This File could not be loaded!"));
+						new ErrorPopUp("This File could not be loaded!");
 						e.printStackTrace();
 					}
 					CreateGraph createGraph = new CreateGraph(
 							_reader.getRowList());
 					_jGraphT = createGraph.getGraph();
-					 /*############################### Keine Ahnung!!!!! ########################
-					GraphModel model = new DefaultGraphModel();
-					GraphLayoutCache view = new GraphLayoutCache(model, new DefaultCellViewFactory());
-					##########################################################################
-					**/
+					/*
+					 * ############################### Keine Ahnung!!!!!
+					 * ######################## GraphModel model = new
+					 * DefaultGraphModel(); GraphLayoutCache view = new
+					 * GraphLayoutCache(model, new DefaultCellViewFactory());
+					 * ###
+					 * #######################################################
+					 * ################
+					 */
 					_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
-//					_jgraph.getGraphLayoutCache();
-					
+//					(JGraphExamplelayoutCache) _jgraph.getGraphLayoutCache();
 
 					setGraph(_jgraph);
 
 					popup.dispose();
 
-					System.out.println(selectedFile);
+					
 
 					// filenameLabel.setText(selectedFile.getName());
 				}
@@ -325,23 +344,23 @@ public class ShowGraph
 		JTextField vertexField = new JTextField(10);
 		vertexMenu.add(vertexNumber);
 		vertexMenu.add(vertexField);
-		
+
 		JPanel edgeMenu = new JPanel();
 		JLabel edgeNumber = new JLabel("Number of Edges: ");
 		JTextField edgeField = new JTextField(10);
 		edgeMenu.add(edgeNumber);
 		edgeMenu.add(edgeField);
-		
+
 		JButton buttonGenerate = new JButton("generate Graph");
 		buttonGenerate.addActionListener(new ActionListener()
 		{
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO Auto-generated method stub
-				
-				
+				generateGraph(weighted.isSelected(), attributed.isSelected(),
+						directed.isSelected(), generatortype.getSelectedItem(),
+						vertexField.getText(), edgeField.getText());
 			}
 		});
 
@@ -354,6 +373,86 @@ public class ShowGraph
 		return content;
 	}
 
+	/**
+	 * generates a new graph
+	 * 
+	 * @param weighted
+	 * @param attributed
+	 * @param directed
+	 * @param selectedItem
+	 * @param countVertex
+	 * @param countEdge
+	 */
+	protected void generateGraph(boolean weighted, boolean attributed,
+			boolean directed, Object selectedItem, String countVertex,
+			String countEdge)
+	{
+		// TODO Auto-generated method stub
+		int vertexCount = Integer.parseInt(countVertex);
+		int edgeCount = Integer.parseInt(countEdge);
+		ArrayList<String> vertexArr = new ArrayList<>();
+
+		ArrayList<ArrayList<String>> rowlist = new ArrayList<>();
+		ArrayList<String> columlistHeader = new ArrayList<>();
+
+		if (weighted)
+		{
+			columlistHeader.add("weighted");
+		}
+		if (attributed)
+		{
+			columlistHeader.add("attributed");
+		}
+		if (directed)
+		{
+			columlistHeader.add("directed");
+		}
+		rowlist.add(columlistHeader);
+
+		if (selectedItem.equals("Random"))
+		{
+
+			for (int i = 0; i < vertexCount; i++)
+			{
+				vertexArr.add("Vertex: " + (i + 1));
+			}
+			for (int j = 0; j < edgeCount; j++)
+			{
+				int first = new Random().nextInt(vertexCount);
+				int second = new Random().nextInt(vertexCount);
+				ArrayList<String> columList = new ArrayList<>();
+				if (attributed)
+				{
+					columList.add(vertexArr.get(first));
+					columList.add("some Attribut");
+					
+					columList.add(vertexArr.get(second));
+					columList.add("some Attribut");
+				}
+				else
+				{
+					columList.add(vertexArr.get(first));
+					columList.add(vertexArr.get(second));
+				}
+				if (weighted)
+				{
+					Integer weight = new Random().nextInt(1000);
+					columList.add(weight.toString());
+				}
+				rowlist.add(columList);
+			}
+
+			System.out.println(rowlist);
+		}
+
+		_frame.getContentPane().removeAll();
+		CreateGraph createGraph = new CreateGraph((List) rowlist);
+		_jGraphT = createGraph.getGraph();
+		_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
+		setGraph(_jgraph);
+		update();
+	}
+
 	/*
 	 * updates the contentpane of the jframe
 	 */
@@ -361,6 +460,5 @@ public class ShowGraph
 	{
 		_frame.getContentPane().repaint();
 		_frame.setVisible(true);
-		System.out.println("tata");
 	}
 }
