@@ -140,7 +140,6 @@ public class ShortestPathOfDijkstras {
 				}
 			}
 		}
-
 		
 		return makeShortestPath(predecessors, start,target);
 	}

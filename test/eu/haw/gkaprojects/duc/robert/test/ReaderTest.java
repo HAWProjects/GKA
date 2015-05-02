@@ -16,13 +16,13 @@ import haw.gkaprojects.duc.robert.graph.VertexImpl;
 public class ReaderTest {
 
 	
-	private static final String PATH_01 = "../GKAProjects_01/res/files/bspGraphen/bsp1.graph";
-	private static final String PATH_02 = "../GKAProjects_01/res/files/bspGraphen/bsp2.graph";
-	private static final String PATH_03 = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
-	private static final String PATH_04 = "../GKAProjects_01/res/files/bspGraphen/bsp4.graph";
-	private static final String PATH_05 = "../GKAProjects_01/res/files/bspGraphen/bsp5.graph";
-	private static final String PATH_06 = "../GKAProjects_01/res/files/bspGraphen/bsp6.graph";
-	private static final String PATH_99 = "../GKAProjects_01/res/files/bspGraphen/bsp9999.graph";
+	private static final String PATH_01 = "../GKA/res/files/bspGraphen/bsp1.graph";
+	private static final String PATH_02 = "../GKA/res/files/bspGraphen/bsp2.graph";
+	private static final String PATH_03 = "../GKA/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH_04 = "../GKA/res/files/bspGraphen/bsp4.graph";
+	private static final String PATH_05 = "../GKA/res/files/bspGraphen/bsp5.graph";
+	private static final String PATH_06 = "../GKA/res/files/bspGraphen/bsp6.graph";
+	private static final String PATH_99 = "../GKA/res/files/bspGraphen/bsp9999.graph";
 	
 	private Graph<Vertex, CustomEdge> _graph_01;
 	private Graph<Vertex, CustomEdge> _graph_02;

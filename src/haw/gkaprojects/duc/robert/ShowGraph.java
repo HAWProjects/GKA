@@ -97,7 +97,7 @@ public class ShowGraph
 			{
 				Vertex[] vArr = getSelectedVertex();
 				resultPopUp(BreadthFirstSearch.searchForTheShortestPath(
-						_jGraphT, vArr[0], vArr[1]));
+						_jGraphT, vArr[0], vArr[1]), 0);
 			}
 		});
 		JButton buttonFind2 = new JButton("Search");
@@ -110,12 +110,10 @@ public class ShowGraph
 
 				ShortestPathOfDijkstras sPoD = new ShortestPathOfDijkstras(
 						_jGraphT, vArr[0], vArr[1]);
-				resultPopUp(sPoD.getShortestPath());
-
-				/*
-				 * OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
-				 * resultPopUp(od.getShortestPathVertexList());
-				 */
+				resultPopUp(sPoD.getShortestPath(), sPoD.getZugriffCounter());
+				
+//				  OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
+//				  resultPopUp(od.getShortestPathVertexList());
 			}
 		});
 		JButton buttonFind3 = new JButton("Search");
@@ -128,7 +126,7 @@ public class ShowGraph
 				Vertex[] vArr = getSelectedVertex();
 				AStarShortestPath aStar = new AStarShortestPath(_jGraphT,
 						vArr[0], vArr[1]);
-				resultPopUp(aStar.getShortestPath());
+				resultPopUp(aStar.getShortestPath(), 0);
 			}
 		});
 
@@ -155,17 +153,26 @@ public class ShowGraph
 			}
 		});
 
-		JMenuItem miSaveFile = new JMenuItem("Save File");
-		miSaveFile.addActionListener(new ActionListener()
+		JMenu miSaveFile = new JMenu("Save File");
+		JPanel saveMenu = new JPanel();
+		saveMenu.setLayout(new FlowLayout());
+		JLabel nameOfSave = new JLabel("Filename: ");
+		JTextField getSaveFileName = new JTextField(12);
+		JButton saveFile = new JButton("Save Graph");
+		saveFile.addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				GraphFileSaver.saveGraphToFile("../GKA/result/", _jGraphT);
+				GraphFileSaver.saveGraphToFile("../GKA/result/" + getSaveFileName.getText()+".graph", _jGraphT);
 			}
-
 		});
+		
+		
+		saveMenu.add(nameOfSave);
+		saveMenu.add(getSaveFileName);
+		saveMenu.add(saveFile);
+		miSaveFile.add(saveMenu);
 
 		JMenuItem miExit = new JMenuItem("Exit");
 		miExit.addActionListener(new ActionListener()
@@ -221,9 +228,9 @@ public class ShowGraph
 	 * @param searchForTheShortestPath: a List containing the Vertex of the
 	 * shortest path
 	 */
-	private void resultPopUp(List<Vertex> searchForTheShortestPath)
+	private void resultPopUp(List<Vertex> searchForTheShortestPath, int counter)
 	{
-		new ResultPopUp(searchForTheShortestPath);
+		new ResultPopUp(searchForTheShortestPath, counter);
 	}
 
 	public void setGraph(JGraph graph)

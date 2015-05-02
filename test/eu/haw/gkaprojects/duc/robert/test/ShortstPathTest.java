@@ -10,21 +10,25 @@ import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
 
+import haw.gkaprojects.duc.robert.FileReader;
 import haw.gkaprojects.duc.robert.GraphMaker;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
 
 public class ShortstPathTest {
 	
-	private static final String PATH1 = "../GKAProjects_01/res/files/bspGraphen/bsp1.graph";
-	private static final String PATH2 = "../GKAProjects_01/res/files/bspGraphen/bsp2.graph";
-	private static final String PATH3 = "../GKAProjects_01/res/files/bspGraphen/bsp3.graph";
-	private static final String PATH4 = "../GKAProjects_01/res/files/bspGraphen/bsp4.graph";
-	private static final String PATH5 = "../GKAProjects_01/res/files/bspGraphen/bsp5.graph";
-	private static final String PATH6 = "../GKAProjects_01/res/files/bspGraphen/bsp6.graph";
+	private static final String PATH1 = "../GKA/res/files/bspGraphen/bsp1.graph";
+	private static final String PATH2 = "../GKA/res/files/bspGraphen/bsp2.graph";
+	private static final String PATH3 = "../GKA/res/files/bspGraphen/bsp3.graph";
+	private static final String PATH4 = "../GKA/res/files/bspGraphen/bsp4.graph";
+	private static final String PATH5 = "../GKA/res/files/bspGraphen/bsp5.graph";
+	private static final String PATH6 = "../GKA/res/files/bspGraphen/bsp6.graph";
 	
 	private Graph<Vertex, CustomEdge> _graph3;
 	private Graph<Vertex, CustomEdge> _testGraph1;
@@ -247,5 +251,30 @@ public class ShortstPathTest {
 		List<Vertex> listA = BreadthFirstSearch.searchForTheShortestPath(graph, new VertexImpl("b"), new VertexImpl("i"));		
 		assertEquals(BreadthFirstSearch.findShortestPathEdgeList(graph, listA), testgraph.getPathEdgeList());
 	}
+	
+	@Test
+	public void testDijkstraSelfAgainstDijkstra(){
+		Graph<Vertex, CustomEdge> graph = null;
+		try
+		{
+			GraphMaker_withScanner graphMaker = new GraphMaker_withScanner(PATH3);
+			graph = graphMaker.getGraph();
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DijkstraShortestPath<Vertex, CustomEdge> testgraph = new DijkstraShortestPath<Vertex, CustomEdge>(graph, new VertexImpl("Husum"), new VertexImpl("Hamburg"));
+		ShortestPathOfDijkstras shortestPathDijkstra = new ShortestPathOfDijkstras(graph, new VertexImpl("Husum"), new VertexImpl("Hamburg"));
+		AStarShortestPath shortestPathAStar = new AStarShortestPath(graph, new VertexImpl("Husum"), new VertexImpl("Hamburg"));
+		
+		
+//		assertEquals(testgraph.getPath(), shortestPathDijkstra.getShortestPath());
+		
+		assertEquals(shortestPathAStar.getShortestPath(), shortestPathDijkstra.getShortestPath());
+		assertEquals(testgraph.getPathLength(), shortestPathDijkstra.getShortestPathLength(), 0.0);
+		assertEquals(testgraph.getPathLength(), shortestPathAStar.getShortestPathLength(), 0.0);
+	} 
 	
 }

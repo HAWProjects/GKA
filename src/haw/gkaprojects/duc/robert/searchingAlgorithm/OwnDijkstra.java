@@ -76,8 +76,10 @@ public class OwnDijkstra
 				// finde unter allen Knoten mit status false den mit kleinster
 				// entfernung
 				Vertex currentVertex = searchForShortestDistance(graph);
+				
+				System.out.println(currentVertex);
 
-				// setze ok auf true
+				// setze ok auf true				
 				visitMap.get(currentVertex)._ok = true;
 
 				// für alle Knoten v_j mit ok = false für die ne Kante existiert
@@ -101,8 +103,6 @@ public class OwnDijkstra
 		}
 		createShortestPathList(graph,source,target);
 		shortestPathLengh = visitMap.get(target)._distance;
-		//TODO  liste des kürzesten Weges erstellen
-
 	}
 	
 	/*
@@ -143,14 +143,13 @@ public class OwnDijkstra
 
 	/*
 	 * checks if all Vertex are visit and id the status of all Vertex is true
-	 * 
 	 * @return Bool
 	 */
 	private boolean allVertexExplored()
 	{
 		for (Attribut a : visitMap.values())
 		{
-			if (a._ok == false)
+			if (a._ok == false && a != null)
 			{
 				return false;
 			}
@@ -173,7 +172,7 @@ public class OwnDijkstra
 			}
 			else
 			{
-				visitMap.put(v, new Attribut(v, 0.0, false));
+				visitMap.put(v, new Attribut(v, 0.0, true));
 			}
 		}
 	}

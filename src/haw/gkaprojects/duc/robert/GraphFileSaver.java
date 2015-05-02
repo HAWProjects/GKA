@@ -14,7 +14,11 @@ import org.jgrapht.WeightedGraph;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
-
+/**
+ * This class saves a new graph-file based on the displayed graph. The the graph will be saved in the result folder named by the given path.
+ * @author Duc, Robert
+ *
+ */
 public class GraphFileSaver {
 	public static void saveGraphToFile(String path, Graph<Vertex,CustomEdge> graph){
 		
