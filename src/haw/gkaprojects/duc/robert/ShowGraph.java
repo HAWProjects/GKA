@@ -113,7 +113,7 @@ public class ShowGraph
 				resultPopUp(sPoD.getShortestPath(), sPoD.getZugriffCounter());
 				
 //				  OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
-//				  resultPopUp(od.getShortestPathVertexList());
+//				  resultPopUp(od.getShortestPathVertexList(),0);
 			}
 		});
 		JButton buttonFind3 = new JButton("Search");

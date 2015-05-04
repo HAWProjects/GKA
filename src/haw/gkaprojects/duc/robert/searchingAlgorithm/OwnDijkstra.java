@@ -75,9 +75,10 @@ public class OwnDijkstra
 			{
 				// finde unter allen Knoten mit status false den mit kleinster
 				// entfernung
+				
 				Vertex currentVertex = searchForShortestDistance(graph);
 				
-				System.out.println(currentVertex);
+//				System.out.println(currentVertex.getLabel());
 
 				// setze ok auf true				
 				visitMap.get(currentVertex)._ok = true;
@@ -149,7 +150,7 @@ public class OwnDijkstra
 	{
 		for (Attribut a : visitMap.values())
 		{
-			if (a._ok == false && a != null)
+			if (a._ok == false)
 			{
 				return false;
 			}
@@ -172,7 +173,7 @@ public class OwnDijkstra
 			}
 			else
 			{
-				visitMap.put(v, new Attribut(v, 0.0, true));
+				visitMap.put(v, new Attribut(v, 0.0, false));
 			}
 		}
 	}

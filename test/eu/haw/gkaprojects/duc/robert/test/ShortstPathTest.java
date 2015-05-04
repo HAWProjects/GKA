@@ -270,7 +270,7 @@ public class ShortstPathTest {
 		AStarShortestPath shortestPathAStar = new AStarShortestPath(graph, new VertexImpl("Husum"), new VertexImpl("Hamburg"));
 		
 		
-//		assertEquals(testgraph.getPath(), shortestPathDijkstra.getShortestPath());
+//	assertEquals(testgraph.getPath(), shortestPathDijkstra.getShortestPath());
 		
 		assertEquals(shortestPathAStar.getShortestPath(), shortestPathDijkstra.getShortestPath());
 		assertEquals(testgraph.getPathLength(), shortestPathDijkstra.getShortestPathLength(), 0.0);
