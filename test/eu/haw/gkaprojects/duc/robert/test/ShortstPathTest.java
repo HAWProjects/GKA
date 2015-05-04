@@ -2,6 +2,7 @@ package eu.haw.gkaprojects.duc.robert.test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.List;
 
 import org.jgrapht.Graph;
@@ -20,7 +21,9 @@ import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
-
+/**
+ * @author Robert
+ */
 public class ShortstPathTest {
 	
 	private static final String PATH1 = "../GKA/res/files/bspGraphen/bsp1.graph";
@@ -257,7 +260,8 @@ public class ShortstPathTest {
 		Graph<Vertex, CustomEdge> graph = null;
 		try
 		{
-			GraphMaker_withScanner graphMaker = new GraphMaker_withScanner(PATH3);
+			File file = new File(PATH3);
+			GraphMaker_withScanner graphMaker = new GraphMaker_withScanner(file);
 			graph = graphMaker.getGraph();
 		}
 		catch (Exception e)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -78,6 +79,7 @@ public class OwnDijkstra
 				
 				Vertex currentVertex = searchForShortestDistance(graph);
 				
+				
 //				System.out.println(currentVertex.getLabel());
 
 				// setze ok auf true				
@@ -85,7 +87,7 @@ public class OwnDijkstra
 
 				// für alle Knoten v_j mit ok = false für die ne Kante existiert
 				// von Vh nach Vj
-				HashSet<Vertex> neighboursSet = new HashSet<>();
+				
 				for (CustomEdge e : graph.edgesOf(currentVertex))
 				{ // all kanten an knoten
 					if (visitMap.get(graph.getEdgeTarget(e))._ok == false){
@@ -106,6 +108,8 @@ public class OwnDijkstra
 		shortestPathLengh = visitMap.get(target)._distance;
 	}
 	
+
+
 	/*
 	 * creates the List of the shortest path based on the visitMap
 	 */
@@ -139,6 +143,7 @@ public class OwnDijkstra
 				min = visitMap.get(v)._distance;
 			}
 		}
+		
 		return currentVertex;
 	}
 

@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.MenuItem;
+import java.awt.ScrollPane;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,9 +43,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.jgraph.JGraph;
+import org.jgraph.graph.CellViewFactory;
 import org.jgraph.graph.DefaultCellViewFactory;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultGraphModel;
@@ -54,11 +57,17 @@ import org.jgraph.graph.GraphSelectionModel;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
 
+import com.jgraph.layout.JGraphFacade;
 import com.jgraph.layout.JGraphLayout;
+import com.jgraph.layout.graph.JGraphSimpleLayout;
 import com.jgraph.layout.hierarchical.JGraphLongestPathLayering;
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.view.mxGraph;
-
+/**
+ * 
+ * @author Robert
+ *
+ */
 public class ShowGraph
 {
 
@@ -111,9 +120,9 @@ public class ShowGraph
 				ShortestPathOfDijkstras sPoD = new ShortestPathOfDijkstras(
 						_jGraphT, vArr[0], vArr[1]);
 				resultPopUp(sPoD.getShortestPath(), sPoD.getZugriffCounter());
-				
-//				  OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
-//				  resultPopUp(od.getShortestPathVertexList(),0);
+
+//				 OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
+//				 resultPopUp(od.getShortestPathVertexList(),0);
 			}
 		});
 		JButton buttonFind3 = new JButton("Search");
@@ -164,11 +173,11 @@ public class ShowGraph
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				GraphFileSaver.saveGraphToFile("../GKA/result/" + getSaveFileName.getText()+".graph", _jGraphT);
+				GraphFileSaver.saveGraphToFile("../GKA/result/"
+						+ getSaveFileName.getText() + ".graph", _jGraphT);
 			}
 		});
-		
-		
+
 		saveMenu.add(nameOfSave);
 		saveMenu.add(getSaveFileName);
 		saveMenu.add(saveFile);
@@ -198,8 +207,9 @@ public class ShowGraph
 		mb.add(gG);
 
 		_frame.setJMenuBar(mb);
-
-		// _frame.pack();
+		
+		
+	
 		_frame.setVisible(true);
 
 	}
@@ -275,19 +285,33 @@ public class ShowGraph
 					_frame.getContentPane().removeAll(); // Test
 					File selectedFile = theFileChooser.getSelectedFile();
 					directoryLabel.setText(selectedFile.getParent());
-					_reader = new FileReader();
+//					_reader = new FileReader();
+//					try
+//					{
+//						_reader.read(selectedFile);
+//					}
+//					catch (IOException e)
+//					{
+//						new ErrorPopUp("This File could not be loaded!");
+//						e.printStackTrace();
+//					}
+//					CreateGraph createGraph = new CreateGraph(
+//							_reader.getRowList());
+//					_jGraphT = createGraph.getGraph();
+					
+					// ##################### FileReader 2 ###############################
 					try
 					{
-						_reader.read(selectedFile);
+						GraphMaker_withScanner gMwS = new GraphMaker_withScanner(
+								selectedFile);
+						_jGraphT = gMwS.getGraph();
 					}
-					catch (IOException e)
+					catch (Exception e)
 					{
-						new ErrorPopUp("This File could not be loaded!");
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					CreateGraph createGraph = new CreateGraph(
-							_reader.getRowList());
-					_jGraphT = createGraph.getGraph();
+					// ##################### FileReader 2 ###############################
 					/*
 					 * ############################### Keine Ahnung!!!!!
 					 * ######################## GraphModel model = new
@@ -298,13 +322,21 @@ public class ShowGraph
 					 * ################
 					 */
 					_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
-//					(JGraphExamplelayoutCache) _jgraph.getGraphLayoutCache();
+					_jgraph.setEnabled(_jGraphT != null);
+					
+					if(_jgraph != null){
+						
+						JGraphFacade facade = new JGraphFacade(_jgraph);
+						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+						layout.run(facade);
+						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+					}
+					
+					
 
 					setGraph(_jgraph);
 
 					popup.dispose();
-
-					
 
 					// filenameLabel.setText(selectedFile.getName());
 				}
@@ -371,11 +403,24 @@ public class ShowGraph
 			}
 		});
 
+		JButton buttonInstantGraph = new JButton("Heuristik Graph");
+		buttonInstantGraph.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		content.add(typeMenu);
 		content.add(graphmenu);
 		content.add(vertexMenu);
 		content.add(edgeMenu);
 		content.add(buttonGenerate);
+		content.add(buttonInstantGraph);
 
 		return content;
 	}
@@ -432,7 +477,7 @@ public class ShowGraph
 				{
 					columList.add(vertexArr.get(first));
 					columList.add("some Attribut");
-					
+
 					columList.add(vertexArr.get(second));
 					columList.add("some Attribut");
 				}
