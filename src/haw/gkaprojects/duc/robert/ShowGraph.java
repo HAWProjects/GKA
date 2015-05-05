@@ -34,6 +34,7 @@ import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -73,6 +74,9 @@ public class ShowGraph
 
 	JFrame _frame;
 	FileReader _reader;
+	JScrollPane scrollpane;
+	JPanel content;
+	JScrollPane scrPane;
 
 	Graph<Vertex, CustomEdge> _jGraphT;
 	JGraph _jgraph;
@@ -84,6 +88,7 @@ public class ShowGraph
 
 		_frame.setBounds(0, 0, 1200, 800);
 		_frame.setLocationRelativeTo(null);
+		_frame.add(new JScrollPane(), BorderLayout.CENTER);
 
 		JMenuBar mb = new JMenuBar();
 		JMenu menu = new JMenu("Menue");
@@ -205,6 +210,10 @@ public class ShowGraph
 		mb.add(menu);
 		mb.add(menuAl);
 		mb.add(gG);
+		
+//		content = new JPanel();
+//		scrPane = new JScrollPane(content);
+//		_frame.getContentPane().add(scrPane);
 
 		_frame.setJMenuBar(mb);
 		
@@ -245,6 +254,7 @@ public class ShowGraph
 
 	public void setGraph(JGraph graph)
 	{
+//		content.add(graph);
 		_frame.getContentPane().add(graph);
 		update();
 	}
@@ -502,7 +512,7 @@ public class ShowGraph
 		_jGraphT = createGraph.getGraph();
 		_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
 		setGraph(_jgraph);
-		update();
+		
 	}
 
 	/*
@@ -510,7 +520,9 @@ public class ShowGraph
 	 */
 	private void update()
 	{
+//		content.repaint();
 		_frame.getContentPane().repaint();
+//		scrPane.repaint();
 		_frame.setVisible(true);
 	}
 }
