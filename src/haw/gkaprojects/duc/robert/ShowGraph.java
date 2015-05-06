@@ -74,7 +74,7 @@ public class ShowGraph
 
 	JFrame _frame;
 	FileReader _reader;
-	JScrollPane scrollpane;
+	
 	JPanel content;
 	JScrollPane scrPane;
 
@@ -88,7 +88,9 @@ public class ShowGraph
 
 		_frame.setBounds(0, 0, 1200, 800);
 		_frame.setLocationRelativeTo(null);
-		_frame.add(new JScrollPane(), BorderLayout.CENTER);
+		_frame.getContentPane().setLayout(new BorderLayout());
+		
+		
 
 		JMenuBar mb = new JMenuBar();
 		JMenu menu = new JMenu("Menue");
@@ -211,14 +213,16 @@ public class ShowGraph
 		mb.add(menuAl);
 		mb.add(gG);
 		
-//		content = new JPanel();
-//		scrPane = new JScrollPane(content);
-//		_frame.getContentPane().add(scrPane);
+		content = new JPanel();
+		scrPane = new JScrollPane(content);
+	
+		scrPane.setPreferredSize(new Dimension(1200,800));
+//		scrPane.setVisible(true);
+		_frame.getContentPane().add(scrPane, BorderLayout.CENTER);
 
 		_frame.setJMenuBar(mb);
 		
-		
-	
+		_frame.pack();
 		_frame.setVisible(true);
 
 	}
@@ -237,7 +241,6 @@ public class ShowGraph
 		else
 		{	new ErrorPopUp("Not enough Vertex selected!");
 			throw new IllegalArgumentException("Not enough Vertex selected!");
-			
 		}
 		return arr;
 	}
@@ -256,6 +259,8 @@ public class ShowGraph
 	public void setGraph(JGraph graph)
 	{
 
+		content.add(graph);
+//		scrPane.setViewportView(graph);
 		_frame.getContentPane().add(graph);
 		update();
 	}
@@ -334,7 +339,6 @@ public class ShowGraph
 						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
 					}
 					
-
 					setGraph(_jgraph);
 
 					popup.dispose();
