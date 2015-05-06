@@ -18,6 +18,8 @@ import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
 public class GraphVisualiser {
+	private GraphVisualiser(){}
+	
 	public static void exportGraphToDotFile(
 			Graph<Vertex, CustomEdge> graph) {
 		//Check whether the graph is Weighted

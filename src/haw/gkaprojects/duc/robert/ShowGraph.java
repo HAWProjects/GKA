@@ -130,8 +130,8 @@ public class ShowGraph
 //				 resultPopUp(od.getShortestPathVertexList(),0);
 			}
 		});
-		JButton buttonFind3 = new JButton("Search");
-		buttonFind3.addActionListener(new ActionListener()
+		JButton buttonfindAStern = new JButton("Search");
+		buttonfindAStern.addActionListener(new ActionListener()
 		{
 
 			@Override
@@ -146,7 +146,7 @@ public class ShowGraph
 
 		searchPanel1.add(buttonFind1);
 		searchPanel2.add(buttonFind2);
-		searchPanel3.add(buttonFind3);
+		searchPanel3.add(buttonfindAStern);
 
 		JMenu aStern = new JMenu("AStern");
 		JMenu dijkstra = new JMenu("Dijkstra");
@@ -235,8 +235,9 @@ public class ShowGraph
 
 		}
 		else
-		{
+		{	new ErrorPopUp("Not enough Vertex selected!");
 			throw new IllegalArgumentException("Not enough Vertex selected!");
+			
 		}
 		return arr;
 	}
@@ -254,7 +255,7 @@ public class ShowGraph
 
 	public void setGraph(JGraph graph)
 	{
-//		content.add(graph);
+
 		_frame.getContentPane().add(graph);
 		update();
 	}
@@ -322,26 +323,16 @@ public class ShowGraph
 						e.printStackTrace();
 					}
 					// ##################### FileReader 2 ###############################
-					/*
-					 * ############################### Keine Ahnung!!!!!
-					 * ######################## GraphModel model = new
-					 * DefaultGraphModel(); GraphLayoutCache view = new
-					 * GraphLayoutCache(model, new DefaultCellViewFactory());
-					 * ###
-					 * #######################################################
-					 * ################
-					 */
+
 					_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
 					_jgraph.setEnabled(_jGraphT != null);
 					
 					if(_jgraph != null){
-						
 						JGraphFacade facade = new JGraphFacade(_jgraph);
 						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
 						layout.run(facade);
 						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
 					}
-					
 					
 
 					setGraph(_jgraph);
@@ -403,7 +394,6 @@ public class ShowGraph
 		JButton buttonGenerate = new JButton("generate Graph");
 		buttonGenerate.addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -420,8 +410,11 @@ public class ShowGraph
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO Auto-generated method stub
-
+				Graph<Vertex, CustomEdge> GRAPH = UndirectedGraphContructor.constructGraph(Integer.parseInt(vertexField.getText()), Integer.parseInt(edgeField.getText()));
+				GraphVisualiser.exportGraphToDotFile(GRAPH);
+				
+				JGraph jgraph = new JGraph(new JGraphModelAdapter<>(GRAPH));
+				setGraph(jgraph);
 			}
 		});
 
@@ -508,9 +501,17 @@ public class ShowGraph
 		}
 
 		_frame.getContentPane().removeAll();
-		CreateGraph createGraph = new CreateGraph((List) rowlist);
+		CreateGraph createGraph = new CreateGraph((List)rowlist);
 		_jGraphT = createGraph.getGraph();
 		_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
+		
+//		if(_jgraph != null){
+//			
+//			JGraphFacade facade = new JGraphFacade(_jgraph);
+//			JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+//			layout.run(facade);
+//			_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+//		}
 		setGraph(_jgraph);
 		
 	}

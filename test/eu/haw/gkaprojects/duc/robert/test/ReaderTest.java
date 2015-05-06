@@ -6,8 +6,6 @@ import static org.junit.Assert.*;
 import org.jgrapht.Graph;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
-
 import haw.gkaprojects.duc.robert.GraphMaker;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -22,7 +20,7 @@ public class ReaderTest {
 	private static final String PATH_04 = "../GKA/res/files/bspGraphen/bsp4.graph";
 	private static final String PATH_05 = "../GKA/res/files/bspGraphen/bsp5.graph";
 	private static final String PATH_06 = "../GKA/res/files/bspGraphen/bsp6.graph";
-	private static final String PATH_99 = "../GKA/res/files/bspGraphen/bsp9999.graph";
+//	private static final String PATH_99 = "/Users/DucNguyenMinh/git/GKA/res/files/bspGraphen/bsp9999.graph";
 	
 	private Graph<Vertex, CustomEdge> _graph_01;
 	private Graph<Vertex, CustomEdge> _graph_02;
@@ -281,9 +279,6 @@ public class ReaderTest {
 		
 	}
 	
-//	@Test(expected = FileNotFoundException.class)
-//	public void testFileReaderFail()throws Exception{
-//		GraphMaker reader = new GraphMaker(PATH_02);
-//	}
+
 	
 }

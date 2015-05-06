@@ -34,7 +34,7 @@ public class ResultPopUp
 		_dialog.setLocationRelativeTo(null);
 		_dialog.setLayout(new BoxLayout(_dialog.getContentPane(),
 				BoxLayout.PAGE_AXIS));
-		_dialog.add(new JLabel("Der kürzeste Weg lautet: "));
+		_dialog.add(new JLabel("Der kuerzeste Weg lautet: "));
 		_dialog.add(createShortestpath(shortestPathVertexList));
 		_dialog.add(createSteps(shortestPathVertexList));
 		_dialog.add(createCounter(counter));
