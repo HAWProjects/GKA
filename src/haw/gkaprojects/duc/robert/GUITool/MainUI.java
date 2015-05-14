@@ -1,5 +1,10 @@
-package haw.gkaprojects.duc.robert;
+package haw.gkaprojects.duc.robert.GUITool;
 
+import haw.gkaprojects.duc.robert.CreateGraph;
+import haw.gkaprojects.duc.robert.GraphFileSaver;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphVisualiser;
+import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
@@ -7,36 +12,23 @@ import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
 import haw.gkaprojects.duc.robert.guiPopUps.ResultPopUp;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
-import haw.gkaprojects.duc.robert.searchingAlgorithm.OwnDijkstra;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.MenuItem;
-import java.awt.ScrollPane;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,12 +41,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.jgraph.JGraph;
-import org.jgraph.graph.CellViewFactory;
-import org.jgraph.graph.DefaultCellViewFactory;
 import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.DefaultGraphModel;
-import org.jgraph.graph.GraphLayoutCache;
-import org.jgraph.graph.GraphModel;
 import org.jgraph.graph.GraphSelectionModel;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
@@ -62,108 +49,32 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import com.jgraph.layout.JGraphFacade;
 import com.jgraph.layout.JGraphLayout;
 import com.jgraph.layout.graph.JGraphSimpleLayout;
-import com.jgraph.layout.hierarchical.JGraphLongestPathLayering;
-import com.mxgraph.layout.mxCircleLayout;
-import com.mxgraph.view.mxGraph;
-/**
- * 
- * @author Robert
- *
- */
-public class ShowGraph
+
+public class MainUI
 {
-
-	JFrame _frame;
-	FileReader _reader;
-	
+	JPanel contentpane;
 	JPanel content;
-	JPanel contentPane;
-	JScrollPane scrPane;
-
+	JScrollPane scrollPane;
 	Graph<Vertex, CustomEdge> _jGraphT;
 	JGraph _jgraph;
 
-	public ShowGraph()
-	{
-		_frame = new JFrame("GKA");
-		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public MainUI(){
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		_frame.setPreferredSize(new Dimension(1200,800));
-//		_frame.setLocationRelativeTo(null);
-//		contentPane = new JPanel();
-//		contentPane.setLayout(new BorderLayout());
+//		frame.setPreferredSize(new Dimension(400,200));
+//		final Dimension d = frame.getToolkit().getScreenSize();
+//		frame.setLocation((int)((d.getWidth() - frame.getWidth()) / 2),(int)((d.getHeight() - frame.getHeight()) / 2));
 		
-		
+		contentpane = new JPanel();
+		contentpane.setLayout(new BorderLayout());
 		
 
+		
 		JMenuBar mb = new JMenuBar();
+		//Mainmenue
 		JMenu menu = new JMenu("Menue");
 		JMenuItem miOpenFile = new JMenuItem("Open File");
-		JMenu menuAl = new JMenu("Algrorithmus");
-
-		JMenu bfs = new JMenu("bfs");
-
-		JPanel searchPanel1 = new JPanel();
-		JPanel searchPanel2 = new JPanel();
-		JPanel searchPanel3 = new JPanel();
-		searchPanel1.setLayout(new FlowLayout());
-
-		JButton buttonFind1 = new JButton("Search");
-		buttonFind1.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				Vertex[] vArr = getSelectedVertex();
-				resultPopUp(BreadthFirstSearch.searchForTheShortestPath(
-						_jGraphT, vArr[0], vArr[1]), 0);
-			}
-		});
-		JButton buttonFind2 = new JButton("Search");
-		buttonFind2.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				Vertex[] vArr = getSelectedVertex();
-
-				ShortestPathOfDijkstras sPoD = new ShortestPathOfDijkstras(
-						_jGraphT, vArr[0], vArr[1]);
-				resultPopUp(sPoD.getShortestPath(), sPoD.getZugriffCounter());
-
-//				 OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
-//				 resultPopUp(od.getShortestPathVertexList(),0);
-			}
-		});
-		JButton buttonfindAStern = new JButton("Search");
-		buttonfindAStern.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				Vertex[] vArr = getSelectedVertex();
-				AStarShortestPath aStar = new AStarShortestPath(_jGraphT,
-						vArr[0], vArr[1]);
-				resultPopUp(aStar.getShortestPath(), 0);
-			}
-		});
-
-		searchPanel1.add(buttonFind1);
-		searchPanel2.add(buttonFind2);
-		searchPanel3.add(buttonfindAStern);
-
-		JMenu aStern = new JMenu("AStern");
-		JMenu dijkstra = new JMenu("Dijkstra");
-		bfs.add(searchPanel1);
-		dijkstra.add(searchPanel2);
-		aStern.add(searchPanel3);
-
-		menuAl.add(bfs);
-		menuAl.add(dijkstra);
-		menuAl.add(aStern);
-
 		miOpenFile.addActionListener(new ActionListener()
 		{
 			@Override
@@ -172,7 +83,63 @@ public class ShowGraph
 				openFilePopUp();
 			}
 		});
+		
+		menu.add(miOpenFile);
+		menu.add(createSaveMenu());
+		menu.add(createExitMenu(frame));
+		
+		//Algrorithmusmenu
+		JMenu menuAl = new JMenu("Algrorithmus");
+		menuAl.add(createBFSMenu());
+		menuAl.add(createDijkstraMenu());
+		menuAl.add(createASternMenu());
+//		
+		
+		//Graphmenu
+		JMenu gG = new JMenu("Graph Generator");
+		JMenu createGraph = new JMenu("Open Graph Generator");
+		createGraph.add(createGraphGenerator());
+		gG.add(createGraph);
+		
+		mb.add(menu);
+		mb.add(menuAl);
+		mb.add(gG);
+		
+		content = new JPanel();
+		scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(1200,800));
+		JLabel testScroll = new JLabel("Open a Graph or create one");
+		content.add(testScroll);
+		scrollPane.setViewportView(content);
+		
+		contentpane.add(mb, BorderLayout.NORTH);
+		contentpane.add(scrollPane, BorderLayout.CENTER);
+		frame.getContentPane().add(contentpane);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	public void setGraph(JGraph graph)
+	{
+		scrollPane.setViewportView(graph);
+	}
+	private JMenuItem createExitMenu(JFrame frame)
+	{
+		JMenuItem miExit = new JMenuItem("Exit");
+		miExit.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				frame.dispose();
+			}
+		});
+		return miExit;
+	}
 
+	private JMenu createSaveMenu()
+	{
 		JMenu miSaveFile = new JMenu("Save File");
 		JPanel saveMenu = new JPanel();
 		saveMenu.setLayout(new FlowLayout());
@@ -193,173 +160,73 @@ public class ShowGraph
 		saveMenu.add(getSaveFileName);
 		saveMenu.add(saveFile);
 		miSaveFile.add(saveMenu);
+		return miSaveFile;
+	}
 
-		JMenuItem miExit = new JMenuItem("Exit");
-		miExit.addActionListener(new ActionListener()
+	private JMenuItem createASternMenu()
+	{	JMenu aStern = new JMenu("AStern");
+		JPanel aSternPanel = new JPanel();
+		JButton buttonFind = new JButton("Search");
+		buttonFind.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				_frame.dispose();
+				Vertex[] vArr = getSelectedVertex();
+				AStarShortestPath aStar = new AStarShortestPath(_jGraphT,
+						vArr[0], vArr[1]);
+				resultPopUp(aStar.getShortestPath(), 0);
 			}
 		});
-
-		menu.add(miOpenFile);
-		menu.add(miSaveFile);
-		menu.add(miExit);
-
-		JMenu gG = new JMenu("Graph Generator");
-		JMenu createGraph = new JMenu("Open Graph Generator");
-		createGraph.add(createGraphGenerator());
-		gG.add(createGraph);
-
-		mb.add(menu);
-		mb.add(menuAl);
-		mb.add(gG);
-		
-		
-		
-		content = new JPanel();
-		scrPane = new JScrollPane(content);
-	
-		scrPane.setPreferredSize(new Dimension(1200,800));
-		
-		_frame.getContentPane().add(mb, BorderLayout.NORTH);
-		_frame.getContentPane().add(content, BorderLayout.CENTER);
-		
-//		_frame.add(contentPane);
-		_frame.pack();
-		_frame.setVisible(true);
+		aSternPanel.add(buttonFind);
+		aStern.add(aSternPanel);
+		return aStern;
 	}
 
-	protected Vertex[] getSelectedVertex()
+	private JMenu createDijkstraMenu()
 	{
-		Vertex[] arr = new Vertex[2];
-		GraphSelectionModel selectionModel = _jgraph.getSelectionModel();
-		if (selectionModel.getSelectionCount() == 2)
+		JMenu dijkstra = new JMenu("Dijkstra");
+		JPanel dijkstraPanel = new JPanel();
+		JButton buttonFind = new JButton("Search");
+		buttonFind.addActionListener(new ActionListener()
 		{
-			Object[] e = selectionModel.getSelectionCells();
-			arr[0] = (VertexImpl) ((DefaultGraphCell) e[0]).getUserObject();
-			arr[1] = (VertexImpl) ((DefaultGraphCell) e[1]).getUserObject();
-		}
-		else
-		{	new ErrorPopUp("Not enough Vertex selected!");
-			throw new IllegalArgumentException("Not enough Vertex selected!");
-		}
-		return arr;
-	}
-
-	/*
-	 * creates the PopUp wich displays the shortest path
-	 * 
-	 * @param searchForTheShortestPath: a List containing the Vertex of the
-	 * shortest path
-	 */
-	private void resultPopUp(List<Vertex> searchForTheShortestPath, int counter)
-	{
-		new ResultPopUp(searchForTheShortestPath, counter);
-	}
-
-	public void setGraph(JGraph graph)
-	{
-		
-		content.add(graph);
-//		scrPane.setViewportView(content);
-		update();
-	}
-
-	private void openFilePopUp()
-	{
-//		System.out.println("klicked");
-		JFrame popup = new JFrame("Choose File");
-		popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		Container contentPane = popup.getContentPane();
-
-		final JLabel directoryLabel = new JLabel(" ");
-		directoryLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 36));
-		contentPane.add(directoryLabel, BorderLayout.NORTH);
-
-		// final JLabel filenameLabel = new JLabel(" ");
-		// filenameLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC,
-		// 36));
-		// contentPane.add(filenameLabel, BorderLayout.SOUTH);
-
-		final JButton open = new JButton("Open File");
-		contentPane.add(open, BorderLayout.SOUTH);
-
-		JFileChooser fileChooser = new JFileChooser(
-				"../GKA/res/files/bspGraphen/");
-		fileChooser.setControlButtonsAreShown(false);
-		contentPane.add(fileChooser, BorderLayout.CENTER);
-
-		ActionListener actionListener = new ActionListener()
-		{
-			public void actionPerformed(ActionEvent actionEvent)
+			@Override
+			public void actionPerformed(ActionEvent e)
 			{
-				JFileChooser theFileChooser = (JFileChooser) actionEvent
-						.getSource();
-				String command = actionEvent.getActionCommand();
-				if (command.equals(JFileChooser.APPROVE_SELECTION))
-				{
-					_frame.getContentPane().removeAll(); // Test
-					File selectedFile = theFileChooser.getSelectedFile();
-					directoryLabel.setText(selectedFile.getParent());
-//					_reader = new FileReader();
-//					try
-//					{
-//						_reader.read(selectedFile);
-//					}
-//					catch (IOException e)
-//					{
-//						new ErrorPopUp("This File could not be loaded!");
-//						e.printStackTrace();
-//					}
-//					CreateGraph createGraph = new CreateGraph(
-//							_reader.getRowList());
-//					_jGraphT = createGraph.getGraph();
-					
-					// ##################### FileReader 2 ###############################
-					try
-					{
-						GraphMaker_withScanner gMwS = new GraphMaker_withScanner(
-								selectedFile);
-						_jGraphT = gMwS.getGraph();
-					}
-					catch (Exception e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					// ##################### FileReader 2 ###############################
+				Vertex[] vArr = getSelectedVertex();
 
-					_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
-					_jgraph.setEnabled(_jGraphT != null);
-					
-					if(_jgraph != null){
-						JGraphFacade facade = new JGraphFacade(_jgraph);
-						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
-						layout.run(facade);
-						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
-					}
-					
-					setGraph(_jgraph);
+				ShortestPathOfDijkstras sPoD = new ShortestPathOfDijkstras(
+						_jGraphT, vArr[0], vArr[1]);
+				resultPopUp(sPoD.getShortestPath(), sPoD.getZugriffCounter());
 
-					popup.dispose();
-
-					// filenameLabel.setText(selectedFile.getName());
-				}
-				else if (command.equals(JFileChooser.CANCEL_SELECTION))
-				{
-					directoryLabel.setText(" ");
-					// filenameLabel.setText(" ");
-				}
+//				 OwnDijkstra od = new OwnDijkstra(_jGraphT, vArr[0], vArr[1]);
+//				 resultPopUp(od.getShortestPathVertexList(),0);
 			}
-		};
+		});
+		dijkstraPanel.add(buttonFind);
+		dijkstra.add(dijkstraPanel);
+		return dijkstra;
+	}
 
-		fileChooser.addActionListener(actionListener);
+	private JMenu createBFSMenu()
+	{
+		JMenu bfs = new JMenu("bfs");
+		JPanel bfsPanel = new JPanel();
+		JButton buttonFind = new JButton("Search");
+		buttonFind.addActionListener(new ActionListener()
+		{
 
-		popup.pack();
-		popup.setVisible(true);
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				Vertex[] vArr = getSelectedVertex();
+				resultPopUp(BreadthFirstSearch.searchForTheShortestPath(
+						_jGraphT, vArr[0], vArr[1]), 0);
+			}
+		});
+		bfsPanel.add(buttonFind);
+		bfs.add(bfsPanel);
+		return bfs;
 	}
 
 	private JPanel createGraphGenerator()
@@ -420,7 +287,7 @@ public class ShowGraph
 				GraphVisualiser.exportGraphToDotFile(GRAPH);
 				
 				JGraph jgraph = new JGraph(new JGraphModelAdapter<>(GRAPH));
-				setGraph(jgraph);
+//				setGraph(jgraph);
 			}
 		});
 
@@ -433,17 +300,127 @@ public class ShowGraph
 
 		return content;
 	}
-
-	/**
-	 * generates a new graph
-	 * 
-	 * @param weighted
-	 * @param attributed
-	 * @param directed
-	 * @param selectedItem
-	 * @param countVertex
-	 * @param countEdge
+	
+	protected Vertex[] getSelectedVertex()
+	{
+		Vertex[] arr = new Vertex[2];
+		GraphSelectionModel selectionModel = _jgraph.getSelectionModel();
+		if (selectionModel.getSelectionCount() == 2)
+		{
+			Object[] e = selectionModel.getSelectionCells();
+			arr[0] = (VertexImpl) ((DefaultGraphCell) e[0]).getUserObject();
+			arr[1] = (VertexImpl) ((DefaultGraphCell) e[1]).getUserObject();
+		}
+		else
+		{	new ErrorPopUp("Not enough Vertex selected!");
+			throw new IllegalArgumentException("Not enough Vertex selected!");
+		}
+		return arr;
+	}
+	
+	/*
+	 * creates the PopUp wich displays the shortest path
+	 * @param searchForTheShortestPath: a List containing the Vertex of the
+	 * shortest path
 	 */
+	private void resultPopUp(List<Vertex> searchForTheShortestPath, int counter)
+	{
+		new ResultPopUp(searchForTheShortestPath, counter);
+	}
+
+	private void openFilePopUp()
+	{
+//		System.out.println("klicked");
+		JFrame popup = new JFrame("Choose File");
+		popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		Container contentPane = popup.getContentPane();
+
+		final JLabel directoryLabel = new JLabel(" ");
+		directoryLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 36));
+		contentPane.add(directoryLabel, BorderLayout.NORTH);
+
+		// final JLabel filenameLabel = new JLabel(" ");
+		// filenameLabel.setFont(new Font("Serif", Font.BOLD | Font.ITALIC,
+		// 36));
+		// contentPane.add(filenameLabel, BorderLayout.SOUTH);
+
+		final JButton open = new JButton("Open File");
+		contentPane.add(open, BorderLayout.SOUTH);
+
+		JFileChooser fileChooser = new JFileChooser(
+				"../GKA/res/files/bspGraphen/");
+		fileChooser.setControlButtonsAreShown(false);
+		contentPane.add(fileChooser, BorderLayout.CENTER);
+
+		ActionListener actionListener = new ActionListener()
+		{
+			public void actionPerformed(ActionEvent actionEvent)
+			{
+				JFileChooser theFileChooser = (JFileChooser) actionEvent
+						.getSource();
+				String command = actionEvent.getActionCommand();
+				if (command.equals(JFileChooser.APPROVE_SELECTION))
+				{
+
+					File selectedFile = theFileChooser.getSelectedFile();
+					directoryLabel.setText(selectedFile.getParent());
+//					_reader = new FileReader();
+//					try
+//					{
+//						_reader.read(selectedFile);
+//					}
+//					catch (IOException e)
+//					{
+//						new ErrorPopUp("This File could not be loaded!");
+//						e.printStackTrace();
+//					}
+//					CreateGraph createGraph = new CreateGraph(
+//							_reader.getRowList());
+//					_jGraphT = createGraph.getGraph();
+					
+					// ##################### FileReader 2 ###############################
+					try
+					{
+						GraphMaker_withScanner gMwS = new GraphMaker_withScanner(
+								selectedFile);
+						_jGraphT = gMwS.getGraph();
+					}
+					catch (Exception e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// ##################### FileReader 2 ###############################
+
+					_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
+					_jgraph.setEnabled(_jGraphT != null);
+					
+					if(_jgraph != null){
+						JGraphFacade facade = new JGraphFacade(_jgraph);
+						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+						layout.run(facade);
+						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+					}
+					
+					setGraph(_jgraph);
+
+					popup.dispose();
+
+					// filenameLabel.setText(selectedFile.getName());
+				}
+				else if (command.equals(JFileChooser.CANCEL_SELECTION))
+				{
+					directoryLabel.setText(" ");
+					// filenameLabel.setText(" ");
+				}
+			}
+		};
+
+		fileChooser.addActionListener(actionListener);
+
+		popup.pack();
+		popup.setVisible(true);
+	}
 	protected void generateGraph(boolean weighted, boolean attributed,
 			boolean directed, Object selectedItem, String countVertex,
 			String countEdge)
@@ -504,27 +481,17 @@ public class ShowGraph
 			System.out.println(rowlist);
 		}
 
-		_frame.getContentPane().removeAll();
+		
 		CreateGraph createGraph = new CreateGraph((List)rowlist);
 		_jGraphT = createGraph.getGraph();
 		_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
 		
-//		if(_jgraph != null){
-//			JGraphFacade facade = new JGraphFacade(_jgraph);
-//			JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
-//			layout.run(facade);
-//			_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
-//		}
+		if(_jgraph != null){
+			JGraphFacade facade = new JGraphFacade(_jgraph);
+			JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+			layout.run(facade);
+			_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+		}
 		setGraph(_jgraph);
-	}
-
-	/*
-	 * updates the contentpane of the jframe
-	 */
-	private void update()
-	{
-		scrPane.repaint();
-//		contentPane.setVisible(true);
-		
 	}
 }

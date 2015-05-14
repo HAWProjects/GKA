@@ -17,6 +17,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
 
 import haw.gkaprojects.duc.robert.GUITool.GraphAdmin;
+import haw.gkaprojects.duc.robert.GUITool.MainUI;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.GraphMaker;
@@ -29,7 +30,8 @@ public class Start_Up {
 	public static void main(String[] args) {
 		
 
-		ShowGraph show =new ShowGraph();
+//		ShowGraph show =new ShowGraph();
+		new MainUI();
 //		CreateGraph create = new CreateGraph(reader.getRowList());
 //		Graph<Vertex, CustomEdge> graph = create.getGraph();
 //		JGraph jgraph = new JGraph(new JGraphModelAdapter<>(graph));
