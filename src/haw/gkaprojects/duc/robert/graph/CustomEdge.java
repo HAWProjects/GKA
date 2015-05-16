@@ -2,7 +2,7 @@ package haw.gkaprojects.duc.robert.graph;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-public class CustomEdge extends DefaultWeightedEdge {
+public class CustomEdge extends DefaultWeightedEdge implements Comparable<CustomEdge> {
 
 	/**
 	 * 
@@ -59,5 +59,11 @@ public class CustomEdge extends DefaultWeightedEdge {
 	@Override
 	public String toString(){
 		return Double.toString(getWeight());
+	}
+
+	@Override
+	public int compareTo(CustomEdge otherEdge)
+	{
+		return (int)(this.getWeight() - otherEdge.getWeight());
 	}
 }
