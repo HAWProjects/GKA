@@ -12,6 +12,7 @@ import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
 import haw.gkaprojects.duc.robert.guiPopUps.ResultPopUp;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.Kruskal;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
 import java.awt.BorderLayout;
@@ -93,6 +94,7 @@ public class MainUI
 		menuAl.add(createBFSMenu());
 		menuAl.add(createDijkstraMenu());
 		menuAl.add(createASternMenu());
+		menuAl.add(createSpanningTree());
 //		
 		
 		//Graphmenu
@@ -120,10 +122,42 @@ public class MainUI
 		frame.setVisible(true);
 	}
 	
+	private JMenu createSpanningTree()
+	{
+		JMenu kruskal = new JMenu("Kruskal");
+		JPanel kruskalPanel = new JPanel();
+		JButton buttonCreate = new JButton("create");
+		buttonCreate.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+					Kruskal krusk = new Kruskal(_jGraphT);
+					_jgraph = new JGraph(new JGraphModelAdapter<>(krusk.getSpanningTree()));
+					
+					if(_jgraph != null){
+						JGraphFacade facade = new JGraphFacade(_jgraph);
+						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+						layout.run(facade);
+						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+					}
+					setGraph(_jgraph);
+			}
+		});
+		kruskalPanel.add(buttonCreate);
+		kruskal.add(kruskalPanel);
+		return kruskal;
+	}
+	
+	/**
+	 * adds Graph to Screen
+	 * @param graph
+	 */
 	public void setGraph(JGraph graph)
 	{
 		scrollPane.setViewportView(graph);
 	}
+	
 	private JMenuItem createExitMenu(JFrame frame)
 	{
 		JMenuItem miExit = new JMenuItem("Exit");
