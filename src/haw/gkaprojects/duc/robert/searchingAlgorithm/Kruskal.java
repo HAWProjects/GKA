@@ -25,34 +25,32 @@ public class Kruskal
 	{
 		if (graph instanceof WeightedPseudograph)
 		{
-
-			// Gerüst aus graph erstellen
-			// createGraphFramework(graph);
-			createGraphFramework2(graph);
-
-			// Menge Minimalgerüst ausgeben
-
-			// summe Gewicht von Minimalspannbaum
-			calculateWeightOFSpanningTree();
+//			 createGraphFramework(graph);
+			createSpanningtree(graph);
 		}
 	}
 
-	private void createGraphFramework2(Graph<Vertex, CustomEdge> graph)
+	/*
+	 * creates spanning tree 
+	 * @param graph
+	 */
+	private void createSpanningtree(Graph<Vertex, CustomEdge> graph)
 	{
-		// Knotenmenge
+		// Knotenmenge ausgangsgraph
 		Set<Vertex> vertexSet = graph.vertexSet();
-		// Tupellist
-		List<CustomEdge> edgeList = new ArrayList<CustomEdge>();
-		for (CustomEdge e : graph.edgeSet())
-		{
-			edgeList.add(e);
-		}
+		// Kanten ausgangsgraph
+//		List<CustomEdge> edgeList = new ArrayList<CustomEdge>();
+//		for (CustomEdge e : graph.edgeSet())
+//		{
+//			edgeList.add(e);
+//		}
+//
+//		// Kantenliste sortieren nach Kante mit kleinstem Gewicht
+//		Collections.sort(edgeList);
+		
+		// Kanten ausgangsgraph sortiert
+		PriorityQueue<CustomEdge> edgeQueue = new PriorityQueue<>(graph.edgeSet());
 
-		// Kantenliste sortieren nach Kante mit kleinstem Gewicht
-		Collections.sort(edgeList);
-
-		PriorityQueue<CustomEdge> edgeQueue = new PriorityQueue<>();
-		edgeQueue.addAll(edgeList);
 
 		// StartVertex bestimmen
 		Iterator<Vertex> it = vertexSet.iterator();
@@ -62,39 +60,36 @@ public class Kruskal
 		newGraph = new WeightedPseudograph<>(CustomEdge.class);
 		newGraph.addVertex(vStart);
 
-		// Stertvertex zum erreichbar Set hinzufügen
-		HashSet<Vertex> newVertexSet = new HashSet<Vertex>();
-		newVertexSet.add(vStart);
-
 		// solange noch nicht alle Knoten drin sind
 		while (!edgeQueue.isEmpty())
 		{
 			CustomEdge e = edgeQueue.poll();
-
 			Vertex vSource = newGraph.getEdgeSource(e);
 			Vertex vTarget = newGraph.getEdgeTarget(e);
-
-			if(!checkforCircle(newGraph, graph, e)){
+			//if no circle add Edge
+			if (!checkforCircle(graph, e))
+			{
 				newGraph.addVertex(vSource);
 				newGraph.addVertex(vTarget);
 				newGraph.addEdge(vSource, vTarget);
 				// kantengewicht hinzufügen
-				((WeightedGraph<Vertex, CustomEdge>) newGraph).setEdgeWeight(newGraph.getEdge(vSource, vTarget),
-						graph.getEdgeWeight(e));
+				((WeightedGraph<Vertex, CustomEdge>) newGraph).setEdgeWeight(newGraph.getEdge(vSource, vTarget), graph.getEdgeWeight(e));
+				weightOfSpanningTree += newGraph.getEdgeWeight(e);
 			}
 		}
 	}
 
-	private boolean checkforCircle(Graph<Vertex, CustomEdge> newGraph, Graph<Vertex, CustomEdge> graph, CustomEdge e)
+	private boolean checkforCircle(Graph<Vertex, CustomEdge> graph, CustomEdge e)
 	{
-		if(newGraph.containsVertex(graph.getEdgeSource(e))&& newGraph.containsVertex(graph.getEdgeTarget(e))){
-			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>(newGraph, graph.getEdgeSource(e), graph.getEdgeTarget(e));
+		if (newGraph.containsVertex(graph.getEdgeSource(e)) && newGraph.containsVertex(graph.getEdgeTarget(e)))
+		{
+			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>(newGraph, graph.getEdgeSource(e),
+					graph.getEdgeTarget(e));
 			return dijkstra.getPath() != null;
 		}
 		return false;
 	}
 
-//	
 //	private void createGraphFramework(Graph<Vertex, CustomEdge> graph)
 //	{
 //		// Knotenmenge
@@ -118,7 +113,7 @@ public class Kruskal
 //		// StartVertex bestimmen
 //		Iterator<Vertex> it = vertexSet.iterator();
 //		Vertex vStart = it.next();
-//		System.out.println(vStart);
+//		newGraph.addVertex(vStart);
 //
 //		// Kanten hinzufügen, mit dem kleinsten Gewicht anfangen
 //		for (CustomEdge e : edgeList)
@@ -128,7 +123,12 @@ public class Kruskal
 //
 //			// Wenn null zurückgegeben wird, also kein Pfad vorahnden füge Kante
 //			// in Graphen
-//			if (DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) == null|| DijkstraShortestPath.findPathBetween(newGraph, vStart, vSource) == null)
+//			if ((DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) == null && DijkstraShortestPath.findPathBetween(newGraph, vStart,
+//					vSource) == null)
+//					|| (DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) == null && DijkstraShortestPath.findPathBetween(newGraph,
+//							vStart, vSource) != null)
+//					|| (DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) != null && DijkstraShortestPath.findPathBetween(newGraph,
+//							vStart, vSource) == null))
 //			{
 //				newGraph.addEdge(vSource, vTarget);
 //				// kantengewicht hinzufügen
@@ -138,19 +138,20 @@ public class Kruskal
 //		}
 //	}
 
-	private void calculateWeightOFSpanningTree()
-	{
-		for (CustomEdge e : newGraph.edgeSet())
-		{
-			weightOfSpanningTree += newGraph.getEdgeWeight(e);
-		}
-	}
-
+	
+	/**
+	 * returns the spanningtree
+	 * @return spanningtree(Graph<Vertex, CustomEdge>)
+	 */
 	public Graph<Vertex, CustomEdge> getSpanningTree()
 	{
 		return newGraph;
 	}
-
+	
+	/**
+	 * returns the weigth of the spanningtree
+	 * @return double
+	 */
 	public double getWeightOfSpanningTree()
 	{
 		return weightOfSpanningTree;

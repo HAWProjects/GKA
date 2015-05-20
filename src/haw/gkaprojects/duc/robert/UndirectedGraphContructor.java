@@ -24,6 +24,8 @@ import haw.gkaprojects.duc.robert.graph.VertexImpl;
  *
  */
 public class UndirectedGraphContructor {
+	
+	private UndirectedGraphContructor(){}
 
 	/**
 	 * 
