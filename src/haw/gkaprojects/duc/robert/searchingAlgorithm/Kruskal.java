@@ -38,21 +38,11 @@ public class Kruskal
 	{
 		// Knotenmenge ausgangsgraph
 		Set<Vertex> vertexSet = graph.vertexSet();
-		// Kanten ausgangsgraph
-//		List<CustomEdge> edgeList = new ArrayList<CustomEdge>();
-//		for (CustomEdge e : graph.edgeSet())
-//		{
-//			edgeList.add(e);
-//		}
-//
-//		// Kantenliste sortieren nach Kante mit kleinstem Gewicht
-//		Collections.sort(edgeList);
-		
+				
 		// Kanten ausgangsgraph sortiert
 		PriorityQueue<CustomEdge> edgeQueue = new PriorityQueue<>(graph.edgeSet());
 
-
-		// StartVertex bestimmen
+		// StartVertex/Graph bestimmen
 		Iterator<Vertex> it = vertexSet.iterator();
 		Vertex vStart = it.next();
 
@@ -89,54 +79,6 @@ public class Kruskal
 		}
 		return false;
 	}
-
-//	private void createGraphFramework(Graph<Vertex, CustomEdge> graph)
-//	{
-//		// Knotenmenge
-//		Set<Vertex> vertexSet = graph.vertexSet();
-//		// Tupellist
-//		List<CustomEdge> edgeList = new ArrayList<CustomEdge>();
-//		for (CustomEdge e : graph.edgeSet())
-//		{
-//			edgeList.add(e);
-//		}
-//
-//		// graph ohne kanten erzeugen aber mit allen Knoten
-//		newGraph = new WeightedPseudograph<>(CustomEdge.class);
-//		for (Vertex v : vertexSet)
-//		{
-//			newGraph.addVertex(v);
-//		}
-//		// Kantenliste sortieren nach Kante mit kleinstem Gewicht
-//		Collections.sort(edgeList);
-//		System.out.println(edgeList);
-//		// StartVertex bestimmen
-//		Iterator<Vertex> it = vertexSet.iterator();
-//		Vertex vStart = it.next();
-//		newGraph.addVertex(vStart);
-//
-//		// Kanten hinzufügen, mit dem kleinsten Gewicht anfangen
-//		for (CustomEdge e : edgeList)
-//		{
-//			Vertex vSource = newGraph.getEdgeSource(e);
-//			Vertex vTarget = newGraph.getEdgeTarget(e);
-//
-//			// Wenn null zurückgegeben wird, also kein Pfad vorahnden füge Kante
-//			// in Graphen
-//			if ((DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) == null && DijkstraShortestPath.findPathBetween(newGraph, vStart,
-//					vSource) == null)
-//					|| (DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) == null && DijkstraShortestPath.findPathBetween(newGraph,
-//							vStart, vSource) != null)
-//					|| (DijkstraShortestPath.findPathBetween(newGraph, vStart, vTarget) != null && DijkstraShortestPath.findPathBetween(newGraph,
-//							vStart, vSource) == null))
-//			{
-//				newGraph.addEdge(vSource, vTarget);
-//				// kantengewicht hinzufügen
-//				((WeightedGraph<Vertex, CustomEdge>) newGraph).setEdgeWeight(newGraph.getEdge(vSource, vTarget),
-//						graph.getEdgeWeight(graph.getEdge(vSource, vTarget)));
-//			}
-//		}
-//	}
 
 	
 	/**
