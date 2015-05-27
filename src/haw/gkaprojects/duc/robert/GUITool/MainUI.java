@@ -5,6 +5,9 @@ import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
 import haw.gkaprojects.duc.robert.GraphVisualiser;
 import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
+import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
+import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree;
+import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree.DataStructure;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
@@ -12,7 +15,6 @@ import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
 import haw.gkaprojects.duc.robert.guiPopUps.ResultPopUp;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
-import haw.gkaprojects.duc.robert.searchingAlgorithm.Kruskal;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 
 import java.awt.BorderLayout;
@@ -46,6 +48,7 @@ import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphSelectionModel;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.graph.WeightedPseudograph;
 
 import com.jgraph.layout.JGraphFacade;
 import com.jgraph.layout.JGraphLayout;
@@ -95,6 +98,7 @@ public class MainUI
 		menuAl.add(createDijkstraMenu());
 		menuAl.add(createASternMenu());
 		menuAl.add(createSpanningTree());
+		menuAl.add(createPrimSpanningTree());
 //		
 		
 		//Graphmenu
@@ -122,6 +126,39 @@ public class MainUI
 		frame.setVisible(true);
 	}
 	
+	private JMenuItem createPrimSpanningTree() {
+		JMenu prim = new JMenu("Prim");
+		JPanel primPanel = new JPanel();
+		JButton buttonCreate = new JButton("create");
+		buttonCreate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					try {
+						OwnPrimMinimumSpanningTree prim = new OwnPrimMinimumSpanningTree(_jGraphT,DataStructure.FIBONACCI_HEAP);
+						_jgraph = new JGraph(new JGraphModelAdapter<>(prim.getSpanningTree()));
+						
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if(_jgraph != null){
+						JGraphFacade facade = new JGraphFacade(_jgraph);
+						JGraphLayout layout = new JGraphSimpleLayout(JGraphSimpleLayout.TYPE_CIRCLE);
+						layout.run(facade);
+						_jgraph.getGraphLayoutCache().edit(facade.createNestedMap(true, true));
+					}
+					setGraph(_jgraph);
+			}
+		});
+		
+		
+		primPanel.add(buttonCreate);
+		prim.add(primPanel);
+		return prim;
+	}
+
 	private JMenu createSpanningTree()
 	{
 		JMenu kruskal = new JMenu("Kruskal");
@@ -132,8 +169,14 @@ public class MainUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-					Kruskal krusk = new Kruskal(_jGraphT);
-					_jgraph = new JGraph(new JGraphModelAdapter<>(krusk.getSpanningTree()));
+					Kruskal krusk;
+					try {
+						krusk = new Kruskal(_jGraphT);
+						_jgraph = new JGraph(new JGraphModelAdapter<>(krusk.getSpanningTree()));
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 					if(_jgraph != null){
 						JGraphFacade facade = new JGraphFacade(_jgraph);

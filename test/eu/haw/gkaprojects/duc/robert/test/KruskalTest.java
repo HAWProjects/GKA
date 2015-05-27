@@ -2,10 +2,11 @@ package eu.haw.gkaprojects.duc.robert.test;
 
 import static org.junit.Assert.*;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
+import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
-import haw.gkaprojects.duc.robert.searchingAlgorithm.Kruskal;
 
 import java.io.File;
 
@@ -38,13 +39,13 @@ public class KruskalTest
 		 _graph4 = scanner4.getGraph();
 		 _graph3 = scanner5.getGraph();
 		 
-		 rondomGraph1 = UndirectedGraphContructor.constructGraph(300, 500);
-		 rondomGraph2 = UndirectedGraphContructor.constructGraph(3000, 5000);
-		 rondomGraph3 = UndirectedGraphContructor.constructGraph(10000, 12000);
+		 rondomGraph1 = UndirectedConnectedGraphConstructor.constructGraph(3000, 5000);
+		 rondomGraph2 = UndirectedConnectedGraphConstructor.constructGraph(30000, 50000);
+		
 		 
 	}
 	@Test
-	public void testKruskal1()
+	public void testKruskal1() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph1);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph1);
@@ -54,7 +55,7 @@ public class KruskalTest
 	}
 	
 	@Test
-	public void testKruskal1Weigth()
+	public void testKruskal1Weigth() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph1);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph1);
@@ -64,7 +65,7 @@ public class KruskalTest
 	
 	
 	@Test
-	public void testKruskal2()
+	public void testKruskal2() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph4);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph4);
@@ -74,7 +75,7 @@ public class KruskalTest
 	}
 	
 	@Test
-	public void testKruskal2Weigth()
+	public void testKruskal2Weigth() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph4);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph4);
@@ -82,7 +83,7 @@ public class KruskalTest
 	}
 	
 	@Test
-	public void testKruskal3()
+	public void testKruskal3() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph3);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph3);
@@ -91,7 +92,7 @@ public class KruskalTest
 	}
 	
 	@Test
-	public void testKruskal3Weigth()
+	public void testKruskal3Weigth() throws Exception
 	{
 		Kruskal krusk = new Kruskal(_graph3);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(_graph3);
@@ -99,14 +100,16 @@ public class KruskalTest
 	}
 	
 	@Test
-	public void testKruskalRandom1(){
+	public void testKruskalRandom1() throws Exception
+	{
 		Kruskal krusk = new Kruskal(rondomGraph1);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph1);
 		assertEquals(kruskalMinimumSpanningTree.getMinimumSpanningTreeEdgeSet(),krusk.getSpanningTree().edgeSet());
 	}
 	
 	@Test
-	public void testKruskalRandom2(){
+	public void testKruskalRandom2() throws Exception
+	{
 		Kruskal krusk = new Kruskal(rondomGraph2);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph2);
 		assertEquals( kruskalMinimumSpanningTree.getMinimumSpanningTreeEdgeSet(),krusk.getSpanningTree().edgeSet());
@@ -120,21 +123,25 @@ public class KruskalTest
 //	}
 	
 	@Test
-	public void testKruskalRandom1Weigth(){
+	public void testKruskalRandom1Weigth() throws Exception
+	{
 		Kruskal krusk = new Kruskal(rondomGraph1);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph1);
 		assertEquals(kruskalMinimumSpanningTree.getMinimumSpanningTreeTotalWeight(),krusk.getWeightOfSpanningTree(),0);
 	}
 	
 	@Test
-	public void testKruskalRandom2Weigth(){
+	public void testKruskalRandom2Weigth() throws Exception
+	{
 		Kruskal krusk = new Kruskal(rondomGraph2);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph2);
 		assertEquals(kruskalMinimumSpanningTree.getMinimumSpanningTreeTotalWeight(),krusk.getWeightOfSpanningTree(),0);
 	}
 	
 	@Test
-	public void testKruskalRandom3Weigth(){
+	public void testKruskalRandom3Weigth() throws Exception
+	{
+		 rondomGraph3 = UndirectedConnectedGraphConstructor.constructGraph(800000, 1000000);
 		Kruskal krusk = new Kruskal(rondomGraph3);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph3);
 		assertEquals( kruskalMinimumSpanningTree.getMinimumSpanningTreeTotalWeight(),krusk.getWeightOfSpanningTree(),0);

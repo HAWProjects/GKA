@@ -1,4 +1,4 @@
-package haw.gkaprojects.duc.robert.searchingAlgorithm;
+package haw.gkaprojects.duc.robert.SpanningTree;
 
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -18,15 +18,17 @@ import org.jgrapht.graph.WeightedPseudograph;
 
 public class Kruskal
 {
+	// spanningtree
 	Graph<Vertex, CustomEdge> newGraph;
 	double weightOfSpanningTree;
 
-	public Kruskal(Graph<Vertex, CustomEdge> graph)
+	public Kruskal(Graph<Vertex, CustomEdge> graph) throws Exception
 	{
 		if (graph instanceof WeightedPseudograph)
 		{
-//			 createGraphFramework(graph);
 			createSpanningtree(graph);
+		}else{
+			throw new Exception("Graph ist kein WeightedPseudograph!");
 		}
 	}
 
@@ -36,39 +38,46 @@ public class Kruskal
 	 */
 	private void createSpanningtree(Graph<Vertex, CustomEdge> graph)
 	{
-		// Knotenmenge ausgangsgraph
+		// all Vertex of the original graph
 		Set<Vertex> vertexSet = graph.vertexSet();
 				
-		// Kanten ausgangsgraph sortiert
+		//sort Edges
 		PriorityQueue<CustomEdge> edgeQueue = new PriorityQueue<>(graph.edgeSet());
 
-		// StartVertex/Graph bestimmen
+		// init startVertex/Graph 
 		Iterator<Vertex> it = vertexSet.iterator();
 		Vertex vStart = it.next();
 
-		// graph ohne kanten erzeugen mit einem Start Knoten
+		// create new Graph composed of only one Vertex 
 		newGraph = new WeightedPseudograph<>(CustomEdge.class);
 		newGraph.addVertex(vStart);
 
-		// solange noch nicht alle Knoten drin sind
+		//if queue not empty
 		while (!edgeQueue.isEmpty())
 		{
 			CustomEdge e = edgeQueue.poll();
-			Vertex vSource = newGraph.getEdgeSource(e);
-			Vertex vTarget = newGraph.getEdgeTarget(e);
+			Vertex vSource = graph.getEdgeSource(e);
+			Vertex vTarget = graph.getEdgeTarget(e);
 			//if no circle add Edge
 			if (!checkforCircle(graph, e))
 			{
 				newGraph.addVertex(vSource);
 				newGraph.addVertex(vTarget);
 				newGraph.addEdge(vSource, vTarget);
-				// kantengewicht hinzufügen
+				// add weight of the edge
 				((WeightedGraph<Vertex, CustomEdge>) newGraph).setEdgeWeight(newGraph.getEdge(vSource, vTarget), graph.getEdgeWeight(e));
+				// add weight to total weight
 				weightOfSpanningTree += newGraph.getEdgeWeight(e);
 			}
 		}
 	}
-
+	
+	/*
+	 * checks for circle 
+	 * @param graph
+	 * @param e Edge
+	 * @return boolean
+	 */
 	private boolean checkforCircle(Graph<Vertex, CustomEdge> graph, CustomEdge e)
 	{
 		if (newGraph.containsVertex(graph.getEdgeSource(e)) && newGraph.containsVertex(graph.getEdgeTarget(e)))
