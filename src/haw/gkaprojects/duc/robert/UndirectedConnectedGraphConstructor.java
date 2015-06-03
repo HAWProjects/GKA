@@ -46,7 +46,7 @@ public class UndirectedConnectedGraphConstructor {
             while(!unreached.isEmpty()){
                   
                   Vertex v1 = unreached.remove(0);
-                  Vertex v2 = reachable.get((int)Math.random()*reachable.size());
+                  Vertex v2 = reachable.get((int)(Math.random()*reachable.size()));
                   
                   double weight = (Integer.valueOf(v1.getLabel()) + Integer.valueOf(v2.getLabel()))/2;
 
@@ -62,8 +62,8 @@ public class UndirectedConnectedGraphConstructor {
             // Add the rest of edges
             while (eAmount != 0){
                   
-                  Vertex v1 = reachable.get((int)Math.random()*reachable.size());
-                  Vertex v2 = reachable.get((int)Math.random()*reachable.size());
+                  Vertex v1 = reachable.get((int)(Math.random()*reachable.size()));
+                  Vertex v2 = reachable.get((int)(Math.random()*reachable.size()));
                   
 //                  double weight = Math.random()*edgesAmount;
                   double weight = (Integer.valueOf(v1.getLabel()) + Integer.valueOf(v2.getLabel()))/2;

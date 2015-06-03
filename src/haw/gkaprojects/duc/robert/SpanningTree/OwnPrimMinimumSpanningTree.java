@@ -1,24 +1,26 @@
 package haw.gkaprojects.duc.robert.SpanningTree;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
-
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.Graph;
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.WeightedGraph;
-import org.jgrapht.alg.ConnectivityInspector;
-import org.jgrapht.alg.NeighborIndex;
-import org.jgrapht.graph.WeightedPseudograph;
-
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.IPriorityQueueForPrimAlg;
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.PriorityQueueFibonacciBased;
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.PriorityQueueWithoutFibonacciHeap;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.Graph;
+import org.jgrapht.Graphs;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.WeightedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
+import org.jgrapht.alg.NeighborIndex;
+import org.jgrapht.graph.WeightedPseudograph;
 
 public class OwnPrimMinimumSpanningTree {
 
@@ -93,12 +95,12 @@ public class OwnPrimMinimumSpanningTree {
             Set<Vertex> exploredVertices = new HashSet<Vertex>();
 
             // A set of all vertices from the original graph
-            Set<Vertex> setOfVertices = new HashSet<Vertex>(this.originalGraph.vertexSet());
+            Set<Vertex> unspann = new HashSet<Vertex>(this.originalGraph.vertexSet());
 
             // A map which store neighbor-vertices of every vertices in the
             // graph
-            Map<Vertex, Set<Vertex>> neightborMap = getNeighborMap(graph);
-
+//            Map<Vertex, Set<Vertex>> neightborMap = getNeighborMap(graph);
+            Map<Vertex, List<Vertex>> neightborMap = getNeighborMap(graph);
             // Initialize predecessor of all vertices, which is "nothing"
             Map<Vertex, Vertex> predecessors = initPredecesors();
 
@@ -107,7 +109,7 @@ public class OwnPrimMinimumSpanningTree {
             IPriorityQueueForPrimAlg priorityQueue = getPriorityQueue(graph, typeOfDataStruture);
 
             // Start vertex can be any of the graph's Vertices
-            Vertex start = (new LinkedList<Vertex>(setOfVertices)).get(0);
+            Vertex start = (new LinkedList<Vertex>(unspann)).get(0);
 
             // Initialize start vertex
             priorityQueue.decreaseKey(start, 0);
@@ -115,7 +117,7 @@ public class OwnPrimMinimumSpanningTree {
             exploredVertices.add(start);
 
             // As long as there's vertex that is unexplored
-            while (!priorityQueue.isEmpty()) {
+            while (!unspann.isEmpty()) {
 
                   // Take the nearest vertex to current being-built spanning
                   // tree
@@ -124,17 +126,22 @@ public class OwnPrimMinimumSpanningTree {
                   // Set as explored
                   exploredVertices.add(exploringVertex);
 
+                  unspann.remove(exploringVertex);
+                  
+                  List<Vertex> nei = neightborMap.get(exploringVertex);
                   // For every neighbor of the exploring vertex
-                  for (Vertex vertex : neightborMap.get(exploringVertex)) {
-
+                  for (Vertex vertex : nei) {
+                	  	
+                	  	if (!unspann.contains(vertex)) {continue;}
+                	  
                         // If it hasn't been explored yet
                         if (!exploredVertices.contains(vertex)) {
-
+                        	 
                               // Find the shortest edge between the neighbor and
                               // current exploring vertex
                               CustomEdge shortestEdge = findShortestEgdes(graph, exploringVertex,
                                           vertex);
-
+                        	
                               double edgeweight = graph.getEdgeWeight(shortestEdge);
 
                               // If the weight of the edge smaller than the key
@@ -248,27 +255,31 @@ public class OwnPrimMinimumSpanningTree {
        * @param graph
        * @return
        */
-      private Map<Vertex, Set<Vertex>> getNeighborMap(Graph<Vertex, CustomEdge> graph) {
+      private Map<Vertex, List<Vertex>> getNeighborMap(Graph<Vertex, CustomEdge> graph) {
 
-            Map<Vertex, Set<Vertex>> neighborMap = new HashMap<Vertex, Set<Vertex>>();
+            Map<Vertex, List<Vertex>> neighborMap = new HashMap<Vertex, List<Vertex>>();
 
             Set<Vertex> setOfVertex = graph.vertexSet();
 
             Set<CustomEdge> setOfEgde = graph.edgeSet();
 
             for (Vertex v : setOfVertex) {
-                  neighborMap.put(v, new HashSet<Vertex>());
+                  neighborMap.put(v, new LinkedList<Vertex>());
             }
 
-            for (CustomEdge edge : setOfEgde) {
+//            for (CustomEdge edge : setOfEgde) {
 
-                  Vertex source = graph.getEdgeSource(edge);
-                  Vertex target = graph.getEdgeTarget(edge);
+//                  Vertex source = graph.getEdgeSource(edge);
+//                  Vertex target = graph.getEdgeTarget(edge);
 
-                  neighborMap.get(source).add(target);
-                  neighborMap.get(target).add(source);
+//                  neighborMap.get(source).add(target);
+//                  neighborMap.get(target).add(source);
 
-            }
+//            }
+            
+            for (Vertex vertex : setOfVertex) {
+				neighborMap.put(vertex, Graphs.neighborListOf(graph, vertex));
+			}
 
             return neighborMap;
       }

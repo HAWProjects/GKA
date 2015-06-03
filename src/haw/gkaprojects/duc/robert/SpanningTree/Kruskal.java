@@ -3,11 +3,7 @@ package haw.gkaprojects.duc.robert.SpanningTree;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -82,7 +78,7 @@ public class Kruskal
 	{
 		if (newGraph.containsVertex(graph.getEdgeSource(e)) && newGraph.containsVertex(graph.getEdgeTarget(e)))
 		{
-			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>(newGraph, graph.getEdgeSource(e),
+			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>(newGraph, graph.getEdgeSource(e),					
 					graph.getEdgeTarget(e));
 			return dijkstra.getPath() != null;
 		}
@@ -101,7 +97,7 @@ public class Kruskal
 	
 	/**
 	 * returns the weigth of the spanningtree
-	 * @return double
+	 * @return Weigth of Spanningtree (double)
 	 */
 	public double getWeightOfSpanningTree()
 	{

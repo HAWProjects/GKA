@@ -1,9 +1,8 @@
 package eu.haw.gkaprojects.duc.robert.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
-import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
 import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -12,7 +11,7 @@ import java.io.File;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.KruskalMinimumSpanningTree;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class KruskalTest
@@ -20,15 +19,15 @@ public class KruskalTest
 	private static final String PATH1 = "../GKA/test/eu/haw/gkaprojects/duc/robert/test/test/TestfileKruskal.graph";
 	private static final String PATH4 = "../GKA/res/files/bspGraphen/bsp4.graph";
 	private static final String PATH3 = "../GKA/res/files/bspGraphen/bsp3.graph";
-	private Graph<Vertex, CustomEdge> _graph1;
-	private Graph<Vertex, CustomEdge> _graph4;
-	private Graph<Vertex, CustomEdge> _graph3;
-	private Graph<Vertex, CustomEdge> rondomGraph1;
-	private Graph<Vertex, CustomEdge> rondomGraph2;
-	private Graph<Vertex, CustomEdge> rondomGraph3;
+	private static Graph<Vertex, CustomEdge> _graph1;
+	private static Graph<Vertex, CustomEdge> _graph4;
+	private static Graph<Vertex, CustomEdge> _graph3;
+	private static Graph<Vertex, CustomEdge> rondomGraph1;
+	private static Graph<Vertex, CustomEdge> rondomGraph2;
+	private static Graph<Vertex, CustomEdge> rondomGraph3;
 	
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		File file1 = new File(PATH1);
 		File file4 = new File(PATH4);
 		File file3 = new File(PATH3);
@@ -40,8 +39,9 @@ public class KruskalTest
 		 _graph3 = scanner5.getGraph();
 		 
 		 rondomGraph1 = UndirectedConnectedGraphConstructor.constructGraph(3000, 5000);
-		 rondomGraph2 = UndirectedConnectedGraphConstructor.constructGraph(30000, 50000);
-		
+		 rondomGraph2 = UndirectedConnectedGraphConstructor.constructGraph(8000, 10000);
+		 rondomGraph3 = UndirectedConnectedGraphConstructor.constructGraph(15000, 60000);
+
 		 
 	}
 	@Test
@@ -116,7 +116,7 @@ public class KruskalTest
 	}
 	
 //	@Test
-//	public void testKruskalRandom3(){
+//	public void testKruskalRandom3() throws Exception{
 //		Kruskal krusk = new Kruskal(rondomGraph3);
 //		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph3);
 //		assertEquals( kruskalMinimumSpanningTree.getMinimumSpanningTreeEdgeSet(),krusk.getSpanningTree().edgeSet());
@@ -141,7 +141,7 @@ public class KruskalTest
 	@Test
 	public void testKruskalRandom3Weigth() throws Exception
 	{
-		 rondomGraph3 = UndirectedConnectedGraphConstructor.constructGraph(800000, 1000000);
+		
 		Kruskal krusk = new Kruskal(rondomGraph3);
 		KruskalMinimumSpanningTree<Vertex, CustomEdge> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(rondomGraph3);
 		assertEquals( kruskalMinimumSpanningTree.getMinimumSpanningTreeTotalWeight(),krusk.getWeightOfSpanningTree(),0);
