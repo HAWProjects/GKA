@@ -39,7 +39,7 @@ public class KruskalTest
 		 _graph3 = scanner5.getGraph();
 		 
 		 rondomGraph1 = UndirectedConnectedGraphConstructor.constructGraph(3000, 5000);
-		 rondomGraph2 = UndirectedConnectedGraphConstructor.constructGraph(8000, 10000);
+		 rondomGraph2 = UndirectedConnectedGraphConstructor.constructGraph(8000, 15000);
 		 rondomGraph3 = UndirectedConnectedGraphConstructor.constructGraph(15000, 60000);
 
 		 

@@ -361,10 +361,10 @@ public class MainUI
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				Graph<Vertex, CustomEdge> jGraphT =UndirectedConnectedGraphConstructor.constructGraph(Integer.parseInt(vertexField.getText()), Integer.parseInt(edgeField.getText()));
-				GraphVisualiser.exportGraphToDotFile(jGraphT);					
-						_jgraph = new JGraph(new JGraphModelAdapter<>(jGraphT));
-						_jgraph.setEnabled(jGraphT != null);
+				_jGraphT =UndirectedConnectedGraphConstructor.constructGraph(Integer.parseInt(vertexField.getText()), Integer.parseInt(edgeField.getText()));
+				GraphVisualiser.exportGraphToDotFile(_jGraphT);					
+						_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
+						_jgraph.setEnabled(_jGraphT != null);
 						
 						if(_jgraph != null){
 							JGraphFacade facade = new JGraphFacade(_jgraph);
