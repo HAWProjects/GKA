@@ -14,7 +14,7 @@ import org.jgrapht.graph.WeightedPseudograph;
 
 public class UndirectedConnectedGraphConstructor {
 
-      public static Graph<Vertex, CustomEdge> constructGraph(int verticesAmount, int edgesAmount ) {
+      public static Graph<Vertex, CustomEdge> constructGraph(int verticesAmount, int edgesAmount) {
             
             //
             Graph<Vertex, CustomEdge> graph = new WeightedPseudograph<>(CustomEdge.class);
