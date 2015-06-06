@@ -1,14 +1,12 @@
 package eu.haw.gkaprojects.duc.robert.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
-
+import static org.junit.Assert.assertTrue;
 import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
-import org.jgraph.JGraph;
+import java.util.Random;
+
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;

@@ -1,10 +1,7 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
-import haw.gkaprojects.duc.robert.graph.Vertex;
-
 import java.util.List;
 
-import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 
