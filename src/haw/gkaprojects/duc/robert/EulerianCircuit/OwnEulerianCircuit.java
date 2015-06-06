@@ -1,29 +1,31 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 
-public class OwnEulerianCircuit<V,E> {
-      
-      private List<V> eulerianCircuit;
-      private double totalWeight;
-      
+public class OwnEulerianCircuit<V, E> {
+
+      private List<E> eulerianCircuit;
+      private double  totalWeight;
+
       public OwnEulerianCircuit(UndirectedGraph<V, E> graph) {
       }
 
-      public List<V> getEulerianCircuit() {
+      public List<E> getEulerianCircuit() {
             return eulerianCircuit;
       }
-
 
       public double getTotalWeight() {
             return totalWeight;
       }
-      
+
       public boolean isEulerian(UndirectedGraph<V, E> graph) {
             return EulerianCircuit.isEulerian(graph);
       }
-      
+
+     
 }

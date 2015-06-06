@@ -24,9 +24,11 @@ public class HierholzerTest {
 		int edgesAmount = 40;	
 		UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor.constructGraph(verticesAmount, edgesAmount);
 		OwnEulerianCircuit<Vertex, CustomEdge> eulerGraph = new OwnEulerianCircuit<Vertex, CustomEdge>(graph);
-		List<Vertex> eulerlist = eulerGraph.getEulerianCircuit();
+		List<CustomEdge> eulerlist = eulerGraph.getEulerianCircuit();
 		
 		
 //		EulerianCircuit.isEulerian(arg0)
 	}
+	
+	
 }
