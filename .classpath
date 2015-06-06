@@ -7,5 +7,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JGraphT"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JGraph"/>
+	<classpathentry kind="lib" path="External lib/jgraph-5.13.0.0.jar"/>
+	<classpathentry kind="lib" path="External lib/jgrapht-ext-0.9.0-uber.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

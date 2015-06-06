@@ -1,4 +1,4 @@
-package eu.haw.gkaprojects.duc.robert.test;
+package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import static org.junit.Assert.assertEquals;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
