@@ -3,7 +3,7 @@ package haw.gkaprojects.duc.robert;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
-import org.jgrapht.Graph;
+import org.jgrapht.UndirectedGraph;
 
 public class UndirectedEulerianGraphConstructor {
       
@@ -19,7 +19,7 @@ public class UndirectedEulerianGraphConstructor {
        * @ensure org.jgrapht.alg.EulerianCircuit.isEulerian(eulerianGraph)
        *
        */
-      public static Graph<Vertex, CustomEdge> constructGraph(int verticesAmount, int edgesAmount) {
+      public static UndirectedGraph<Vertex, CustomEdge> constructGraph(int verticesAmount, int edgesAmount) {
            return  null;
       }
       
