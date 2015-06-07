@@ -23,7 +23,7 @@ public class HierholzerEulerianCircuit<V, E> {
             return totalWeight;
       }
 
-      public boolean isEulerian(UndirectedGraph<V, E> graph) {
+      public static <V,E> boolean isEulerian(UndirectedGraph<V, E> graph) {
             return EulerianCircuit.isEulerian(graph);
       }
 
