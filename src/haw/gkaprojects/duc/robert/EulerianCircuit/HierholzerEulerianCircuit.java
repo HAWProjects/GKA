@@ -7,12 +7,12 @@ import java.util.Set;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 
-public class OwnEulerianCircuit<V, E> {
+public class HierholzerEulerianCircuit<V, E> {
 
       private List<E> eulerianCircuit;
       private double  totalWeight;
 
-      public OwnEulerianCircuit(UndirectedGraph<V, E> graph) {
+      public HierholzerEulerianCircuit(UndirectedGraph<V, E> graph) {
       }
 
       public List<E> getEulerianCircuit() {
