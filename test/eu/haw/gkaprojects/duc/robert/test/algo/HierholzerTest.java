@@ -1,7 +1,7 @@
 package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
-import haw.gkaprojects.duc.robert.EulerianCircuit.OwnEulerianCircuit;
+import haw.gkaprojects.duc.robert.EulerianCircuit.HierholzerEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
@@ -23,7 +23,7 @@ public class HierholzerTest {
 		int verticesAmount = 20;	
 		int edgesAmount = 40;	
 		UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor.constructGraph(verticesAmount, edgesAmount);
-		OwnEulerianCircuit<Vertex, CustomEdge> eulerGraph = new OwnEulerianCircuit<Vertex, CustomEdge>(graph);
+		HierholzerEulerianCircuit<Vertex, CustomEdge> eulerGraph = new HierholzerEulerianCircuit<Vertex, CustomEdge>(graph);
 		List<CustomEdge> eulerlist = eulerGraph.getEulerianCircuit();
 		
 		
