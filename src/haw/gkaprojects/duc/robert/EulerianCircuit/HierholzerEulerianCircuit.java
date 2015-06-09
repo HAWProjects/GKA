@@ -1,9 +1,6 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 

@@ -5,7 +5,6 @@ import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
 import haw.gkaprojects.duc.robert.GraphVisualiser;
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
-import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
 import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
 import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree;
 import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree.DataStructure;
@@ -49,7 +48,6 @@ import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphSelectionModel;
 import org.jgrapht.Graph;
 import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.graph.WeightedPseudograph;
 
 import com.jgraph.layout.JGraphFacade;
 import com.jgraph.layout.JGraphLayout;
@@ -568,7 +566,8 @@ public class MainUI
 		}
 
 		
-		CreateGraph createGraph = new CreateGraph((List)rowlist);
+		@SuppressWarnings("unchecked")
+            CreateGraph createGraph = new CreateGraph((List)rowlist);
 		_jGraphT = createGraph.getGraph();
 		_jgraph = new JGraph(new JGraphModelAdapter<>(_jGraphT));
 		

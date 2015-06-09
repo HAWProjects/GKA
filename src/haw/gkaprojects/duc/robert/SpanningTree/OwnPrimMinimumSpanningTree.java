@@ -12,7 +12,6 @@ import org.jgrapht.UndirectedGraph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.WeightedPseudograph;
 
-import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree.DataStructure;
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.IPriorityQueue;
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.PriorityQueueWithOutFib;
 import haw.gkaprojects.duc.robert.SpanningTree.PriorityQueue.PriorityWithFibonacciHeap;

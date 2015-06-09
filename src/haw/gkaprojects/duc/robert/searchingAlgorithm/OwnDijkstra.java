@@ -2,10 +2,7 @@ package haw.gkaprojects.duc.robert.searchingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
-
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.guiPopUps.ErrorPopUp;
