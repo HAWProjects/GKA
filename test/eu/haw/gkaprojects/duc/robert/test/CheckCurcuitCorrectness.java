@@ -34,10 +34,7 @@ public class CheckCurcuitCorrectness {
                   }else {
                         s.remove(v2);
                   }
-                 
             }
-            
-            
             return s.isEmpty();
             
       }
