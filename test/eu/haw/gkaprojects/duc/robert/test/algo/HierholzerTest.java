@@ -1,12 +1,14 @@
 package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
+import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
 import haw.gkaprojects.duc.robert.EulerianCircuit.HierholzerEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Random;
 
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
@@ -16,17 +18,26 @@ import eu.haw.gkaprojects.duc.robert.test.CheckCurcuitCorrectness;
 
 public class HierholzerTest {
 
-      @Test
-      public void test() {
+      private int testcount      = 100;
+      private int minVertexcount = 50;
 
-      }
 
       @Test
       public void testSmallGraph() {
-            int verticesAmount = 20;
-            int edgesAmount = 40;
-            for (int i = 0; i < 100; i++) {
-                 
+            int verticesAmount = 0;
+            int edgesAmount = 0;
+            for (int i = 0; i < testcount; i++) {
+
+                  Random rand = new Random();
+
+                  do {
+
+                        verticesAmount = rand.nextInt(100) + minVertexcount;
+                        edgesAmount = rand.nextInt(300);
+
+                  } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
+                              edgesAmount));
+
                   UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
 
@@ -42,14 +53,24 @@ public class HierholzerTest {
                   }
             }
       }
-      
+
       @Test
       public void testRandomizedEulerianGraph() {
-           
-            int verticesAmount = 20;
-            int edgesAmount = 40;
-            for (int i = 0; i < 100; i++) {
-                 
+
+            int verticesAmount = 0;
+            int edgesAmount = 0;
+            for (int i = 0; i < testcount; i++) {
+
+                  Random rand = new Random();
+
+                  do {
+
+                        verticesAmount = rand.nextInt(10000) + minVertexcount;
+                        edgesAmount = rand.nextInt(30000);
+
+                  } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
+                              edgesAmount));
+
                   UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
 
@@ -65,5 +86,4 @@ public class HierholzerTest {
                   }
             }
       }
-
 }
