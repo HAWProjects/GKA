@@ -1,8 +1,7 @@
 package eu.haw.gkaprojects.duc.robert.test.algo;
 
-import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
-import haw.gkaprojects.duc.robert.EulerianCircuit.CheckCurcuitCorrectness;
+import haw.gkaprojects.duc.robert.EulerianCircuit.EulerUtil;
 import haw.gkaprojects.duc.robert.EulerianCircuit.HierholzerEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.jgrapht.UndirectedGraph;
-import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
 
 public class HierholzerTest {
@@ -46,8 +44,8 @@ public class HierholzerTest {
 
                   List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
                   
-                  if (HierholzerEulerianCircuit.isEulerian(graph)) {
-                        assertTrue(CheckCurcuitCorrectness.isEulerianCircuit(graph, circuit));
+                  if (EulerUtil.isEulerianGraph(graph)) {
+                        assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
                   } else {
                         assertTrue(circuit == null);
                   }
@@ -79,8 +77,8 @@ public class HierholzerTest {
 
                   List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
 
-                  if (HierholzerEulerianCircuit.isEulerian(graph)) {
-                        assertTrue(CheckCurcuitCorrectness.isEulerianCircuit(graph, circuit));
+                  if (EulerUtil.isEulerianGraph(graph)) {
+                        assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
                   } else {
                         assertTrue(circuit == null);
                   }

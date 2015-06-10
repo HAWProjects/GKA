@@ -14,7 +14,6 @@ import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 
-
 public class HierholzerEulerianCircuit<V, E> {
 
       private List<E>     eulerianCircuit;
@@ -22,19 +21,22 @@ public class HierholzerEulerianCircuit<V, E> {
       private Graph<V, E> originalGraph;
 
       public HierholzerEulerianCircuit(Graph<V, E> graph) {
+            
+            if (!isEulerianGraph((UndirectedGraph<V, E>) graph)) {
+                  throw new IllegalArgumentException("Graph must be an eulerian graph!");
+            }
+            
             this.originalGraph = graph;
             this.eulerianCircuit = findEulerianCircuit(graph);
       }
 
       private List<E> findEulerianCircuit(Graph<V, E> graph) {
 
-
             Map<V, Integer> degreesMap = new HashMap<V, Integer>();
 
             for (V v : graph.vertexSet()) {
                   degreesMap.put(v, ((UndirectedGraph<V, E>) graph).degreeOf(v));
             }
-
 
             Set<V> vertexSet = new HashSet<V>(graph.vertexSet());
 
@@ -76,14 +78,10 @@ public class HierholzerEulerianCircuit<V, E> {
                   }
 
             }
-          
 
             return cycle;
       }
 
-
-
- 
       private void updateDegree(Map<V, Integer> degreesMap, List<E> cycle, Graph<V, E> graph) {
 
             for (E e : cycle) {
@@ -148,14 +146,6 @@ public class HierholzerEulerianCircuit<V, E> {
             return cycle;
       }
 
-      public List<E> getEulerianCircuit() {
-            return eulerianCircuit;
-      }
-
-      public static <V, E> boolean isEulerian(UndirectedGraph<V, E> graph) {
-            return EulerianCircuit.isEulerian(graph);
-      }
-
       private V findOtherSide(Graph<V, E> graph, V oneSide, E edge) {
 
             V otherSide = graph.getEdgeSource(edge).equals(oneSide) ? graph.getEdgeTarget(edge)
@@ -164,38 +154,21 @@ public class HierholzerEulerianCircuit<V, E> {
             return otherSide;
       }
 
-      public static <V, E> boolean isEulerianCircuit(Graph<V, E> graph, List<E> cycle) {
+      public Graph<V, E> getOriginalGraph() {
+            return originalGraph;
+      }
 
-            if (cycle == null)
-                  return false;
+      public List<E> getEulerianCircuit() {
+            return this.eulerianCircuit;
+      }
 
-            Set<V> s = new HashSet<V>();
+      private static <V, E> boolean isEulerianGraph(UndirectedGraph<V, E> graph) {
+            return EulerianCircuit.isEulerian(graph);
+      }
 
-            if (cycle.size() != graph.edgeSet().size()) {
-                  return false;
-            }
+      private static <V, E> boolean isEulerianCircuit(Graph<V, E> graph, List<E> cycle) {
 
-            for (int i = 0; i < cycle.size(); i++) {
-                  E edge = cycle.get(i);
-
-                  V v1 = graph.getEdgeSource(edge);
-                  V v2 = graph.getEdgeTarget(edge);
-
-                  if (!s.contains(v1)) {
-                        s.add(v1);
-                  } else {
-                        s.remove(v1);
-                  }
-
-                  if (!s.contains(v2)) {
-                        s.add(v2);
-                  } else {
-                        s.remove(v2);
-                  }
-
-            }
-
-            return s.isEmpty();
+           return EulerUtil.isEulerianCircuit(graph, cycle); 
 
       }
 }

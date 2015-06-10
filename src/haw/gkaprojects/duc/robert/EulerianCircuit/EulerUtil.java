@@ -6,8 +6,9 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.EulerianCircuit;
 
-public class CheckCurcuitCorrectness {
+public class EulerUtil {
      
       public static <V,E> boolean isEulerianCircuit(Graph<V, E> graph, List<E> cycle) {
            
@@ -45,6 +46,8 @@ public class CheckCurcuitCorrectness {
             
       }
 
-      
+      public static <V, E> boolean isEulerianGraph(UndirectedGraph<V, E> graph) {
+            return EulerianCircuit.isEulerian(graph);
+      } 
 
 }
