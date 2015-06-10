@@ -2,6 +2,7 @@ package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
+import haw.gkaprojects.duc.robert.EulerianCircuit.CheckCurcuitCorrectness;
 import haw.gkaprojects.duc.robert.EulerianCircuit.HierholzerEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -13,8 +14,6 @@ import java.util.Random;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
-
-import eu.haw.gkaprojects.duc.robert.test.CheckCurcuitCorrectness;
 
 public class HierholzerTest {
 
@@ -37,15 +36,16 @@ public class HierholzerTest {
 
                   } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
                               edgesAmount));
-
-                  UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor
+                  
+                  
+                  UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
-
+                  
                   HierholzerEulerianCircuit<Vertex, CustomEdge> eulerGraph = new HierholzerEulerianCircuit<Vertex, CustomEdge>(
                               graph);
 
                   List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
-
+                  
                   if (HierholzerEulerianCircuit.isEulerian(graph)) {
                         assertTrue(CheckCurcuitCorrectness.isEulerianCircuit(graph, circuit));
                   } else {
@@ -71,7 +71,7 @@ public class HierholzerTest {
                   } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
                               edgesAmount));
 
-                  UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedConnectedGraphConstructor
+                  UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
 
                   HierholzerEulerianCircuit<Vertex, CustomEdge> eulerGraph = new HierholzerEulerianCircuit<Vertex, CustomEdge>(
