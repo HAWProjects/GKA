@@ -1,9 +1,6 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
 
@@ -23,7 +20,7 @@ public class HierholzerEulerianCircuit<V, E> {
             return totalWeight;
       }
 
-      public boolean isEulerian(UndirectedGraph<V, E> graph) {
+      public static <V,E> boolean isEulerian(UndirectedGraph<V, E> graph) {
             return EulerianCircuit.isEulerian(graph);
       }
 

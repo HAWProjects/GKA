@@ -32,25 +32,25 @@ public class CustomEdge extends DefaultWeightedEdge implements Comparable<Custom
 		_color = color;
 	}
 	
-	@Override
-	public boolean equals(Object obj)
-	{
-		boolean result = false;
-		if(obj instanceof CustomEdge)
-		{
-			CustomEdge otherEdge = (CustomEdge)obj;
-			result = this.getlabel().equals(otherEdge.getlabel());
-		}
-			
-			return result;
-	}
-	
-	
-	
-	public int hashCode()
-	{
-		return this.getlabel().hashCode();
-	}
+//	@Override
+//	public boolean equals(Object obj)
+//	{
+//		boolean result = false;
+//		if(obj instanceof CustomEdge)
+//		{
+//			CustomEdge otherEdge = (CustomEdge)obj;
+//			result = this.getlabel().equals(otherEdge.getlabel());
+//		}
+//			
+//			return result;
+//	}
+//	
+//	
+//	
+//	public int hashCode()
+//	{
+//		return this.getlabel().hashCode();
+//	}
 	
 	public String getlabel(){
 		return "("+this.getSource() + ":" + this.getTarget()+")";

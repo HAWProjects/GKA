@@ -2,8 +2,6 @@ package haw.gkaprojects.duc.robert.SpanningTree;
 
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
-import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
-
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -12,7 +10,6 @@ import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.WeightedPseudograph;
-import org.jgrapht.traverse.DepthFirstIterator;
 
 public class Kruskal
 {

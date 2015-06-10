@@ -13,45 +13,60 @@ import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
 
 public class EulerGraphConstructorTest {
-	private int testcount = 500;
-	private int minVertexcount = 50;
+      private int testcount      = 100;
+      private int minVertexcount = 50;
 
-	@Test
-	public void testGraphisEulergraph() {
-		int verticesAmount = 0;
-		int edgesAmount = 0;
-		for (int i = 0; i < testcount; i++) {
-			do {
-				Random rand = new Random();
-				verticesAmount = rand.nextInt(1000)+ minVertexcount;
-				edgesAmount = rand.nextInt(3000);
-			} while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(
-					verticesAmount, edgesAmount));
-			
-			Graph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor
-					.constructGraph(verticesAmount, edgesAmount);
-			assertTrue(EulerianCircuit
-					.isEulerian((UndirectedGraph<Vertex, CustomEdge>) graph));
-		}
-	}
+      @Test
+      public void testGraphisEulergraph() {
+            int verticesAmount = 0;
+            int edgesAmount = 0;
 
-	@Test
-	public void testGraphisEulergraph2() {
-		int verticesAmount = 0;
-		int edgesAmount = 0;
-		for (int i = 0; i < testcount; i++) {
-			do {
-				Random rand = new Random();
-				verticesAmount = rand.nextInt(10000) + minVertexcount;
-				edgesAmount = rand.nextInt(30000);
-			} while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(
-					verticesAmount, edgesAmount));
-			
-			Graph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor
-					.constructGraph(verticesAmount, edgesAmount);
-			assertTrue(EulerianCircuit
-					.isEulerian((UndirectedGraph<Vertex, CustomEdge>) graph));
-		}
-	}
+            for (int i = 0; i < testcount; i++) {
+
+                  Random rand = new Random();
+
+                  do {
+
+                        verticesAmount = rand.nextInt(1000) + minVertexcount;
+                        edgesAmount = rand.nextInt(3000);
+
+                  } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
+                              edgesAmount));
+
+                  Graph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor
+                              .constructGraph(verticesAmount, edgesAmount);
+
+                  assertTrue(EulerianCircuit
+                              .isEulerian((UndirectedGraph<Vertex, CustomEdge>) graph));
+                  assertTrue(graph.vertexSet().size() == verticesAmount);
+                  assertTrue(graph.edgeSet().size() == edgesAmount);
+            }
+      }
+
+      @Test
+      public void testGraphisEulergraph2() {
+            int verticesAmount = 0;
+            int edgesAmount = 0;
+            for (int i = 0; i < testcount; i++) {
+
+                  Random rand = new Random();
+                  
+                  do {
+
+                        verticesAmount = rand.nextInt(10000) + minVertexcount;
+                        edgesAmount = rand.nextInt(30000);
+
+                  } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
+                              edgesAmount));
+
+                  Graph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor
+                              .constructGraph(verticesAmount, edgesAmount);
+
+                  assertTrue(EulerianCircuit
+                              .isEulerian((UndirectedGraph<Vertex, CustomEdge>) graph));
+                  assertTrue(graph.vertexSet().size() == verticesAmount);
+                  assertTrue(graph.edgeSet().size() == edgesAmount);
+            }
+      }
 
 }
