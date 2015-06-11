@@ -85,7 +85,10 @@ public class DoSomething {
                   }else {
                         s.remove(v2);
                   }
-                 
+                
+                  if (s.size()>2) {
+                        return false;
+                  }
             }
             
             

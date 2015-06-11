@@ -1,8 +1,8 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
-import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
-import haw.gkaprojects.duc.robert.graph.Vertex;
+//import haw.gkaprojects.duc.robert.graph.Vertex;
+//import haw.gkaprojects.duc.robert.GraphFileSaver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,17 +141,6 @@ public class HierholzerEulerianCircuit<V, E> {
                               for (V v : graph.vertexSet()) {
                                     degreesMap.put(v, ((UndirectedGraph<V, E>) graph).degreeOf(v));
                               }
-                              
-//                              System.out.println(degreesMap);
-//                              System.out.println(isEulerianGraph((UndirectedGraph<V, E>) graph));
-//                              System.out.println(graph.vertexSet().size());
-//                              System.out.println(graph.edgeSet().size());
-                              
-//                              HierholzerEulerianCircuit<V, E> cir =  new HierholzerEulerianCircuit<V,E>(graph);
-                              
-//                              System.out.println(isEulerianCircuit(graph, cir.getEulerianCircuit()));
-                              
-//                              GraphFileSaver.saveGraphToFile("/Users/DucNguyenMinh/git/GKA_/res/files/bspGraphen/failedGraph.graph", (Graph<Vertex, CustomEdge>) graph);
                               throw new IllegalArgumentException("Shit");
                         }
 
