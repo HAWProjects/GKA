@@ -1,7 +1,7 @@
 package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import static org.junit.Assert.*;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree;
 import haw.gkaprojects.duc.robert.SpanningTree.OwnPrimMinimumSpanningTree.DataStructure;
@@ -29,8 +29,8 @@ public class PrimTest {
 	public static void setUpBeforeClass() throws Exception {
 		File file4 = new File(PATH4);
 		File file3 = new File(PATH3);
-		GraphMaker_withScanner scanner4 = new GraphMaker_withScanner(file4);
-		GraphMaker_withScanner scanner5 = new GraphMaker_withScanner(file3);
+		GraphMaker_withScanner2 scanner4 = new GraphMaker_withScanner2(file4);
+		GraphMaker_withScanner2 scanner5 = new GraphMaker_withScanner2(file3);
 		 _graph4 = scanner4.getGraph();
 		 _graph3 = scanner5.getGraph();
 		 

@@ -2,7 +2,7 @@ package haw.gkaprojects.duc.robert.GUITool;
 
 import haw.gkaprojects.duc.robert.CreateGraph;
 import haw.gkaprojects.duc.robert.GraphFileSaver;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.GraphVisualiser;
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
@@ -465,7 +465,7 @@ public class MainUI
 					// ##################### FileReader 2 ###############################
 					try
 					{
-						GraphMaker_withScanner gMwS = new GraphMaker_withScanner(
+						GraphMaker_withScanner2 gMwS = new GraphMaker_withScanner2(
 								selectedFile);
 						_jGraphT = gMwS.getGraph();
 					}

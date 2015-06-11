@@ -56,10 +56,10 @@ public class CustomEdge extends DefaultWeightedEdge implements Comparable<Custom
 		return "("+this.getSource() + ":" + this.getTarget()+")";
 	}
 	
-	@Override
-	public String toString(){
-		return Double.toString(getWeight());
-	}
+//	@Override
+//	public String toString(){
+//		return Double.toString(getlabel());
+//	}
 
 	@Override
 	public int compareTo(CustomEdge otherEdge)

@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -39,9 +39,9 @@ public class DijkstrasAlgorithmTest {
 		File file1 = new File(PATH3);
 		File file2 = new File(PATH4);
 		File file3 = new File(PATH5);
-		GraphMaker_withScanner scanner3 = new GraphMaker_withScanner(file1);
-		GraphMaker_withScanner scanner4 = new GraphMaker_withScanner(file2);
-		GraphMaker_withScanner scanner5 = new GraphMaker_withScanner(file3);
+		GraphMaker_withScanner2 scanner3 = new GraphMaker_withScanner2(file1);
+		GraphMaker_withScanner2 scanner4 = new GraphMaker_withScanner2(file2);
+		GraphMaker_withScanner2 scanner5 = new GraphMaker_withScanner2(file3);
 		
 		 _graph3 = scanner3.getGraph();
 		 _graph4 = scanner4.getGraph();

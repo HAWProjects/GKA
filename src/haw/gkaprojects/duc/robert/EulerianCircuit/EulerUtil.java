@@ -1,5 +1,9 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
+import haw.gkaprojects.duc.robert.GraphFileSaver;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +11,7 @@ import java.util.Set;
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.EulerianCircuit;
+
 
 public class EulerUtil {
      
@@ -39,6 +44,10 @@ public class EulerUtil {
                         s.remove(v2);
                   }
                  
+                  
+                  if(s.size() > 2) {
+                        return false;
+                  }
             }
             
             

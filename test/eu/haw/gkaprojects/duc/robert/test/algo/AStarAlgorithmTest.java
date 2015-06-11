@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
@@ -29,7 +29,7 @@ public class AStarAlgorithmTest {
 	@Before
 	public void setUp() throws Exception {
 		File file = new File(PATH3);
-		GraphMaker_withScanner scanner3 = new GraphMaker_withScanner(file);
+		GraphMaker_withScanner2 scanner3 = new GraphMaker_withScanner2(file);
 		 _graph3 = scanner3.getGraph();
 	}
 	

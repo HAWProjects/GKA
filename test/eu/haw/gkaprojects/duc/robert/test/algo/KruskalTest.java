@@ -1,7 +1,7 @@
 package eu.haw.gkaprojects.duc.robert.test.algo;
 
 import static org.junit.Assert.assertEquals;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.UndirectedConnectedGraphConstructor;
 import haw.gkaprojects.duc.robert.SpanningTree.Kruskal;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
@@ -31,9 +31,9 @@ public class KruskalTest
 		File file1 = new File(PATH1);
 		File file4 = new File(PATH4);
 		File file3 = new File(PATH3);
-		GraphMaker_withScanner scanner3 = new GraphMaker_withScanner(file1);
-		GraphMaker_withScanner scanner4 = new GraphMaker_withScanner(file4);
-		GraphMaker_withScanner scanner5 = new GraphMaker_withScanner(file3);
+		GraphMaker_withScanner2 scanner3 = new GraphMaker_withScanner2(file1);
+		GraphMaker_withScanner2 scanner4 = new GraphMaker_withScanner2(file4);
+		GraphMaker_withScanner2 scanner5 = new GraphMaker_withScanner2(file3);
 		 _graph1 = scanner3.getGraph();
 		 _graph4 = scanner4.getGraph();
 		 _graph3 = scanner5.getGraph();

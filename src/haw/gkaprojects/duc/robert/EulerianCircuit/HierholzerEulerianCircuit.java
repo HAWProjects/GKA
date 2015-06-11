@@ -1,6 +1,8 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
+import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,14 @@ public class HierholzerEulerianCircuit<V, E> {
       public HierholzerEulerianCircuit(Graph<V, E> graph) {
             
             if (!isEulerianGraph((UndirectedGraph<V, E>) graph)) {
+                  Map<V, Integer> degreesMap = new HashMap<V, Integer>();
+                  
+                  for (V v : graph.vertexSet()) {
+                        degreesMap.put(v, ((UndirectedGraph<V, E>) graph).degreeOf(v));
+                  }
+                  
+                  System.out.println(degreesMap);
+                  
                   throw new IllegalArgumentException("Graph must be an eulerian graph!");
             }
             
@@ -56,15 +66,18 @@ public class HierholzerEulerianCircuit<V, E> {
 
                   int currentPosition = 0;
 
+                  current = v0;
                   for (int i = 0; i < cycle.size(); i++) {
-
-                        E e = cycle.get(i);
-                        current = findOtherSide(graph, current, e);
-
+                        
                         if (degreesMap.get(current) > 0) {
-                              currentPosition = i + 1;
+                              
                               break;
                         }
+                        
+                        E e = cycle.get(i);
+                        current = findOtherSide(graph, current, e);
+                        currentPosition = i+1;
+                       
                   }
 
                   List<E> oneMoreCycle = findCircle(graph, current, ignoredEdges);
@@ -109,6 +122,8 @@ public class HierholzerEulerianCircuit<V, E> {
                   E nextEdge = null;
 
                   Iterator<E> iter = incidentalEdges.iterator();
+                  
+                  
                   // Find next edge, which not yet been used and the vertex on
                   // other side of the edge hasn't been in the circle yet.
                   do {
@@ -121,14 +136,28 @@ public class HierholzerEulerianCircuit<V, E> {
                               for (E edge : cycle) {
                                     ((CustomEdge) edge).setColor("red");
                               }
+                              Map<V, Integer> degreesMap = new HashMap<V, Integer>();
+                              
+                              for (V v : graph.vertexSet()) {
+                                    degreesMap.put(v, ((UndirectedGraph<V, E>) graph).degreeOf(v));
+                              }
+                              
+//                              System.out.println(degreesMap);
+//                              System.out.println(isEulerianGraph((UndirectedGraph<V, E>) graph));
+//                              System.out.println(graph.vertexSet().size());
+//                              System.out.println(graph.edgeSet().size());
+                              
+//                              HierholzerEulerianCircuit<V, E> cir =  new HierholzerEulerianCircuit<V,E>(graph);
+                              
+//                              System.out.println(isEulerianCircuit(graph, cir.getEulerianCircuit()));
+                              
+//                              GraphFileSaver.saveGraphToFile("/Users/DucNguyenMinh/git/GKA_/res/files/bspGraphen/failedGraph.graph", (Graph<Vertex, CustomEdge>) graph);
                               throw new IllegalArgumentException("Shit");
                         }
 
-                  } while (ignoredEdges.contains(nextEdge)
-                  /*
-                   * || goneThroughVertices.contains(findOtherSide(graph,
-                   * nextVertex, nextEdge))
-                   */);
+                  } while (ignoredEdges.contains(nextEdge));
+                  
+                  
                   if (nextEdge == null) {
                         return null;
                   }
@@ -140,7 +169,6 @@ public class HierholzerEulerianCircuit<V, E> {
                   // The next vertex is the vertex on the other side of the edge
                   nextVertex = findOtherSide(graph, nextVertex, nextEdge);
 
-                  // goneThroughVertices.add(nextVertex);
             } while (!nextVertex.equals(v0));
 
             return cycle;

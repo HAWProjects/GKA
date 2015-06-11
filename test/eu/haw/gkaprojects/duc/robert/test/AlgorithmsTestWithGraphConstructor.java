@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;

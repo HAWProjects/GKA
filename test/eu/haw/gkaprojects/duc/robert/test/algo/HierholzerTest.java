@@ -10,19 +10,21 @@ import static org.junit.Assert.*;
 import java.util.List;
 import java.util.Random;
 
+import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
 
 public class HierholzerTest {
 
-      private int testcount      = 100;
+      private int testcount      = 200;
       private int minVertexcount = 50;
 
 
       @Test
       public void testSmallGraph() {
-            int verticesAmount = 0;
-            int edgesAmount = 0;
+            int verticesAmount = 15;
+            int edgesAmount = 30;
             for (int i = 0; i < testcount; i++) {
 
                   Random rand = new Random();
@@ -36,19 +38,15 @@ public class HierholzerTest {
                               edgesAmount));
                   
                   
-                  UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
+                  Graph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
-                  
+                 
                   HierholzerEulerianCircuit<Vertex, CustomEdge> eulerGraph = new HierholzerEulerianCircuit<Vertex, CustomEdge>(
                               graph);
 
                   List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
                   
-                  if (EulerUtil.isEulerianGraph(graph)) {
                         assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
-                  } else {
-                        assertTrue(circuit == null);
-                  }
             }
       }
 

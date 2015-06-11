@@ -1,9 +1,5 @@
 package haw.gkaprojects.duc.robert;
 
-import haw.gkaprojects.duc.robert.graph.CustomEdge;
-import haw.gkaprojects.duc.robert.graph.Vertex;
-import haw.gkaprojects.duc.robert.graph.VertexImpl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -16,22 +12,25 @@ import org.jgrapht.graph.DirectedPseudograph;
 import org.jgrapht.graph.DirectedWeightedPseudograph;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
-public class GraphMaker_withScanner {
+public class GraphMaker_withScanner2 {
 	private Graph<Vertex, CustomEdge> _graph;
 	public static final int DIRECTED = 1;
 	public static final int WEIGHTED = 5;
 	public static final boolean weighted = true;
 
-	public GraphMaker_withScanner(String path) throws Exception {
-		_graph = readGraphString(path);
+	public GraphMaker_withScanner2(File file) throws Exception {
+		_graph = readGraphString(file);
 	}
 
-	private Graph<Vertex, CustomEdge> readGraphString(String path)
+	private Graph<Vertex, CustomEdge> readGraphString(File file)
 			throws Exception {
 		Graph<Vertex, CustomEdge> graph = null;
 
-		try (Scanner sc = new Scanner(new File(path))) {
+		try (Scanner sc = new Scanner(file)) {
 
 			// read header them choose the right type for the graph
 			String header = sc.nextLine();
@@ -40,7 +39,7 @@ public class GraphMaker_withScanner {
 			switch (type) {
 			case 0:
 				graph = new Pseudograph<>(CustomEdge.class);
-				Scanner scnew = new Scanner(new File(path));
+				Scanner scnew = new Scanner(file);
 				fillgraph(graph, scnew);
 				break;
 			case DIRECTED:

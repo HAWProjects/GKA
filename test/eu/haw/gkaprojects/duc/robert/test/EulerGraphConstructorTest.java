@@ -13,7 +13,7 @@ import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
 
 public class EulerGraphConstructorTest {
-      private int testcount      = 100;
+      private int testcount      = 200;
       private int minVertexcount = 50;
 
       @Test

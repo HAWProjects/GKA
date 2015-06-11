@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.FileReader;
 import haw.gkaprojects.duc.robert.GraphMaker;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner;
+import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 import haw.gkaprojects.duc.robert.graph.VertexImpl;
@@ -261,7 +261,7 @@ public class ShortstPathTest {
 		try
 		{
 			File file = new File(PATH3);
-			GraphMaker_withScanner graphMaker = new GraphMaker_withScanner(file);
+			GraphMaker_withScanner2 graphMaker = new GraphMaker_withScanner2(file);
 			graph = graphMaker.getGraph();
 		}
 		catch (Exception e)
