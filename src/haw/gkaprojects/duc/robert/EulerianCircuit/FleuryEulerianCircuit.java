@@ -11,33 +11,41 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.alg.EulerianCircuit;
-import org.jgrapht.graph.Pseudograph;
 
-public class FleuryEulerianCircuit<V, E> {
+public class FleuryEulerianCircuit<V, E>
+{
 	private List<E> eulerianCircuit;
 	private double totalWeight;
 
-	public FleuryEulerianCircuit(UndirectedGraph<V, E> graph) {
-		if (isEulerian(graph)) {
+	public FleuryEulerianCircuit(UndirectedGraph<V, E> graph)
+	{
+		if (isEulerian(graph))
+		{
 			createEuler(graph);
 		}
 	}
 
-	public List<E> getEulerianCircuit() {
+	public List<E> getEulerianCircuit()
+	{
 		return eulerianCircuit;
 	}
 
-	public double getTotalWeight() {
+	public double getTotalWeight()
+	{
 		return totalWeight;
 	}
 
-	public boolean isEulerian(UndirectedGraph<V, E> graph) {
+	public boolean isEulerian(UndirectedGraph<V, E> graph)
+	{
 		return EulerianCircuit.isEulerian(graph);
 	}
 
-	private void createEuler(UndirectedGraph<V, E> graph) {
+	private void createEuler(UndirectedGraph<V, E> graph)
+	{
 		// all Vertex of the original graph
 		Set<Vertex> vertexSet = (Set<Vertex>) graph.vertexSet();
 		// EdgeSet
@@ -45,10 +53,9 @@ public class FleuryEulerianCircuit<V, E> {
 		// EdgeQueue
 		Queue<?> edgeQueue = new ConcurrentLinkedQueue<>(graph.edgeSet());
 
-
 		// Ergebnis Liste
 		List<CustomEdge> resultlist = new ArrayList();
-		
+
 		// deleteListe
 		List<CustomEdge> deletedEdgeList = new LinkedList<CustomEdge>();
 
@@ -57,48 +64,83 @@ public class FleuryEulerianCircuit<V, E> {
 		Vertex start = itV.next();
 
 		// benachbarte Knoten
-		while (!edgeQueue.isEmpty()) {
-
+		while (!edgeQueue.isEmpty())
+		{
 			Vertex currentVertex = start;
 
 			Set<?> neighbourEdgeset = (Set<CustomEdge>) graph.edgesOf((V) currentVertex);
 			Iterator<CustomEdge> itNeighbor = (Iterator<CustomEdge>) neighbourEdgeset.iterator();
 
+			// mehr als eine alsgehende kante
+			if (neighbourEdgeset.size() >= 2)
+			{
+				while (itNeighbor.hasNext())
+				{
+					CustomEdge currentEdge = itNeighbor.next();
+					if (isEdgeNotABridge(currentEdge, graph))
+					{
+						resultlist.add(currentEdge);
+						currentVertex = (Vertex)graph.getEdgeTarget((E)currentEdge);
+						break;
+					}
 			
-
-				if (neighbourEdgeset.size() >= 2 && !isEdgeABridge(itNeighbor.next(), graph, resultlist)) {
-
-				}else{
-					// kante in ergebnis liste einfügen
-					
 				}
-
-			
+				// nur eine ausgehende kante
+			}
+			else
+			{
+				CustomEdge currentEdge = itNeighbor.next();
+				resultlist.add(currentEdge);
+				currentVertex = (Vertex)graph.getEdgeTarget((E)currentEdge);
+				graph.removeEdge((V)graph.getEdgeSource((E)currentEdge), (V)graph.getEdgeTarget((E)currentEdge));
+				// kante in ergebnis liste einfuegen
+			}
 
 			// update edelist
 			edgeList = graph.edgeSet();
 		}
-
 	}
 
-	private CustomEdge getNextEdge(Set<?> edgeList) {
+	private CustomEdge getNextEdge(Set<?> edgeList)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private boolean isEdgeABridge(CustomEdge e, UndirectedGraph<V, E> graph, List<CustomEdge> resultlist) {
+	private boolean isEdgeNotABridge(CustomEdge e, UndirectedGraph<V, E> graph)
+	{
+		Vertex source = (Vertex) graph.getEdgeSource((E) e);
+		Vertex target = (Vertex) graph.getEdgeTarget((E) e);
+		graph.removeEdge((E) e);
 
-//		UndirectedGraph<V, E> g2 = (UndirectedGraph<V, E>)graph.clone();
-//		g2.removeEdge(e);
-//		for (CustomEdge e : resultlist) {
-//			g2.removeEdge(e);
-//		}
-//		SearchResult result = Breadth_First_Search.searchShortestPath((AbstractBaseGraph<String, DefaultEdge>) g2, (String) graph.getEdgeSource(edge),
-//				(String) graph.getEdgeTarget(edge));
-//		if (result.getPath() != null)
-//			return true;
-//		return false;
+		if (graph.containsVertex((V) source) && graph.containsVertex((V) target))
+		{
+			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>((Graph<Vertex, CustomEdge>) graph,
+					source, target);
+			graph.addEdge((V) source, (V) target);
+			return dijkstra.getPath() != null;
+		}
+		graph.addEdge((V) source, (V) target);
+		return false;
+	}
 
+	/*
+	 * checks for circle
+	 * 
+	 * @param graph
+	 * 
+	 * @param e Edge
+	 * 
+	 * @return boolean
+	 */
+	private boolean checkforCircle(UndirectedGraph<V, E> graph, Vertex source, Vertex target)
+	{
+		if (graph.containsVertex((V) source) && graph.containsVertex((V) target))
+		{
+			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>((Graph<Vertex, CustomEdge>) graph,
+					source, target);
+			return dijkstra.getPath() != null;
+		}
 		return false;
 	}
 }
