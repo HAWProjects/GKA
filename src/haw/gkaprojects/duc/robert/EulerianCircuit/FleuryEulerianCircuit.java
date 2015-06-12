@@ -116,11 +116,8 @@ public class FleuryEulerianCircuit<V, E>
 
 	/*
 	 * checks for circle
-	 * 
 	 * @param graph
-	 * 
 	 * @param e Edge
-	 * 
 	 * @return boolean
 	 */
 	private boolean checkforCircle(UndirectedGraph<V, E> graph, Vertex source, Vertex target)

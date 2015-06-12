@@ -3,6 +3,7 @@ package eu.haw.gkaprojects.duc.robert.test.algo;
 import static org.junit.Assert.*;
 import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
 import haw.gkaprojects.duc.robert.EulerianCircuit.EulerUtil;
+import haw.gkaprojects.duc.robert.EulerianCircuit.FleuryEulerian;
 import haw.gkaprojects.duc.robert.EulerianCircuit.FleuryEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
@@ -36,7 +37,7 @@ public class FleuryTest {
             	
             UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                     .constructGraph(verticesAmount, edgesAmount);
-            FleuryEulerianCircuit<Vertex, CustomEdge> eulerGraph = new FleuryEulerianCircuit<Vertex,CustomEdge>(graph);
+            FleuryEulerian<Vertex, CustomEdge> eulerGraph = new FleuryEulerian<Vertex,CustomEdge>(graph);
             List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
             if(EulerUtil.isEulerianGraph(graph)){
             	assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
@@ -66,7 +67,7 @@ public class FleuryTest {
             
             UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                     .constructGraph(verticesAmount, edgesAmount);
-            FleuryEulerianCircuit<Vertex, CustomEdge> eulerGraph = new FleuryEulerianCircuit<Vertex,CustomEdge>(graph);
+            FleuryEulerian<Vertex, CustomEdge> eulerGraph = new FleuryEulerian<Vertex,CustomEdge>(graph);
             List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
             if(EulerUtil.isEulerianGraph(graph)){
             	assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
