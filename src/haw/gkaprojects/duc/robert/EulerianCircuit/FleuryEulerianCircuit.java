@@ -47,76 +47,66 @@ public class FleuryEulerianCircuit<V, E>
 	private void createEuler(UndirectedGraph<V, E> graph)
 	{
 		// all Vertex of the original graph
-		Set<Vertex> vertexSet = (Set<Vertex>) graph.vertexSet();
+		Set<V> vertexSet = graph.vertexSet();
 		// EdgeSet
 		Set<?> edgeList = graph.edgeSet();
 		// EdgeQueue
 		Queue<?> edgeQueue = new ConcurrentLinkedQueue<>(graph.edgeSet());
 
-		// Ergebnis Liste
-		List<CustomEdge> resultlist = new ArrayList();
-
 		// deleteListe
 		List<CustomEdge> deletedEdgeList = new LinkedList<CustomEdge>();
 
 		// Startpunkt
-		Iterator<Vertex> itV = vertexSet.iterator();
-		Vertex start = itV.next();
+		Iterator<V> itV = vertexSet.iterator();
+		V start = itV.next();
 
 		// benachbarte Knoten
 		while (!edgeQueue.isEmpty())
 		{
-			Vertex currentVertex = start;
+			V currentVertex = start;
 
-			Set<?> neighbourEdgeset = (Set<CustomEdge>) graph.edgesOf((V) currentVertex);
-			Iterator<CustomEdge> itNeighbor = (Iterator<CustomEdge>) neighbourEdgeset.iterator();
+			Set<?> neighbourEdgeset = graph.edgesOf(currentVertex);
+			Iterator<E> itNeighbor = (Iterator<E>) neighbourEdgeset.iterator();
 
 			// mehr als eine alsgehende kante
 			if (neighbourEdgeset.size() >= 2)
 			{
 				while (itNeighbor.hasNext())
 				{
-					CustomEdge currentEdge = itNeighbor.next();
+					E currentEdge = itNeighbor.next();
 					if (isEdgeNotABridge(currentEdge, graph))
 					{
-						resultlist.add(currentEdge);
-						currentVertex = (Vertex)graph.getEdgeTarget((E)currentEdge);
+						eulerianCircuit.add(currentEdge);
+						currentVertex = graph.getEdgeTarget(currentEdge);
+						graph.removeEdge(graph.getEdgeSource(currentEdge), graph.getEdgeTarget(currentEdge));
 						break;
 					}
-			
 				}
-				// nur eine ausgehende kante
 			}
-			else
+			else // nur eine ausgehende kante
 			{
-				CustomEdge currentEdge = itNeighbor.next();
-				resultlist.add(currentEdge);
-				currentVertex = (Vertex)graph.getEdgeTarget((E)currentEdge);
-				graph.removeEdge((V)graph.getEdgeSource((E)currentEdge), (V)graph.getEdgeTarget((E)currentEdge));
+				E currentEdge = itNeighbor.next();
 				// kante in ergebnis liste einfuegen
+				eulerianCircuit.add(currentEdge);
+				currentVertex = graph.getEdgeTarget((E)currentEdge);
+				//kante entfernen
+				graph.removeEdge((V)graph.getEdgeSource((E)currentEdge), (V)graph.getEdgeTarget((E)currentEdge));
 			}
-
 			// update edelist
 			edgeList = graph.edgeSet();
 		}
 	}
 
-	private CustomEdge getNextEdge(Set<?> edgeList)
+	private boolean isEdgeNotABridge(E e, UndirectedGraph<V, E> graph)
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private boolean isEdgeNotABridge(CustomEdge e, UndirectedGraph<V, E> graph)
-	{
-		Vertex source = (Vertex) graph.getEdgeSource((E) e);
-		Vertex target = (Vertex) graph.getEdgeTarget((E) e);
+		V source = graph.getEdgeSource(e);
+		V target = graph.getEdgeTarget(e);
 		graph.removeEdge((E) e);
 
 		if (graph.containsVertex((V) source) && graph.containsVertex((V) target))
 		{
 			DijkstraShortestPath<Vertex, CustomEdge> dijkstra = new DijkstraShortestPath<Vertex, CustomEdge>((Graph<Vertex, CustomEdge>) graph,
-					source, target);
+					(Vertex)source, (Vertex)target);
 			graph.addEdge((V) source, (V) target);
 			return dijkstra.getPath() != null;
 		}
