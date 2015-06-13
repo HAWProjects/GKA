@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import haw.gkaprojects.duc.robert.UndirectedEulerianGraphConstructor;
 import haw.gkaprojects.duc.robert.EulerianCircuit.EulerUtil;
 import haw.gkaprojects.duc.robert.EulerianCircuit.FleuryEulerian;
-import haw.gkaprojects.duc.robert.EulerianCircuit.FleuryEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 

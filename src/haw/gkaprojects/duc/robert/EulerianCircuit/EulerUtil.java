@@ -1,10 +1,5 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
-import haw.gkaprojects.duc.robert.GraphFileSaver;
-import haw.gkaprojects.duc.robert.graph.CustomEdge;
-import haw.gkaprojects.duc.robert.graph.Vertex;
-
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
