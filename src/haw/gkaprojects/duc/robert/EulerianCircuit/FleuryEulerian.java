@@ -3,6 +3,7 @@ package haw.gkaprojects.duc.robert.EulerianCircuit;
 import haw.gkaprojects.duc.robert.GraphVisualiser;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.searchingAlgorithm.BreadthFirstSearch;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.ConnectivityInspector;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.alg.EulerianCircuit;
 import org.jgrapht.graph.AbstractBaseGraph;
@@ -45,11 +47,6 @@ public class FleuryEulerian<V, E>
 		
 		V startV = iterVset.hasNext()? iterVset.next() : null;
 		
-//		if (iterVset.hasNext())
-//		{
-//			startV =  iterVset.next();
-//		}
-
 		V currentV = startV;
 		
 		while (!edgeSet.isEmpty())
@@ -61,12 +58,13 @@ public class FleuryEulerian<V, E>
 			while (itCurrentEdgeSet.hasNext())
 			{
 			     E currentEdge = null;
+			    
 			     try{
 			           currentEdge = itCurrentEdgeSet.next();
 			     } catch(Exception e) {
 			           currentEdge = (new ArrayList<>(currentEdgeSet)).get(0);
-//			           System.out.println(currentEdgeSet);
 			     }
+			     
 				V sourceOfCurrentVertex = newgraph.getEdgeSource(currentEdge);
 				V targetOfCurrentVertex = newgraph.getEdgeTarget(currentEdge);
 				
@@ -101,23 +99,20 @@ public class FleuryEulerian<V, E>
            return otherSide;
      }
 	
-	private boolean isACuttingEdge(UndirectedGraph<V, E> newgraph, E currentEdge, V sourceOfCurrentVertex, V targetOfCurrentVertex)
+	
+	private boolean isACuttingEdge(Graph<V, E> newgraph, E currentEdge, V sourceOfCurrentVertex, V targetOfCurrentVertex)
 	{
 	      
 		newgraph.removeEdge(currentEdge);
-		DijkstraShortestPath<V, E> dijkstra = new DijkstraShortestPath<V, E>(newgraph, sourceOfCurrentVertex, targetOfCurrentVertex);
-		// wenn kein Weg gefunden dann schnittkante
-		if (dijkstra.getPathEdgeList() != null  )
-		{
-			newgraph.addEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
-			return false;
-		}
-		else
-		{
-			newgraph.addEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
-			return true;
-		}
+		
+		@SuppressWarnings("unchecked")
+            List<Vertex> path =  BreadthFirstSearch.searchForTheShortestPath((Graph<Vertex, CustomEdge>)newgraph, (Vertex)sourceOfCurrentVertex, (Vertex)targetOfCurrentVertex); ;
+	
+		newgraph.addEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
+		
+		return path.isEmpty();
 	}
+	
 
 	/**
 	 * returns the eulerian path

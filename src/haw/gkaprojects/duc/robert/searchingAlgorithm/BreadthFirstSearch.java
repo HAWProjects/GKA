@@ -69,7 +69,7 @@ public class BreadthFirstSearch {
 	 * @param shortestPathVertexList path in form of Edges-list
 	 * @return path in form of Vertices-list
 	 */
-	public static List<CustomEdge> findShortestPathEdgeList(
+	 public static List<CustomEdge> findShortestPathEdgeList(
 			Graph<Vertex, CustomEdge> graph,
 			List<Vertex> shortestPathVertexList) {
 		
