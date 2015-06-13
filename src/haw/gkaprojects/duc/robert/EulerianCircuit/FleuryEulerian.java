@@ -21,6 +21,8 @@ public class FleuryEulerian<V, E>
 		{
 			UndirectedGraph<V, E> newGraph = (UndirectedGraph<V, E>) ((AbstractBaseGraph<V, E>) graph).clone();
 			createEuler(newGraph);
+		}else{
+			throw new IllegalArgumentException("Graph ist kein Eulergraph!");
 		}
 	}
 
@@ -53,6 +55,7 @@ public class FleuryEulerian<V, E>
 				{
 					// add Edge to resultcircle
 					eulerianCircuit.add(currentEdge);
+					currentV  = targetOfCurrentVertex;
 					newgraph.removeEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
 					break;
 				}
