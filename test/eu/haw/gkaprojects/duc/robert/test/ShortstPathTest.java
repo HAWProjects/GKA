@@ -11,7 +11,6 @@ import org.jgrapht.graph.Pseudograph;
 import org.junit.Before;
 import org.junit.Test;
 
-import haw.gkaprojects.duc.robert.FileReader;
 import haw.gkaprojects.duc.robert.GraphMaker;
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;

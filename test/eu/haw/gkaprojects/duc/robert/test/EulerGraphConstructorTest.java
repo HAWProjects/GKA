@@ -27,7 +27,7 @@ public class EulerGraphConstructorTest {
 
                   do {
 
-                        verticesAmount = rand.nextInt(1000) + minVertexcount;
+                        verticesAmount = rand.nextInt(800) + minVertexcount;
                         edgesAmount = rand.nextInt(3000);
 
                   } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,

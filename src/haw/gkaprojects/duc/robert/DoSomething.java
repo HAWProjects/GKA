@@ -2,9 +2,11 @@ package haw.gkaprojects.duc.robert;
 
 
 import haw.gkaprojects.duc.robert.EulerianCircuit.EulerUtil;
+import haw.gkaprojects.duc.robert.EulerianCircuit.FleuryEulerian;
 import haw.gkaprojects.duc.robert.EulerianCircuit.HierholzerEulerianCircuit;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
+import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,36 +18,37 @@ import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
+import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.alg.EulerianCircuit;
+import org.jgrapht.graph.Pseudograph;
 
 
 
 public class DoSomething {
       public static void main(String[] args) throws Exception {
             
+          
+          Graph<Vertex, CustomEdge> g = new Pseudograph<>(CustomEdge.class);
+          Vertex v1 = new VertexImpl("1");
+          g.addVertex(v1);
+          Vertex v2 = new VertexImpl("2");
+          g.addVertex(v2);
+          
+          System.out.println((new DijkstraShortestPath<Vertex, CustomEdge>(g, v1, v2)).getPath());
             
-//          UndirectedGraph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor.constructGraph(15 , 30);
+          UndirectedGraph<Vertex, CustomEdge> graph = UndirectedEulerianGraphConstructor.constructGraph(150 , 600);
 //          System.out.println(EulerianCircuit.isEulerian(graph));
 //          System.out.println(graph.vertexSet().size()+ "  " + graph.edgeSet().size());
 //          
 //          Vertex v0 = graph.vertexSet().iterator().next();
 //          
-          Graph<Vertex, CustomEdge> graph = (new GraphMaker("/Users/DucNguyenMinh/git/GKA_/res/files/bspGraphen/failedGraph.graph")).getGraph();
+//          Graph<Vertex, CustomEdge> graph = (new GraphMaker("/Users/DucNguyenMinh/git/GKA_/res/files/bspGraphen/failedGraph.graph")).getGraph();
           Set<CustomEdge> ignoredEdges = new HashSet<>();
           Map<Vertex, Integer> degreesMap = new HashMap<Vertex, Integer>();
           
-          for (Vertex v : graph.vertexSet()) {
-                degreesMap.put(v, ((UndirectedGraph) graph).degreeOf(v));
-          }
           
-          System.out.println(degreesMap);
-          System.out.println(graph.vertexSet().size());
-          System.out.println(graph.edgeSet().size());
-          
-//          @SuppressWarnings("unchecked")
-          HierholzerEulerianCircuit<Vertex, CustomEdge> cir = new HierholzerEulerianCircuit(graph);
+          FleuryEulerian<Vertex, CustomEdge> cir = new FleuryEulerian<>(graph);
           List<CustomEdge> cirle = cir.getEulerianCircuit();
-//          List<CustomEdge> cirle = findCircle(graph, v0, ignoredEdges);
         
           
           for (CustomEdge customEdge : cirle) {

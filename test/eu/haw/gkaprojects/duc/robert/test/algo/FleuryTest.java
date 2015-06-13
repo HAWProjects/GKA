@@ -51,30 +51,30 @@ public class FleuryTest {
 	
 	
 	
-	@Test
-    public void testRandomizedEulerianGraph() {
-      
-		int verticesAmount = 0;
-        int edgesAmount = 0;
-        for (int i = 0; i < testcount; i++) {
-            Random rand = new Random();
-            do {
-                  verticesAmount = rand.nextInt(10000) + minVertexcount;
-                  edgesAmount = rand.nextInt(30000);
-
-            } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
-                        edgesAmount));
-            
-            UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
-                    .constructGraph(verticesAmount, edgesAmount);
-            FleuryEulerian<Vertex, CustomEdge> eulerGraph = new FleuryEulerian<Vertex,CustomEdge>(graph);
-            List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
-            if(EulerUtil.isEulerianGraph(graph)){
-            	assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
-            }else{
-            	 fail("No Euler Circuit");
-            }
-        }
-	}
+//	@Test
+//    public void testRandomizedEulerianGraph() {
+//      
+//		int verticesAmount = 0;
+//        int edgesAmount = 0;
+//        for (int i = 0; i < testcount; i++) {
+//            Random rand = new Random();
+//            do {
+//                  verticesAmount = rand.nextInt(10000) + minVertexcount;
+//                  edgesAmount = rand.nextInt(30000);
+//
+//            } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
+//                        edgesAmount));
+//            
+//            UndirectedGraph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
+//                    .constructGraph(verticesAmount, edgesAmount);
+//            FleuryEulerian<Vertex, CustomEdge> eulerGraph = new FleuryEulerian<Vertex,CustomEdge>(graph);
+//            List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
+//            if(EulerUtil.isEulerianGraph(graph)){
+//            	assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
+//            }else{
+//            	 fail("No Euler Circuit");
+//            }
+//        }
+//	}
 
 }

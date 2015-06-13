@@ -58,46 +58,46 @@ public class HierholzerEulerianCircuit<V, E> {
 
             V current = v0;
 
-            List<E> cycle = findCircle(graph, current, ignoredEdges);
+            List<E> circuit = findAnCircuit(graph, current, ignoredEdges);
 
-            updateDegree(degreesMap, cycle, graph);
+            updateDegree(degreesMap, circuit, graph);
 
-            while (!isEulerianCircuit(graph, cycle)) {
+            while (!isEulerianCircuit(graph, circuit)) {
 
                   int currentPosition = 0;
 
                   current = v0;
-                  for (int i = 0; i < cycle.size(); i++) {
+                  for (int i = 0; i < circuit.size(); i++) {
                         
                         if (degreesMap.get(current) > 0) {
                               
                               break;
                         }
                         
-                        E e = cycle.get(i);
+                        E e = circuit.get(i);
                         current = findOtherSide(graph, current, e);
                         currentPosition = i+1;
                        
                   }
 
-                  List<E> oneMoreCycle = findCircle(graph, current, ignoredEdges);
+                  List<E> oneMoreCycle = findAnCircuit(graph, current, ignoredEdges);
 
                   updateDegree(degreesMap, oneMoreCycle, graph);
 
                   for (int i = oneMoreCycle.size() - 1; i >= 0; i--) {
 
-                        cycle.add(currentPosition, oneMoreCycle.get(i));
+                        circuit.add(currentPosition, oneMoreCycle.get(i));
 
                   }
 
             }
 
-            return cycle;
+            return circuit;
       }
 
-      private void updateDegree(Map<V, Integer> degreesMap, List<E> cycle, Graph<V, E> graph) {
+      private void updateDegree(Map<V, Integer> degreesMap, List<E> circuit, Graph<V, E> graph) {
 
-            for (E e : cycle) {
+            for (E e : circuit) {
                   V v1 = graph.getEdgeSource(e);
                   V v2 = graph.getEdgeTarget(e);
 
@@ -107,9 +107,9 @@ public class HierholzerEulerianCircuit<V, E> {
 
       }
 
-      private List<E> findCircle(Graph<V, E> graph, V v0, Set<E> ignoredEdges) {
+      private List<E> findAnCircuit(Graph<V, E> graph, V v0, Set<E> ignoredEdges) {
 
-            List<E> cycle = new ArrayList<>();
+            List<E> circuit = new ArrayList<>();
 
             Set<E> incidentalEdges = null;
 
@@ -132,8 +132,8 @@ public class HierholzerEulerianCircuit<V, E> {
                               iter.remove();
                         } catch (Exception e) {
                               System.out.println(incidentalEdges);
-                              System.out.println(cycle);
-                              for (E edge : cycle) {
+                              System.out.println(circuit);
+                              for (E edge : circuit) {
                                     ((CustomEdge) edge).setColor("red");
                               }
                               Map<V, Integer> degreesMap = new HashMap<V, Integer>();
@@ -141,7 +141,7 @@ public class HierholzerEulerianCircuit<V, E> {
                               for (V v : graph.vertexSet()) {
                                     degreesMap.put(v, ((UndirectedGraph<V, E>) graph).degreeOf(v));
                               }
-                              throw new IllegalArgumentException("Shit");
+                              throw new IllegalArgumentException("There's no more edge to go!!!");
                         }
 
                   } while (ignoredEdges.contains(nextEdge));
@@ -151,7 +151,7 @@ public class HierholzerEulerianCircuit<V, E> {
                         return null;
                   }
 
-                  cycle.add(nextEdge);
+                  circuit.add(nextEdge);
 
                   ignoredEdges.add(nextEdge);
 
@@ -160,7 +160,7 @@ public class HierholzerEulerianCircuit<V, E> {
 
             } while (!nextVertex.equals(v0));
 
-            return cycle;
+            return circuit;
       }
 
       private V findOtherSide(Graph<V, E> graph, V oneSide, E edge) {

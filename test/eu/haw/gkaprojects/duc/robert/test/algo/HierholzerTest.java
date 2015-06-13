@@ -12,14 +12,12 @@ import java.util.Random;
 
 import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
-import org.jgrapht.alg.EulerianCircuit;
 import org.junit.Test;
 
 public class HierholzerTest {
 
-      private int testcount      = 200;
+      private int testcount      = 100;
       private int minVertexcount = 50;
-
 
       @Test
       public void testSmallGraph() {
@@ -36,17 +34,16 @@ public class HierholzerTest {
 
                   } while (!UndirectedEulerianGraphConstructor.isArgumentStatisfied(verticesAmount,
                               edgesAmount));
-                  
-                  
+
                   Graph<Vertex, CustomEdge> graph = (UndirectedGraph<Vertex, CustomEdge>) UndirectedEulerianGraphConstructor
                               .constructGraph(verticesAmount, edgesAmount);
-                 
+
                   HierholzerEulerianCircuit<Vertex, CustomEdge> eulerGraph = new HierholzerEulerianCircuit<Vertex, CustomEdge>(
                               graph);
 
                   List<CustomEdge> circuit = eulerGraph.getEulerianCircuit();
-                  
-                        assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
+
+                  assertTrue(EulerUtil.isEulerianCircuit(graph, circuit));
             }
       }
 

@@ -3,15 +3,12 @@ package eu.haw.gkaprojects.duc.robert.test.algo;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
@@ -22,12 +19,9 @@ import haw.gkaprojects.duc.robert.graph.VertexImpl;
 
 public class DijkstrasAlgorithmTest {
 
-	private static final String PATH1 = "../GKA/res/files/bspGraphen/bsp1.graph";
-	private static final String PATH2 = "../GKA/res/files/bspGraphen/bsp2.graph";
 	private static final String PATH3 = "../GKA/res/files/bspGraphen/bsp3.graph";
 	private static final String PATH4 = "../GKA/res/files/bspGraphen/bsp4.graph";
 	private static final String PATH5 = "../GKA/res/files/bspGraphen/bsp5.graph";
-	private static final String PATH6 = "../GKA/res/files/bspGraphen/bsp6.graph";
 	public static final double DELTA = 1e-15;
 	
 	private Graph<Vertex, CustomEdge> _graph3;

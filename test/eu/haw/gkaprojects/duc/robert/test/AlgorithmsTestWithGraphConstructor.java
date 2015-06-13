@@ -6,12 +6,10 @@ import java.util.Random;
 
 import org.jgrapht.Graph;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.UndirectedGraphContructor;
-import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.AStarShortestPath;
 import haw.gkaprojects.duc.robert.searchingAlgorithm.ShortestPathOfDijkstras;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
@@ -42,7 +40,7 @@ public class AlgorithmsTestWithGraphConstructor {
 //			int edgesAmount = 13;
 			graph = UndirectedGraphContructor.constructGraph(verticesAmount, edgesAmount, PATH);
 			UndirectedGraphContructor.HeuristicGenerator.setHeuristicForGraph(graph, new VertexImpl("7"));
-			for (Vertex v : graph.vertexSet()) {
+			for (@SuppressWarnings("unused") Vertex v : graph.vertexSet()) {
 				double shortestPathLength_dijksta1 = (new ShortestPathOfDijkstras(graph, new VertexImpl("1"), new VertexImpl("7"))).getShortestPathLength(); 
 				double shortestPathLength_Astar1 = (new AStarShortestPath(graph, new VertexImpl("1"), new VertexImpl("7"))).getShortestPathLength(); 
 				GraphFileSaver.saveGraphToFile(PATH, graph);

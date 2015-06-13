@@ -4,6 +4,7 @@ import haw.gkaprojects.duc.robert.GraphFileSaver;
 import haw.gkaprojects.duc.robert.graph.CustomEdge;
 import haw.gkaprojects.duc.robert.graph.Vertex;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,10 @@ public class EulerUtil {
             
             Set<V> s = new HashSet<V>();
             
-            if(cycle.size() != graph.edgeSet().size()){
+            Set<E> edgeSet = new HashSet<E>(cycle);
+
+            
+            if(edgeSet.size() != graph.edgeSet().size()){
                   return false;
             }
             

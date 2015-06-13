@@ -1,9 +1,15 @@
 package haw.gkaprojects.duc.robert.EulerianCircuit;
 
+import haw.gkaprojects.duc.robert.GraphVisualiser;
+import haw.gkaprojects.duc.robert.graph.CustomEdge;
+import haw.gkaprojects.duc.robert.graph.Vertex;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jgrapht.Graph;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.alg.EulerianCircuit;
@@ -20,6 +26,8 @@ public class FleuryEulerian<V, E>
 		if (isEulerian(graph))
 		{
 			UndirectedGraph<V, E> newGraph = (UndirectedGraph<V, E>) ((AbstractBaseGraph<V, E>) graph).clone();
+			GraphVisualiser.exportGraphToDotFile((Graph<Vertex, CustomEdge>) newGraph);
+			this.eulerianCircuit = new ArrayList<E>();
 			createEuler(newGraph);
 		}else{
 			throw new IllegalArgumentException("Graph ist kein Eulergraph!");
@@ -34,29 +42,42 @@ public class FleuryEulerian<V, E>
 		// waehle einen kante
 		Set<V> vertexSet = newgraph.vertexSet();
 		Iterator<V> iterVset = vertexSet.iterator();
-		V startV = null;
-		if (iterVset.hasNext())
-		{
-			startV = iterVset.next();
-		}
+		
+		V startV = iterVset.hasNext()? iterVset.next() : null;
+		
+//		if (iterVset.hasNext())
+//		{
+//			startV =  iterVset.next();
+//		}
 
+		V currentV = startV;
+		
 		while (!edgeSet.isEmpty())
 		{
-			V currentV = startV;
+			
 			// wähle nächsten Knoten (Kante darf keine SchnittKante sein)
 			Set<E> currentEdgeSet = newgraph.edgesOf(currentV);
 			Iterator<E> itCurrentEdgeSet = currentEdgeSet.iterator();
 			while (itCurrentEdgeSet.hasNext())
 			{
-				E currentEdge = itCurrentEdgeSet.next();
+			     E currentEdge = null;
+			     try{
+			           currentEdge = itCurrentEdgeSet.next();
+			     } catch(Exception e) {
+			           currentEdge = (new ArrayList<>(currentEdgeSet)).get(0);
+//			           System.out.println(currentEdgeSet);
+			     }
 				V sourceOfCurrentVertex = newgraph.getEdgeSource(currentEdge);
 				V targetOfCurrentVertex = newgraph.getEdgeTarget(currentEdge);
-				if (!isACuttingEdge(newgraph, currentEdge, sourceOfCurrentVertex, targetOfCurrentVertex))
+				
+				if ( currentEdgeSet.size() == 1 || !isACuttingEdge(newgraph, currentEdge, sourceOfCurrentVertex, targetOfCurrentVertex))
 				{
 					// add Edge to resultcircle
 					eulerianCircuit.add(currentEdge);
-					currentV  = targetOfCurrentVertex;
+					currentV  = findOtherSide(newgraph, currentV, currentEdge);
 					newgraph.removeEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
+					
+//					newgraph.removeEdge(currentEdge);
 					break;
 				}
 			}
@@ -66,18 +87,27 @@ public class FleuryEulerian<V, E>
 			// wenn endpunkt = startpunkt dann eulerkreis
 
 			// aktualisiere edgeset
+			GraphVisualiser.exportGraphToDotFile((Graph<Vertex, CustomEdge>) newgraph);
 			edgeSet = newgraph.edgeSet();
 		}
 
 	}
 
+	private V findOtherSide(Graph<V, E> graph, V oneSide, E edge) {
+
+           V otherSide = graph.getEdgeSource(edge).equals(oneSide) ? graph.getEdgeTarget(edge)
+                       : graph.getEdgeSource(edge);
+
+           return otherSide;
+     }
+	
 	private boolean isACuttingEdge(UndirectedGraph<V, E> newgraph, E currentEdge, V sourceOfCurrentVertex, V targetOfCurrentVertex)
 	{
-
+	      
 		newgraph.removeEdge(currentEdge);
 		DijkstraShortestPath<V, E> dijkstra = new DijkstraShortestPath<V, E>(newgraph, sourceOfCurrentVertex, targetOfCurrentVertex);
 		// wenn kein Weg gefunden dann schnittkante
-		if (dijkstra.getPathEdgeList() != null && newgraph.edgeSet().size() >= 2)
+		if (dijkstra.getPathEdgeList() != null  )
 		{
 			newgraph.addEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
 			return false;

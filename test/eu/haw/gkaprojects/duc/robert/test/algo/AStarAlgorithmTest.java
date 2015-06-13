@@ -9,7 +9,6 @@ import java.util.Set;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import haw.gkaprojects.duc.robert.GraphMaker_withScanner2;
