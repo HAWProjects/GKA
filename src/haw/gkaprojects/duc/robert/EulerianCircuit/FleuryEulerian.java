@@ -77,7 +77,7 @@ public class FleuryEulerian<V, E>
 		newgraph.removeEdge(currentEdge);
 		DijkstraShortestPath<V, E> dijkstra = new DijkstraShortestPath<V, E>(newgraph, sourceOfCurrentVertex, targetOfCurrentVertex);
 		// wenn kein Weg gefunden dann schnittkante
-		if (dijkstra.getPathEdgeList() != null)
+		if (dijkstra.getPathEdgeList() != null && newgraph.edgeSet().size() >= 2)
 		{
 			newgraph.addEdge(sourceOfCurrentVertex, targetOfCurrentVertex);
 			return false;
